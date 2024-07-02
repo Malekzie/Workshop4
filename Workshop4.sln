@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Main", "Main\Main.csproj", "{A271275D-8A5E-4A87-8F75-8203F4C836BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TravelExpertsData", "TravelExpertsData\TravelExpertsData.csproj", "{76E6E506-B683-4EE2-8F70-37B07DAF883E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{A271275D-8A5E-4A87-8F75-8203F4C836BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A271275D-8A5E-4A87-8F75-8203F4C836BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A271275D-8A5E-4A87-8F75-8203F4C836BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{76E6E506-B683-4EE2-8F70-37B07DAF883E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76E6E506-B683-4EE2-8F70-37B07DAF883E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76E6E506-B683-4EE2-8F70-37B07DAF883E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76E6E506-B683-4EE2-8F70-37B07DAF883E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
