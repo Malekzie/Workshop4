@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Microsoft.EntityFrameworkCore;
 
 namespace TravelExpertsData.Models;
 
@@ -17,4 +15,11 @@ public partial class Supplier
 
     [InverseProperty("Supplier")]
     public virtual ICollection<ProductsSupplier> ProductsSuppliers { get; set; } = new List<ProductsSupplier>();
+}
+
+public class SupplierDTO
+{
+    public int SupplierId { get; set; }
+    public string SupName { get; set; } = null!;
+
 }
