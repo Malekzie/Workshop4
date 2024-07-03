@@ -167,6 +167,7 @@
             // 
             // btnExit
             // 
+            btnExit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnExit.Location = new Point(1403, 59);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(112, 34);
