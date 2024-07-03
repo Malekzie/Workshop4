@@ -34,6 +34,8 @@
             viewSup = new Button();
             viewProdSup = new Button();
             panel1 = new Panel();
+            open = new Button();
+            btnExit = new Button();
             btnRemove = new Button();
             btnModify = new Button();
             btnAdd = new Button();
@@ -140,6 +142,8 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.Info;
+            panel1.Controls.Add(open);
+            panel1.Controls.Add(btnExit);
             panel1.Controls.Add(btnRemove);
             panel1.Controls.Add(btnModify);
             panel1.Controls.Add(btnAdd);
@@ -150,6 +154,26 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1527, 150);
             panel1.TabIndex = 1;
+            // 
+            // open
+            // 
+            open.Location = new Point(1122, 66);
+            open.Name = "open";
+            open.Size = new Size(112, 34);
+            open.TabIndex = 6;
+            open.Text = "Test";
+            open.TextImageRelation = TextImageRelation.TextAboveImage;
+            open.UseVisualStyleBackColor = true;
+            // 
+            // btnExit
+            // 
+            btnExit.Location = new Point(1403, 59);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(112, 34);
+            btnExit.TabIndex = 5;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // btnRemove
             // 
@@ -180,7 +204,7 @@
             // 
             // btnSubmit
             // 
-            btnSubmit.Location = new Point(1403, 61);
+            btnSubmit.Location = new Point(850, 59);
             btnSubmit.Name = "btnSubmit";
             btnSubmit.Size = new Size(112, 34);
             btnSubmit.TabIndex = 1;
@@ -189,7 +213,7 @@
             // 
             // txtQuery
             // 
-            txtQuery.Location = new Point(1130, 61);
+            txtQuery.Location = new Point(577, 59);
             txtQuery.Name = "txtQuery";
             txtQuery.PlaceholderText = "Search...";
             txtQuery.Size = new Size(248, 31);
@@ -215,6 +239,7 @@
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnExit;
             ClientSize = new Size(1764, 904);
             Controls.Add(dgvView);
             Controls.Add(panel1);
@@ -244,5 +269,7 @@
         private Button btnModify;
         private Button btnAdd;
         private Button viewProdSup;
+        private Button btnExit;
+        private Button open;
     }
 }

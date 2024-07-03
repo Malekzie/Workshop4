@@ -35,18 +35,22 @@
                         break;
                     case "PkgStartDate":
                         column.HeaderText = "Start Date";
+                        column.DefaultCellStyle.Format ="dd/MM/yyyy";
                         break;
                     case "PkgEndDate":
                         column.HeaderText = "End Date";
+                        column.DefaultCellStyle.Format = "dd/MM/yyyy";
                         break;
                     case "PkgDesc":
                         column.HeaderText = "Description";
                         break;
                     case "PkgBasePrice":
                         column.HeaderText = "Base Price";
+                        column.DefaultCellStyle.Format = "c";
                         break;
                     case "PkgAgencyCommission":
                         column.HeaderText = "Agency Commission";
+                        column.DefaultCellStyle.Format = "c";
                         break;
                 }
             }

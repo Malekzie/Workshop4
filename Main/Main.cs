@@ -47,5 +47,20 @@ namespace Main
             var data = DataCache.Instance.ProductSuppliers;
             LoadData(data, "ProductSupplierDTO"); // Adjust as needed
         }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
+
+        private void OpenAddModifyForm(string dataType)
+        {
+            using (var form = new AddModifyPackages())
+            {
+                form.ShowDialog();
+            }
+        }
+
     }
 }

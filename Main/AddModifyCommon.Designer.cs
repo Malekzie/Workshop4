@@ -1,6 +1,6 @@
 ﻿namespace Main
 {
-    partial class AddModifyForm
+    partial class AddModifyCommon
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            SuspendLayout();
-            // 
-            // AddModifyForm
-            // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
-            AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1041, 450);
-            Name = "AddModifyForm";
-            Text = "AddModifyForm";
-            ResumeLayout(false);
+            this.components = new System.ComponentModel.Container();
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Text = "AddModifyCommon";
         }
 
         #endregion
