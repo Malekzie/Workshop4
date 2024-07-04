@@ -31,186 +31,253 @@
             label1 = new Label();
             label2 = new Label();
             grbID = new GroupBox();
-            txtId = new TextBox();
             txtPkgName = new TextBox();
             label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
+            dtpkStartDate = new DateTimePicker();
+            dtpkEndDate = new DateTimePicker();
             label4 = new Label();
             label5 = new Label();
-            textBox1 = new TextBox();
+            txtPkgDescription = new TextBox();
             label6 = new Label();
-            textBox2 = new TextBox();
+            txtbxBasePrice = new TextBox();
             label7 = new Label();
-            textBox3 = new TextBox();
+            txtbxAgencyCommision = new TextBox();
             btnConfirm = new Button();
             btnCancel = new Button();
+            btnSelectProduct = new Button();
+            cklbProductList = new CheckedListBox();
+            cklbSelectedProducts = new CheckedListBox();
+            btnRemoveProduct = new Button();
+            label8 = new Label();
             grbID.SuspendLayout();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(29, 50);
+            label1.Location = new Point(23, 40);
+            label1.Margin = new Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new Size(132, 25);
+            label1.Size = new Size(110, 20);
             label1.TabIndex = 0;
             label1.Text = "Package Name:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 21);
+            label2.Location = new Point(16, 22);
+            label2.Margin = new Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new Size(101, 25);
+            label2.Size = new Size(86, 20);
             label2.TabIndex = 1;
-            label2.Text = "Product ID:";
+            label2.Text = "Product List";
             // 
             // grbID
             // 
-            grbID.Controls.Add(txtId);
+            grbID.Controls.Add(label8);
+            grbID.Controls.Add(btnRemoveProduct);
             grbID.Controls.Add(label2);
-            grbID.Location = new Point(546, 12);
+            grbID.Controls.Add(cklbSelectedProducts);
+            grbID.Controls.Add(cklbProductList);
+            grbID.Controls.Add(btnSelectProduct);
+            grbID.Location = new Point(29, 262);
+            grbID.Margin = new Padding(2);
             grbID.Name = "grbID";
-            grbID.Size = new Size(293, 63);
+            grbID.Padding = new Padding(2);
+            grbID.Size = new Size(582, 283);
             grbID.TabIndex = 2;
             grbID.TabStop = false;
             // 
-            // txtId
-            // 
-            txtId.Location = new Point(137, 15);
-            txtId.Name = "txtId";
-            txtId.Size = new Size(150, 31);
-            txtId.TabIndex = 2;
-            // 
             // txtPkgName
             // 
-            txtPkgName.Location = new Point(191, 44);
+            txtPkgName.Location = new Point(153, 35);
+            txtPkgName.Margin = new Padding(2);
             txtPkgName.Name = "txtPkgName";
-            txtPkgName.Size = new Size(209, 31);
+            txtPkgName.Size = new Size(226, 27);
             txtPkgName.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 87);
+            label3.Location = new Point(23, 70);
+            label3.Margin = new Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new Size(94, 25);
+            label3.Size = new Size(79, 20);
             label3.TabIndex = 4;
             label3.Text = "Start Date:";
             // 
-            // dateTimePicker1
+            // dtpkStartDate
             // 
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(191, 81);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(139, 31);
-            dateTimePicker1.TabIndex = 5;
+            dtpkStartDate.Format = DateTimePickerFormat.Short;
+            dtpkStartDate.Location = new Point(153, 65);
+            dtpkStartDate.Margin = new Padding(2);
+            dtpkStartDate.Name = "dtpkStartDate";
+            dtpkStartDate.Size = new Size(112, 27);
+            dtpkStartDate.TabIndex = 5;
             // 
-            // dateTimePicker2
+            // dtpkEndDate
             // 
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(622, 80);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(140, 31);
-            dateTimePicker2.TabIndex = 6;
+            dtpkEndDate.Format = DateTimePickerFormat.Short;
+            dtpkEndDate.Location = new Point(442, 63);
+            dtpkEndDate.Margin = new Padding(2);
+            dtpkEndDate.Name = "dtpkEndDate";
+            dtpkEndDate.Size = new Size(113, 27);
+            dtpkEndDate.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(420, 86);
+            label4.Location = new Point(280, 70);
+            label4.Margin = new Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new Size(88, 25);
+            label4.Size = new Size(73, 20);
             label4.TabIndex = 7;
             label4.Text = "End Date:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(29, 186);
+            label5.Location = new Point(23, 132);
+            label5.Margin = new Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new Size(106, 25);
+            label5.Size = new Size(88, 20);
             label5.TabIndex = 8;
             label5.Text = "Description:";
             // 
-            // textBox1
+            // txtPkgDescription
             // 
-            textBox1.Location = new Point(191, 186);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(571, 154);
-            textBox1.TabIndex = 9;
+            txtPkgDescription.Location = new Point(153, 132);
+            txtPkgDescription.Margin = new Padding(2);
+            txtPkgDescription.Multiline = true;
+            txtPkgDescription.Name = "txtPkgDescription";
+            txtPkgDescription.Size = new Size(458, 117);
+            txtPkgDescription.TabIndex = 9;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(29, 124);
+            label6.Location = new Point(23, 99);
+            label6.Margin = new Padding(2, 0, 2, 0);
             label6.Name = "label6";
-            label6.Size = new Size(94, 25);
+            label6.Size = new Size(79, 20);
             label6.TabIndex = 10;
             label6.Text = "Base Price:";
             // 
-            // textBox2
+            // txtbxBasePrice
             // 
-            textBox2.Location = new Point(191, 118);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(139, 31);
-            textBox2.TabIndex = 11;
+            txtbxBasePrice.Location = new Point(153, 94);
+            txtbxBasePrice.Margin = new Padding(2);
+            txtbxBasePrice.Name = "txtbxBasePrice";
+            txtbxBasePrice.Size = new Size(112, 27);
+            txtbxBasePrice.TabIndex = 11;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(420, 124);
+            label7.Location = new Point(280, 99);
+            label7.Margin = new Padding(2, 0, 2, 0);
             label7.Name = "label7";
-            label7.Size = new Size(171, 25);
+            label7.Size = new Size(140, 20);
             label7.TabIndex = 12;
             label7.Text = "Agency Commision:";
             // 
-            // textBox3
+            // txtbxAgencyCommision
             // 
-            textBox3.Location = new Point(622, 118);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(140, 31);
-            textBox3.TabIndex = 13;
+            txtbxAgencyCommision.Location = new Point(442, 92);
+            txtbxAgencyCommision.Margin = new Padding(2);
+            txtbxAgencyCommision.Name = "txtbxAgencyCommision";
+            txtbxAgencyCommision.Size = new Size(113, 27);
+            txtbxAgencyCommision.TabIndex = 13;
             // 
             // btnConfirm
             // 
-            btnConfirm.Location = new Point(191, 419);
+            btnConfirm.Location = new Point(153, 549);
+            btnConfirm.Margin = new Padding(2);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(112, 34);
+            btnConfirm.Size = new Size(90, 27);
             btnConfirm.TabIndex = 14;
             btnConfirm.Text = "Confirm";
             btnConfirm.UseVisualStyleBackColor = true;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(574, 419);
+            btnCancel.Location = new Point(442, 549);
+            btnCancel.Margin = new Padding(2);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(112, 34);
+            btnCancel.Size = new Size(90, 27);
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
+            // btnSelectProduct
+            // 
+            btnSelectProduct.Location = new Point(57, 236);
+            btnSelectProduct.Name = "btnSelectProduct";
+            btnSelectProduct.Size = new Size(138, 29);
+            btnSelectProduct.TabIndex = 2;
+            btnSelectProduct.Text = "Select Product";
+            btnSelectProduct.UseVisualStyleBackColor = true;
+            // 
+            // cklbProductList
+            // 
+            cklbProductList.FormattingEnabled = true;
+            cklbProductList.Items.AddRange(new object[] { "thing", "thing2", "thing3", "thing4", "thing5", "thing6", "thing7", "thing8", "thing9", "thing10", "thing11", "thing12" });
+            cklbProductList.Location = new Point(16, 50);
+            cklbProductList.Name = "cklbProductList";
+            cklbProductList.Size = new Size(262, 180);
+            cklbProductList.TabIndex = 3;
+            // 
+            // cklbSelectedProducts
+            // 
+            cklbSelectedProducts.FormattingEnabled = true;
+            cklbSelectedProducts.Items.AddRange(new object[] { "thing2", "thing4" });
+            cklbSelectedProducts.Location = new Point(303, 50);
+            cklbSelectedProducts.Name = "cklbSelectedProducts";
+            cklbSelectedProducts.Size = new Size(258, 180);
+            cklbSelectedProducts.TabIndex = 4;
+            // 
+            // btnRemoveProduct
+            // 
+            btnRemoveProduct.Location = new Point(365, 236);
+            btnRemoveProduct.Name = "btnRemoveProduct";
+            btnRemoveProduct.Size = new Size(138, 29);
+            btnRemoveProduct.TabIndex = 5;
+            btnRemoveProduct.Text = "Remove Product";
+            btnRemoveProduct.UseVisualStyleBackColor = true;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(303, 22);
+            label8.Margin = new Padding(2, 0, 2, 0);
+            label8.Name = "label8";
+            label8.Size = new Size(127, 20);
+            label8.TabIndex = 6;
+            label8.Text = "Selected Products";
+            // 
             // AddModifyPackages
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AcceptButton = btnConfirm;
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(863, 465);
+            CancelButton = btnCancel;
+            ClientSize = new Size(690, 587);
             Controls.Add(btnCancel);
             Controls.Add(btnConfirm);
-            Controls.Add(textBox3);
+            Controls.Add(txtbxAgencyCommision);
             Controls.Add(label7);
-            Controls.Add(textBox2);
+            Controls.Add(txtbxBasePrice);
             Controls.Add(label6);
-            Controls.Add(textBox1);
+            Controls.Add(txtPkgDescription);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(dtpkEndDate);
+            Controls.Add(dtpkStartDate);
             Controls.Add(label3);
             Controls.Add(txtPkgName);
             Controls.Add(grbID);
             Controls.Add(label1);
+            Margin = new Padding(2);
             Name = "AddModifyPackages";
             Text = "AddModifyPackage";
             grbID.ResumeLayout(false);
@@ -224,19 +291,23 @@
         private Label label1;
         private Label label2;
         private GroupBox grbID;
-        private TextBox txtId;
         private TextBox txtPkgName;
         private Label label3;
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dtpkStartDate;
+        private DateTimePicker dtpkEndDate;
         private Label label4;
         private Label label5;
-        private TextBox textBox1;
+        private TextBox txtPkgDescription;
         private Label label6;
-        private TextBox textBox2;
+        private TextBox txtbxBasePrice;
         private Label label7;
-        private TextBox textBox3;
+        private TextBox txtbxAgencyCommision;
         private Button btnConfirm;
         private Button btnCancel;
+        private CheckedListBox cklbProductList;
+        private Button btnSelectProduct;
+        private Button btnRemoveProduct;
+        private CheckedListBox cklbSelectedProducts;
+        private Label label8;
     }
 }
