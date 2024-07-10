@@ -5,12 +5,21 @@ using TravelExpertsData.Models;
 
 namespace Main
 {
+
     public partial class Main : Form
     {
         public Main()
         {
             InitializeComponent();
         }
+
+        public class SearchResult
+        {
+            public string Type { get; set; }
+            public string Name { get; set; }
+            public object Data { get; set; }
+        }
+
 
         private void LoadData<T>(List<T> data, string dataType)
         {
@@ -68,44 +77,46 @@ namespace Main
 
             if (!string.IsNullOrEmpty(query))
             {
-                // Search in Products
+                btnAdd.Enabled = false;
+
                 var productResults = DataCache.Instance.Products
                                                      .Where(p => p.ProdName.ToLower().Contains(query))
-                                                     .Select(p => new { Type = "Product", Name = p.ProdName })
+                                                     .Select(p => new SearchResult { Type = "Product", Name = p.ProdName, Data = p })
                                                      .ToList();
 
-                // Search in Packages
                 var packageResults = DataCache.Instance.Packages
-                                                .Where(p => p.PkgName.ToLower().Contains(query))
-                                                .Select(p => new { Type = "Package", Name = p.PkgName })
-                                                .ToList();
+                                                    .Where(p => p.PkgName.ToLower().Contains(query))
+                                                    .Select(p => new SearchResult { Type = "Package", Name = p.PkgName, Data = p })
+                                                    .ToList();
 
-                // Search in Suppliers
                 var supplierResults = DataCache.Instance.Suppliers
-                                                  .Where(s => s.SupName.ToLower().Contains(query))
-                                                  .Select(s => new { Type = "Supplier", Name = s.SupName })
-                                                  .ToList();
+                                                    .Where(s => s.SupName.ToLower().Contains(query))
+                                                    .Select(s => new SearchResult { Type = "Supplier", Name = s.SupName, Data = s })
+                                                    .ToList();
 
-                // Search in ProductSuppliers
                 var productSupplierResults = DataCache.Instance.ProductSuppliers
-                                                           .Where(ps => ps.ProductId.ToString().Contains(query) || ps.SupplierId.ToString().Contains(query))
-                                                           .Select(ps => new { Type = "ProductSupplier", Name = $"ProductID: {ps.ProductId}, SupplierID: {ps.SupplierId}" })
-                                                           .ToList();
+                                                               .Where(ps => ps.ProductId.ToString().Contains(query) || ps.SupplierId.ToString().Contains(query))
+                                                               .Select(ps => new SearchResult { Type = "ProductSupplier", Name = $"ProductID: {ps.ProductId}, SupplierID: {ps.SupplierId}", Data = ps })
+                                                               .ToList();
 
                 // Combine all results
                 var results = productResults
-                              .Union(packageResults)
-                              .Union(supplierResults)
-                              .Union(productSupplierResults)
-                              .ToList();
+                                  .Union(packageResults)
+                                  .Union(supplierResults)
+                                  .Union(productSupplierResults)
+                                  .ToList();
 
                 dgvView.DataSource = results;
+                dgvView.Columns["Data"].Visible = false;
             }
             else
             {
+                btnAdd.Enabled = true;
                 dgvView.DataSource = null;
             }
         }
+
+
 
         private void open_Click(object sender, EventArgs e)
         {
@@ -117,23 +128,37 @@ namespace Main
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine("btnModify_Click triggered");
             if (dgvView.SelectedRows.Count > 0)
             {
-                Debug.WriteLine("SelectedRows count: " + dgvView.SelectedRows.Count);
-                // Assuming the DataGridView is bound to a list of PackageDTO
-                var selectedPackage = (PackageDTO)dgvView.SelectedRows[0].DataBoundItem;
+                var selectedItem = dgvView.SelectedRows[0].DataBoundItem;
 
-                // Pass the selected package to the AddModifyPackages form
-                using (var form = new AddModifyPackages(selectedPackage))
+                if (selectedItem is PackageDTO selectedPackage)
                 {
-                    form.ShowDialog();
+                    // Item is directly a PackageDTO
+                    using (var form = new AddModifyPackages(selectedPackage))
+                    {
+                        form.Text= "Modify Package";
+                        form.ShowDialog();
+                    }
+                }
+                else if (selectedItem is SearchResult searchResult && searchResult.Type == "Package")
+                {
+                    // Item is a SearchResult and of type "Package"
+                    var package = (PackageDTO)searchResult.Data;
+                    using (var form = new AddModifyPackages(package))
+                    {
+                        form.Text = "Modify Package";
+                        form.ShowDialog();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Selected item is not a package.");
                 }
             }
             else
             {
-                Debug.WriteLine("No row selected");
-                MessageBox.Show("Please select a package to modify.");
+                MessageBox.Show("Please select an item to modify.");
             }
         }
     }

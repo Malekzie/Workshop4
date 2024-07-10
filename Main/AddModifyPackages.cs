@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using TravelExpertsData.DataAccess;
 using TravelExpertsData.Models;
 
 namespace Main
@@ -23,16 +24,20 @@ namespace Main
 
             InitializeComponent();
             this.package = package;
-
+            txtPkgId.Enabled = false;
             if (package == null)
             {
                 txtPkgId.Text = "New Package";
                 txtPkgId.Width= 100;
                 txtPkgId.Enabled = false;
+                dgvRelatedProducts.Visible = false;
+                dgvRelatedSuppliers.Visible = false;
             }
             else
             {
                 LoadPackageData();
+                LoadRelatedProducts(package.PackageId);
+                LoadRelatedSuppliers(package.PackageId);
             }
 
 
@@ -59,6 +64,37 @@ namespace Main
             txtDes.Text = package.PkgDesc;
             txtBasePrice.Text = package.PkgBasePrice.ToString();
             txtAgentCommision.Text = package.PkgAgencyCommission.ToString();
+            txtPkgId.Text = package.PackageId.ToString();
+        }
+
+        private void LoadRelatedProducts(int packageId)
+        {
+            var relatedProducts = (from pps in DataCache.Instance.PackageProductSuppliers
+                                   join ps in DataCache.Instance.ProductSuppliers on pps.ProductSupplierId equals ps.ProductSupplierId
+                                   join p in DataCache.Instance.Products on ps.ProductId equals p.ProductId
+                                   where pps.PackageId == packageId
+                                   select new
+                                   {
+                                       p.ProductId,
+                                       p.ProdName
+                                   }).ToList();
+
+            dgvRelatedProducts.DataSource = relatedProducts;
+        }
+
+        private void LoadRelatedSuppliers(int packageId)
+        {
+            var relatedSuppliers = (from pps in DataCache.Instance.PackageProductSuppliers
+                                    join ps in DataCache.Instance.ProductSuppliers on pps.ProductSupplierId equals ps.ProductSupplierId
+                                    join s in DataCache.Instance.Suppliers on ps.SupplierId equals s.SupplierId
+                                    where pps.PackageId == packageId
+                                    select new
+                                    {
+                                        s.SupplierId,
+                                        s.SupName
+                                    }).ToList();
+
+            dgvRelatedSuppliers.DataSource = relatedSuppliers;
         }
     }
 }
