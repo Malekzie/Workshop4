@@ -2,6 +2,7 @@
 
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
+    <meta charset="UTF-8">
     <script src="https://cdn.tiny.cloud/1/25c3uat2ids48n4kjhr1wk1ool0jo8xnibsqb1lm44wl1lcv/tinymce/7/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         tinymce.init({
@@ -15,6 +16,8 @@
                 { value: 'Email', title: 'Email' },
             ],
             ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant")),
+            statusbar: false,
+            height: 500
         });
     </script>
 </head>

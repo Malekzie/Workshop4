@@ -1,62 +1,46 @@
-using Main.Utils; // Make sure to include this namespace
-using System.Diagnostics;
+using Main.Utils;
+using Main.Services;
 using TravelExpertsData.DataAccess;
 using TravelExpertsData.Models;
+using System.Linq;
 
 namespace Main
 {
-
     public partial class Main : Form
     {
+        private readonly SearchService _searchService;
+
         public Main()
         {
             InitializeComponent();
+            _searchService = new SearchService();
         }
-
-        public class SearchResult
-        {
-            public string Type { get; set; }
-            public string Name { get; set; }
-            public object Data { get; set; }
-        }
-
 
         private void LoadData<T>(List<T> data, string dataType)
         {
-            // Clears the data grid view
             dgvView.DataSource = null;
-            // Replaces the data grid view data source with the new data
             dgvView.DataSource = data;
             ColRename.RenameColumns(dgvView, dataType);
         }
 
-        private void dgvView_CellClick(object sender, DataGridViewCellEventArgs e)
-        {
-            // Handle cell click events if necessary
-        }
-
         private void viewPkg_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.Packages;
-            LoadData(data, "PackageDTO");
+            LoadData(DataCache.Instance.Packages, "PackageDTO");
         }
 
         private void viewProd_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.Products;
-            LoadData(data, "ProductDTO");
+            LoadData(DataCache.Instance.Products, "ProductDTO");
         }
 
         private void viewSup_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.Suppliers;
-            LoadData(data, "SupplierDTO");
+            LoadData(DataCache.Instance.Suppliers, "SupplierDTO");
         }
 
         private void viewProdSup_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.ProductSuppliers;
-            LoadData(data, "ProductSupplierDTO"); // Adjust as needed
+            LoadData(DataCache.Instance.ProductSuppliers, "ProductSupplierDTO");
         }
 
         private void btnExit_Click(object sender, EventArgs e)
@@ -64,48 +48,18 @@ namespace Main
             Application.Exit();
         }
 
-
         private void txtQuery_TextChanged(object sender, EventArgs e)
         {
-            // Performs the search based on the text in the search box
             PerformSearch();
         }
 
         private void PerformSearch()
         {
             string query = txtQuery.Text.Trim().ToLower();
-
             if (!string.IsNullOrEmpty(query))
             {
                 btnAdd.Enabled = false;
-
-                var productResults = DataCache.Instance.Products
-                                                     .Where(p => p.ProdName.ToLower().Contains(query))
-                                                     .Select(p => new SearchResult { Type = "Product", Name = p.ProdName, Data = p })
-                                                     .ToList();
-
-                var packageResults = DataCache.Instance.Packages
-                                                    .Where(p => p.PkgName.ToLower().Contains(query))
-                                                    .Select(p => new SearchResult { Type = "Package", Name = p.PkgName, Data = p })
-                                                    .ToList();
-
-                var supplierResults = DataCache.Instance.Suppliers
-                                                    .Where(s => s.SupName.ToLower().Contains(query))
-                                                    .Select(s => new SearchResult { Type = "Supplier", Name = s.SupName, Data = s })
-                                                    .ToList();
-
-                var productSupplierResults = DataCache.Instance.ProductSuppliers
-                                                               .Where(ps => ps.ProductId.ToString().Contains(query) || ps.SupplierId.ToString().Contains(query))
-                                                               .Select(ps => new SearchResult { Type = "ProductSupplier", Name = $"ProductID: {ps.ProductId}, SupplierID: {ps.SupplierId}", Data = ps })
-                                                               .ToList();
-
-                // Combine all results
-                var results = productResults
-                                  .Union(packageResults)
-                                  .Union(supplierResults)
-                                  .Union(productSupplierResults)
-                                  .ToList();
-
+                var results = _searchService.PerformSearch(query);
                 dgvView.DataSource = results;
                 dgvView.Columns["Data"].Visible = false;
             }
@@ -116,14 +70,9 @@ namespace Main
             }
         }
 
-
-
         private void open_Click(object sender, EventArgs e)
         {
-            using (var form = new AddModifyPackages())
-            {
-                form.ShowDialog();
-            }
+            OpenAddModifyPackagesForm();
         }
 
         private void btnModify_Click(object sender, EventArgs e)
@@ -131,34 +80,37 @@ namespace Main
             if (dgvView.SelectedRows.Count > 0)
             {
                 var selectedItem = dgvView.SelectedRows[0].DataBoundItem;
-
-                if (selectedItem is PackageDTO selectedPackage)
-                {
-                    // Item is directly a PackageDTO
-                    using (var form = new AddModifyPackages(selectedPackage))
-                    {
-                        form.Text= "Modify Package";
-                        form.ShowDialog();
-                    }
-                }
-                else if (selectedItem is SearchResult searchResult && searchResult.Type == "Package")
-                {
-                    // Item is a SearchResult and of type "Package"
-                    var package = (PackageDTO)searchResult.Data;
-                    using (var form = new AddModifyPackages(package))
-                    {
-                        form.Text = "Modify Package";
-                        form.ShowDialog();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Selected item is not a package.");
-                }
+                HandleModifyPackage(selectedItem);
             }
             else
             {
                 MessageBox.Show("Please select an item to modify.");
+            }
+        }
+
+        private void HandleModifyPackage(object selectedItem)
+        {
+            if (selectedItem is PackageDTO selectedPackage)
+            {
+                OpenAddModifyPackagesForm(selectedPackage, "Modify Package");
+            }
+            else if (selectedItem is SearchResult searchResult && searchResult.Type == "Package")
+            {
+                var package = (PackageDTO)searchResult.Data;
+                OpenAddModifyPackagesForm(package, "Modify Package");
+            }
+            else
+            {
+                MessageBox.Show("Selected item is not a package.");
+            }
+        }
+
+        private void OpenAddModifyPackagesForm(PackageDTO package = null, string formTitle = "Add Package")
+        {
+            using (var form = new AddModifyPackages(package))
+            {
+                form.Text = formTitle;
+                form.ShowDialog();
             }
         }
     }

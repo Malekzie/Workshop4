@@ -55,6 +55,9 @@ namespace Main
             return initialContent;
         }
 
-
+        private void hiddenCancelButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

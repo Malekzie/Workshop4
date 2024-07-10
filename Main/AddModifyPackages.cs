@@ -28,7 +28,7 @@ namespace Main
             if (package == null)
             {
                 txtPkgId.Text = "New Package";
-                txtPkgId.Width= 100;
+                txtPkgId.Width = 100;
                 txtPkgId.Enabled = false;
                 dgvRelatedProducts.Visible = false;
                 dgvRelatedSuppliers.Visible = false;
@@ -95,6 +95,11 @@ namespace Main
                                     }).ToList();
 
             dgvRelatedSuppliers.DataSource = relatedSuppliers;
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }
