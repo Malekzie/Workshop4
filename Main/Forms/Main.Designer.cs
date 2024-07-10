@@ -171,7 +171,6 @@
             open.Text = "Test";
             open.TextImageRelation = TextImageRelation.TextAboveImage;
             open.UseVisualStyleBackColor = true;
-            open.Click += open_Click;
             // 
             // btnExit
             // 

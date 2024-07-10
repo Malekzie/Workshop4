@@ -1,10 +1,11 @@
 ﻿using TravelExpertsData.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace TravelExpertsData.DataAccess
 {
     public class DataCache
     {
-
         private static DataCache instance = null;
         private static readonly object padlock = new object();
 
@@ -31,6 +32,22 @@ namespace TravelExpertsData.DataAccess
                     }
                     return instance;
                 }
+            }
+        }
+
+        public List<dynamic> DisplayProductSuppliers
+        {
+            get
+            {
+                return ProductSuppliers
+                        .Select(ps => new
+                        {
+                            ps.ProductSupplierId,
+                            ps.ProductName,
+                            ps.SupplierName
+                        })
+                        .Cast<dynamic>()
+                        .ToList();
             }
         }
 
@@ -65,12 +82,14 @@ namespace TravelExpertsData.DataAccess
                     }).ToList();
 
                 ProductSuppliers = context.ProductsSuppliers
-                    .Select(ps => new ProductsSupplierDTO
-                    {
-                        ProductSupplierId = ps.ProductSupplierId,
-                        ProductId = ps.ProductId,
-                        SupplierId = ps.SupplierId
-                    }).ToList();
+                     .Select(ps => new ProductsSupplierDTO
+                     {
+                         ProductSupplierId = ps.ProductSupplierId,
+                         ProductId = ps.ProductId,
+                         SupplierId = ps.SupplierId,
+                         ProductName = ps.Product.ProdName,
+                         SupplierName = ps.Supplier.SupName
+                     }).ToList();
 
                 PackageProductSuppliers = context.PackagesProductsSuppliers.ToList();
             }

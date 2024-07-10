@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Main
+namespace Main.Forms
 {
-    public partial class AddModifyCommon : Form
+    public partial class RelationEntryForm : Form
     {
-        public AddModifyCommon()
+        public RelationEntryForm()
         {
             InitializeComponent();
         }

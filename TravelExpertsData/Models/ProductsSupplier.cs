@@ -36,4 +36,6 @@ public class ProductsSupplierDTO
     public int ProductSupplierId { get; set; }
     public int? ProductId { get; set; }
     public int? SupplierId { get; set; }
+    public string ProductName { get; set; }
+    public string SupplierName { get; set; }
 }
