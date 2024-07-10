@@ -1,5 +1,7 @@
 using Main.Utils; // Make sure to include this namespace
+using System.Diagnostics;
 using TravelExpertsData.DataAccess;
+using TravelExpertsData.Models;
 
 namespace Main
 {
@@ -54,14 +56,6 @@ namespace Main
         }
 
 
-        private void OpenAddModifyForm(string dataType)
-        {
-            using (var form = new AddModifyPackages())
-            {
-                form.ShowDialog();
-            }
-        }
-
         private void txtQuery_TextChanged(object sender, EventArgs e)
         {
             // Performs the search based on the text in the search box
@@ -77,25 +71,25 @@ namespace Main
                 // Search in Products
                 var productResults = DataCache.Instance.Products
                                                      .Where(p => p.ProdName.ToLower().Contains(query))
-                                                     .Select(p => new { Type = "Product", Name = p.ProdName})
+                                                     .Select(p => new { Type = "Product", Name = p.ProdName })
                                                      .ToList();
 
                 // Search in Packages
                 var packageResults = DataCache.Instance.Packages
                                                 .Where(p => p.PkgName.ToLower().Contains(query))
-                                                .Select(p => new { Type = "Package", Name = p.PkgName})
+                                                .Select(p => new { Type = "Package", Name = p.PkgName })
                                                 .ToList();
 
                 // Search in Suppliers
                 var supplierResults = DataCache.Instance.Suppliers
                                                   .Where(s => s.SupName.ToLower().Contains(query))
-                                                  .Select(s => new { Type = "Supplier", Name = s.SupName})
+                                                  .Select(s => new { Type = "Supplier", Name = s.SupName })
                                                   .ToList();
 
                 // Search in ProductSuppliers
                 var productSupplierResults = DataCache.Instance.ProductSuppliers
                                                            .Where(ps => ps.ProductId.ToString().Contains(query) || ps.SupplierId.ToString().Contains(query))
-                                                           .Select(ps => new { Type = "ProductSupplier", Name = $"ProductID: {ps.ProductId}, SupplierID: {ps.SupplierId}"})
+                                                           .Select(ps => new { Type = "ProductSupplier", Name = $"ProductID: {ps.ProductId}, SupplierID: {ps.SupplierId}" })
                                                            .ToList();
 
                 // Combine all results
@@ -110,6 +104,36 @@ namespace Main
             else
             {
                 dgvView.DataSource = null;
+            }
+        }
+
+        private void open_Click(object sender, EventArgs e)
+        {
+            using (var form = new AddModifyPackages())
+            {
+                form.ShowDialog();
+            }
+        }
+
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            Debug.WriteLine("btnModify_Click triggered");
+            if (dgvView.SelectedRows.Count > 0)
+            {
+                Debug.WriteLine("SelectedRows count: " + dgvView.SelectedRows.Count);
+                // Assuming the DataGridView is bound to a list of PackageDTO
+                var selectedPackage = (PackageDTO)dgvView.SelectedRows[0].DataBoundItem;
+
+                // Pass the selected package to the AddModifyPackages form
+                using (var form = new AddModifyPackages(selectedPackage))
+                {
+                    form.ShowDialog();
+                }
+            }
+            else
+            {
+                Debug.WriteLine("No row selected");
+                MessageBox.Show("Please select a package to modify.");
             }
         }
     }
