@@ -1,7 +1,14 @@
-﻿namespace Main.Utils
+﻿// Threaded Project 2 Workshop 4 
+// Created by Robbie Soriano
+// Modified by Ryan Medeiros
+// Defines utilities for renaming the columns in a DataGridView. 
+
+namespace Main.Utils
 {
+
     public static class ColRename
     {
+        // Defines our column names based on our given database object type.
         public static void RenameColumns(DataGridView dgv, string dataType)
         {
             switch (dataType)
@@ -21,10 +28,13 @@
             }
         }
 
+        //If the given type is a Package,
         private static void RenamePackageColumns(DataGridView dgv)
         {
+            //For every column within our DataGridView on the primary form,
             foreach (DataGridViewColumn column in dgv.Columns)
             {
+                //Set our column headers and styles based on which database column they represent. 
                 switch (column.DataPropertyName)
                 {
                     case "PackageId":
@@ -56,10 +66,13 @@
             }
         }
 
+        //If the given type is a Package,
         private static void RenameProductColumns(DataGridView dgv)
         {
+            //For every column within our DataGridView on the primary form,
             foreach (DataGridViewColumn column in dgv.Columns)
             {
+                //Set our column headers and styles based on which database column they represent. 
                 switch (column.DataPropertyName)
                 {
                     case "ProductId":
@@ -73,10 +86,13 @@
             }
         }
 
+        //If the given type is a Supplier,
         private static void RenameSupplierColumns(DataGridView dgv)
         {
+            //For every column within our DataGridView on the primary form,
             foreach (DataGridViewColumn column in dgv.Columns)
             {
+                //Set our column headers and styles based on which database column they represent. 
                 switch (column.DataPropertyName)
                 {
                     case "SupplierId":
@@ -90,10 +106,13 @@
             }
         }
 
+        //If the given type is a Supplier,
         private static void RenameProductSupplierColumns(DataGridView dgv)
         {
+            //For every column within our DataGridView on the primary form,
             foreach (DataGridViewColumn column in dgv.Columns)
             {
+                //Set our column headers and styles based on which database column they represent. 
                 switch (column.DataPropertyName)
                 {
                     case "ProductSupplierId":
