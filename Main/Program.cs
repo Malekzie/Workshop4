@@ -1,3 +1,7 @@
+// Threaded Project 2 Workshop 4 
+// Created by Robbie Soriano
+// Defines our program entry point
+
 namespace Main
 {
     internal static class Program

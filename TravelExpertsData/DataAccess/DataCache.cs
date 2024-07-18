@@ -36,7 +36,9 @@ namespace TravelExpertsData.DataAccess
 
         private void LoadData()
         {
-            using (var context = new TravelExpertsContext())
+            var context = new TravelExpertsContext();
+
+            if (context.Products.Local.Count != 0)
             {
                 Packages = context.Packages
                     .Select(p => new PackageDTO
