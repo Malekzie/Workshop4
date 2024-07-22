@@ -136,18 +136,19 @@ namespace Main
             var productToRemove = context.Products.Find(productId);
             if (productToRemove != null)
             {
-                // Manually delete related ProductsSuppliers
-                var relatedProductsSuppliers = context.ProductsSuppliers
+                // First, remove any entries in ProductsSuppliers that reference this product
+                var relatedProductSuppliers = context.ProductsSuppliers
                     .Where(ps => ps.ProductId == productId)
                     .ToList();
 
-                context.ProductsSuppliers.RemoveRange(relatedProductsSuppliers);
+                // If no bookings, safe to remove entries in ProductsSuppliers
+                context.ProductsSuppliers.RemoveRange(relatedProductSuppliers);
 
                 // Now delete the Product itself
                 context.Products.Remove(productToRemove);
                 context.SaveChanges();
 
-                //LoadProducts(); //going to update this when I can figure out what data to pass in
+                //LoadProducts();//going to update this when I can figure out what data to pass in
                 //supposed to refresh the table here
                 MessageBox.Show("Product removed successfully.");
             }
@@ -162,18 +163,35 @@ namespace Main
             var supplierToRemove = context.Suppliers.Find(supplierId);
             if (supplierToRemove != null)
             {
-                // Manually delete related ProductsSuppliers
-                var relatedProductsSuppliers = context.ProductsSuppliers
+                // First, remove any entries in ProductsSuppliers that reference this supplier
+                var relatedProductSuppliers = context.ProductsSuppliers
                     .Where(ps => ps.SupplierId == supplierId)
                     .ToList();
 
-                context.ProductsSuppliers.RemoveRange(relatedProductsSuppliers);
+                /* IMPORTANT: This is commented out because I have no idea if this will fix the problems im having
+                 * 
+                // Check if these product suppliers are referenced in BookingDetails or other tables
+                foreach (var ps in relatedProductSuppliers)
+                {
+                    var relatedBookings = context.BookingDetails
+                        .Where(bd => bd.ProductSupplierId == ps.ProductSupplierId)
+                        .ToList();
 
+                    if (relatedBookings.Any())
+                    {
+                        MessageBox.Show("Cannot delete supplier: It is referenced in existing bookings.");
+                        return; // Abort the deletion if there are related bookings
+                    }
+                }
+
+                // If no bookings, safe to remove entries in ProductsSuppliers
+                context.ProductsSuppliers.RemoveRange(relatedProductSuppliers);
+                */
                 // Now delete the Supplier itself
                 context.Suppliers.Remove(supplierToRemove);
                 context.SaveChanges();
 
-                //LoadSuppliers(); //going to update this when I can figure out what data to pass in
+                //LoadSuppliers(); going to update this when I can figure out what data to pass in
                 //supposed to refresh the table here
                 MessageBox.Show("Supplier removed successfully.");
             }
