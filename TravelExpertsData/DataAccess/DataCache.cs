@@ -35,18 +35,19 @@ namespace TravelExpertsData.DataAccess
             }
         }
 
-        public List<dynamic> DisplayProductSuppliers
+        public List<ProductsSupplierDTO> DisplayProductSuppliers
         {
             get
             {
                 return ProductSuppliers
-                        .Select(ps => new
+                        .Select(ps => new ProductsSupplierDTO
                         {
-                            ps.ProductSupplierId,
-                            ps.ProductName,
-                            ps.SupplierName
+                            ProductSupplierId = ps.ProductSupplierId,
+                            ProductId = ps.ProductId,
+                            SupplierId = ps.SupplierId,
+                            ProductName = ps.ProductName,
+                            SupplierName = ps.SupplierName
                         })
-                        .Cast<dynamic>()
                         .ToList();
             }
         }
