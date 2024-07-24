@@ -51,8 +51,8 @@
             label8 = new Label();
             label9 = new Label();
             btnSubmit = new Button();
-            btnClose = new Button();
             panel2 = new Panel();
+            btnClose = new Button();
             panel1.SuspendLayout();
             packageId.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvRelatedProducts).BeginInit();
@@ -64,116 +64,104 @@
             // 
             label1.AutoSize = true;
             label1.ForeColor = SystemColors.ControlLightLight;
-            label1.Location = new Point(17, 75);
-            label1.Margin = new Padding(4, 0, 4, 0);
+            label1.Location = new Point(12, 45);
             label1.Name = "label1";
-            label1.Size = new Size(103, 25);
+            label1.Size = new Size(68, 15);
             label1.TabIndex = 0;
             label1.Text = "Package ID:";
             // 
             // txtPkgId
             // 
-            txtPkgId.Location = new Point(128, 69);
-            txtPkgId.Margin = new Padding(4, 5, 4, 5);
+            txtPkgId.Location = new Point(90, 41);
             txtPkgId.Name = "txtPkgId";
-            txtPkgId.Size = new Size(73, 31);
+            txtPkgId.Size = new Size(52, 23);
             txtPkgId.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.ForeColor = SystemColors.ControlLightLight;
-            label2.Location = new Point(23, 207);
-            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Location = new Point(16, 124);
             label2.Name = "label2";
-            label2.Size = new Size(132, 25);
+            label2.Size = new Size(89, 15);
             label2.TabIndex = 3;
             label2.Text = "Package Name:";
             // 
             // txtPkgName
             // 
-            txtPkgName.Location = new Point(223, 193);
-            txtPkgName.Margin = new Padding(4, 5, 4, 5);
+            txtPkgName.Location = new Point(156, 116);
             txtPkgName.Name = "txtPkgName";
-            txtPkgName.Size = new Size(243, 31);
+            txtPkgName.Size = new Size(171, 23);
             txtPkgName.TabIndex = 4;
             // 
             // label3
             // 
             label3.AutoSize = true;
             label3.ForeColor = SystemColors.ControlLightLight;
-            label3.Location = new Point(23, 303);
-            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Location = new Point(16, 182);
             label3.Name = "label3";
-            label3.Size = new Size(94, 25);
+            label3.Size = new Size(61, 15);
             label3.TabIndex = 5;
             label3.Text = "Start Date:";
             // 
             // dtpStartDate
             // 
             dtpStartDate.Format = DateTimePickerFormat.Short;
-            dtpStartDate.Location = new Point(223, 290);
-            dtpStartDate.Margin = new Padding(4, 5, 4, 5);
+            dtpStartDate.Location = new Point(156, 174);
             dtpStartDate.Name = "dtpStartDate";
-            dtpStartDate.Size = new Size(158, 31);
+            dtpStartDate.Size = new Size(112, 23);
             dtpStartDate.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
             label4.ForeColor = SystemColors.ControlLightLight;
-            label4.Location = new Point(23, 352);
-            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Location = new Point(16, 211);
             label4.Name = "label4";
-            label4.Size = new Size(88, 25);
+            label4.Size = new Size(57, 15);
             label4.TabIndex = 7;
             label4.Text = "End Date:";
             // 
             // dtpEndDate
             // 
             dtpEndDate.Format = DateTimePickerFormat.Short;
-            dtpEndDate.Location = new Point(223, 338);
-            dtpEndDate.Margin = new Padding(4, 5, 4, 5);
+            dtpEndDate.Location = new Point(156, 203);
             dtpEndDate.Name = "dtpEndDate";
-            dtpEndDate.Size = new Size(158, 31);
+            dtpEndDate.Size = new Size(112, 23);
             dtpEndDate.TabIndex = 8;
             // 
             // label5
             // 
             label5.AutoSize = true;
             label5.ForeColor = SystemColors.ControlLightLight;
-            label5.Location = new Point(23, 400);
-            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Location = new Point(16, 240);
             label5.Name = "label5";
-            label5.Size = new Size(94, 25);
+            label5.Size = new Size(63, 15);
             label5.TabIndex = 9;
             label5.Text = "Base Price:";
             // 
             // txtBasePrice
             // 
-            txtBasePrice.Location = new Point(223, 387);
-            txtBasePrice.Margin = new Padding(4, 5, 4, 5);
+            txtBasePrice.Location = new Point(156, 232);
             txtBasePrice.Name = "txtBasePrice";
-            txtBasePrice.Size = new Size(243, 31);
+            txtBasePrice.Size = new Size(171, 23);
             txtBasePrice.TabIndex = 10;
             // 
             // label6
             // 
             label6.AutoSize = true;
             label6.ForeColor = SystemColors.ControlLightLight;
-            label6.Location = new Point(23, 448);
-            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Location = new Point(16, 269);
             label6.Name = "label6";
-            label6.Size = new Size(160, 25);
+            label6.Size = new Size(107, 15);
             label6.TabIndex = 11;
             label6.Text = "Agent Commision:";
             // 
             // txtAgentCommision
             // 
-            txtAgentCommision.Location = new Point(223, 435);
-            txtAgentCommision.Margin = new Padding(4, 5, 4, 5);
+            txtAgentCommision.Location = new Point(156, 261);
             txtAgentCommision.Name = "txtAgentCommision";
-            txtAgentCommision.Size = new Size(243, 31);
+            txtAgentCommision.Size = new Size(171, 23);
             txtAgentCommision.TabIndex = 12;
             // 
             // panel1
@@ -182,9 +170,8 @@
             panel1.Controls.Add(packageId);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
-            panel1.Margin = new Padding(4, 5, 4, 5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1370, 164);
+            panel1.Size = new Size(959, 100);
             panel1.TabIndex = 14;
             // 
             // packageId
@@ -193,17 +180,15 @@
             packageId.Controls.Add(txtPkgId);
             packageId.Dock = DockStyle.Left;
             packageId.Location = new Point(0, 0);
-            packageId.Margin = new Padding(4, 5, 4, 5);
             packageId.Name = "packageId";
-            packageId.Size = new Size(310, 160);
+            packageId.Size = new Size(217, 96);
             packageId.TabIndex = 0;
             // 
             // txtDes
             // 
-            txtDes.Location = new Point(223, 242);
-            txtDes.Margin = new Padding(4, 5, 4, 5);
+            txtDes.Location = new Point(156, 145);
             txtDes.Name = "txtDes";
-            txtDes.Size = new Size(243, 31);
+            txtDes.Size = new Size(171, 23);
             txtDes.TabIndex = 16;
             txtDes.DoubleClick += txtDes_DoubleClick;
             // 
@@ -211,10 +196,9 @@
             // 
             label7.AutoSize = true;
             label7.ForeColor = SystemColors.ControlLightLight;
-            label7.Location = new Point(23, 255);
-            label7.Margin = new Padding(4, 0, 4, 0);
+            label7.Location = new Point(16, 153);
             label7.Name = "label7";
-            label7.Size = new Size(106, 25);
+            label7.Size = new Size(70, 15);
             label7.TabIndex = 15;
             label7.Text = "Description:";
             // 
@@ -234,13 +218,12 @@
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dgvRelatedProducts.DefaultCellStyle = dataGridViewCellStyle1;
-            dgvRelatedProducts.Location = new Point(22, 60);
-            dgvRelatedProducts.Margin = new Padding(4, 5, 4, 5);
+            dgvRelatedProducts.Location = new Point(15, 36);
             dgvRelatedProducts.Name = "dgvRelatedProducts";
             dgvRelatedProducts.ReadOnly = true;
             dgvRelatedProducts.RowHeadersWidth = 62;
             dgvRelatedProducts.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRelatedProducts.Size = new Size(354, 432);
+            dgvRelatedProducts.Size = new Size(248, 259);
             dgvRelatedProducts.TabIndex = 17;
             // 
             // dgvRelatedSuppliers
@@ -259,13 +242,12 @@
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             dgvRelatedSuppliers.DefaultCellStyle = dataGridViewCellStyle2;
-            dgvRelatedSuppliers.Location = new Point(385, 60);
-            dgvRelatedSuppliers.Margin = new Padding(4, 5, 4, 5);
+            dgvRelatedSuppliers.Location = new Point(270, 36);
             dgvRelatedSuppliers.Name = "dgvRelatedSuppliers";
             dgvRelatedSuppliers.ReadOnly = true;
             dgvRelatedSuppliers.RowHeadersWidth = 62;
             dgvRelatedSuppliers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvRelatedSuppliers.Size = new Size(354, 432);
+            dgvRelatedSuppliers.Size = new Size(248, 259);
             dgvRelatedSuppliers.TabIndex = 18;
             // 
             // label8
@@ -273,10 +255,9 @@
             label8.AutoSize = true;
             label8.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label8.ForeColor = SystemColors.ControlLightLight;
-            label8.Location = new Point(127, 1);
-            label8.Margin = new Padding(4, 0, 4, 0);
+            label8.Location = new Point(89, 1);
             label8.Name = "label8";
-            label8.Size = new Size(159, 48);
+            label8.Size = new Size(106, 32);
             label8.TabIndex = 19;
             label8.Text = "Products";
             // 
@@ -285,37 +266,23 @@
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label9.ForeColor = SystemColors.ControlLightLight;
-            label9.Location = new Point(479, 1);
-            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Location = new Point(335, 1);
             label9.Name = "label9";
-            label9.Size = new Size(166, 48);
+            label9.Size = new Size(112, 32);
             label9.TabIndex = 20;
             label9.Text = "Suppliers";
             // 
             // btnSubmit
             // 
             btnSubmit.BackColor = Color.FromArgb(219, 34, 42);
+            btnSubmit.FlatStyle = FlatStyle.Flat;
             btnSubmit.ForeColor = SystemColors.ControlLightLight;
-            btnSubmit.Location = new Point(23, 635);
-            btnSubmit.Margin = new Padding(4, 5, 4, 5);
+            btnSubmit.Location = new Point(16, 381);
             btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(107, 38);
+            btnSubmit.Size = new Size(75, 23);
             btnSubmit.TabIndex = 21;
             btnSubmit.Text = "Submit";
             btnSubmit.UseVisualStyleBackColor = false;
-            // 
-            // btnClose
-            // 
-            btnClose.BackColor = Color.FromArgb(219, 34, 42);
-            btnClose.ForeColor = SystemColors.ControlLightLight;
-            btnClose.Location = new Point(179, 635);
-            btnClose.Margin = new Padding(4, 5, 4, 5);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(107, 38);
-            btnClose.TabIndex = 22;
-            btnClose.Text = "Cancel";
-            btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click;
             // 
             // panel2
             // 
@@ -323,19 +290,31 @@
             panel2.Controls.Add(label8);
             panel2.Controls.Add(dgvRelatedSuppliers);
             panel2.Controls.Add(dgvRelatedProducts);
-            panel2.Location = new Point(614, 182);
+            panel2.Location = new Point(430, 109);
+            panel2.Margin = new Padding(2, 2, 2, 2);
             panel2.Name = "panel2";
-            panel2.Size = new Size(756, 514);
+            panel2.Size = new Size(529, 308);
             panel2.TabIndex = 23;
+            // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.FromArgb(219, 34, 42);
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.ForeColor = SystemColors.ControlLightLight;
+            btnClose.Location = new Point(156, 381);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(75, 23);
+            btnClose.TabIndex = 24;
+            btnClose.Text = "Submit";
+            btnClose.UseVisualStyleBackColor = false;
             // 
             // AddModifyPackages
             // 
             AcceptButton = btnSubmit;
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(31, 34, 53);
-            CancelButton = btnClose;
-            ClientSize = new Size(1370, 697);
+            ClientSize = new Size(959, 418);
             Controls.Add(btnClose);
             Controls.Add(btnSubmit);
             Controls.Add(txtDes);
@@ -354,6 +333,7 @@
             Controls.Add(panel2);
             ForeColor = SystemColors.Desktop;
             FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(2, 2, 2, 2);
             Name = "AddModifyPackages";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AddModifyPackage";
@@ -391,7 +371,7 @@
         private Label label8;
         private Label label9;
         private Button btnSubmit;
-        private Button btnClose;
         private Panel panel2;
+        private Button btnClose;
     }
 }

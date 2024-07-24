@@ -89,5 +89,10 @@ namespace Main.Forms
             this.DialogResult = DialogResult.OK;
             this.Close();
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
     }
 }

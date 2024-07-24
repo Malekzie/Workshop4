@@ -19,13 +19,18 @@ namespace Main
             _mainService = new AddModifyService();
         }
 
+        // Loads Data into form
         private void LoadData<T>(List<T> data, string dataType)
         {
+            // Clear existing data
             dgvView.DataSource = null;
+            // Load new data
             dgvView.DataSource = data;
+            // Utility to rename columns
             ColRename.RenameColumns(dgvView, dataType);
         }
 
+        // Event Handlers to view data
         private void viewPkg_Click(object sender, EventArgs e)
         {
             LoadData(DataCache.Instance.Packages, "PackageDTO");
@@ -51,32 +56,42 @@ namespace Main
             Application.Exit();
         }
 
+        // Event Handler for search functionality
         private void txtQuery_TextChanged(object sender, EventArgs e)
         {
             PerformSearch();
         }
 
+        // Search functionality
         private void PerformSearch()
         {
+            // Extracts search query
             string query = txtQuery.Text.Trim().ToLower();
             if (!string.IsNullOrEmpty(query))
             {
+                // Perform search using query
                 var results = _searchService.PerformSearch(query);
+                // Display search results
                 dgvView.DataSource = results;
+                // Hide Data column
                 dgvView.Columns["Data"].Visible = false;
             }
             else
             {
+                // Clear search results
                 dgvView.DataSource = null;
             }
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            // Get entity type from view
             string entityType = GetEntityTypeFromView();
             if (!string.IsNullOrEmpty(entityType))
             {
+                // Handle Add operation
                 _mainService.HandleAdd(entityType);
+                // Refresh data
                 RefreshData(entityType);
             }
             else
@@ -85,13 +100,18 @@ namespace Main
             }
         }
 
+        // Event Handler for Modify operation
         private void btnModify_Click(object sender, EventArgs e)
         {
             if (dgvView.SelectedRows.Count > 0)
             {
+                // Get selected item
                 var selectedItem = dgvView.SelectedRows[0].DataBoundItem;
+                // Handle Modify operation
                 _mainService.HandleModify(selectedItem);
+                // Get entity type from selected item
                 string entityType = GetEntityTypeFromItem(selectedItem);
+                // Refresh data
                 RefreshData(entityType);
             }
             else
@@ -100,6 +120,7 @@ namespace Main
             }
         }
 
+        // Event Handler to extract entity from DataGridView
         private string GetEntityTypeFromView()
         {
             if (dgvView.DataSource is List<PackageDTO>)
@@ -121,6 +142,7 @@ namespace Main
             return null;
         }
 
+        // Event Handler to extract entity from selected item
         private string GetEntityTypeFromItem(object item)
         {
             if (item is PackageDTO)
@@ -142,6 +164,7 @@ namespace Main
             return null;
         }
 
+        // Refresh data
         private void RefreshData(string entityType)
         {
             if (entityType == "Package")
