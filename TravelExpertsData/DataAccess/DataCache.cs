@@ -17,6 +17,7 @@ namespace TravelExpertsData.DataAccess
         public List<ProductDTO> Products { get; set; }
         public List<SupplierDTO> Suppliers { get; set; }
         public List<ProductsSupplierDTO> ProductSuppliers { get; set; }
+        public List<PackagesProductsSupplier> PackageProductSuppliers { get; set; }
 
         DataCache(IUnitOfWork unitOfWork)
         {
@@ -72,6 +73,8 @@ namespace TravelExpertsData.DataAccess
                 ProductName = ps.Product.ProdName,
                 SupplierName = ps.Supplier.SupName
             }).ToList();
+
+            PackageProductSuppliers = _unitOfWork.PackageProductSuppliers.GetAll().ToList();
         }
 
         public void ReloadPackages()
@@ -116,6 +119,11 @@ namespace TravelExpertsData.DataAccess
                 ProductName = ps.Product.ProdName,
                 SupplierName = ps.Supplier.SupName
             }).ToList();
+        }
+
+        public void ReloadPackageProductSuppliers()
+        {
+            PackageProductSuppliers = _unitOfWork.PackageProductSuppliers.GetAll().ToList();
         }
     }
 }

@@ -20,12 +20,14 @@ namespace TravelExpertsData.Repository
             Suppliers = new SupplierRepository(_context);
             ProductSuppliers = new ProductSupplierRepository(_context);
             Packages = new PackageRepository(_context);
+            PackageProductSuppliers = new PackageProductSupplierRepository(_context);
         }
 
         public IProductRepository Products { get; private set; }
         public ISupplierRepository Suppliers { get; private set; }
         public IProductSupplierRepository ProductSuppliers { get; private set; }
         public IPackageRepository Packages { get; private set; }
+        public IPackageProductSupplierRepository PackageProductSuppliers { get; private set; }
 
         public int Complete()
         {

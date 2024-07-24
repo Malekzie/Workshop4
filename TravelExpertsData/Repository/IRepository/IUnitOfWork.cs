@@ -8,6 +8,7 @@ namespace TravelExpertsData.Repository.IRepository
         ISupplierRepository Suppliers { get; }
         IProductSupplierRepository ProductSuppliers { get; }
         IPackageRepository Packages { get; }
+        IPackageProductSupplierRepository PackageProductSuppliers { get; }
         int Complete();
     }
 }
