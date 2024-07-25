@@ -20,7 +20,6 @@ namespace Main
         {
             _unitOfWork = unitOfWork;
             InitializeComponent();
-            context = new TravelExpertsContext();
         }
 
         //Refreshes the DataGridView
@@ -46,7 +45,6 @@ namespace Main
         //If the user clicks the "Packages" button, 
         private void viewPkg_Click(object sender, EventArgs e)
         {
-            lastViewAction = "Package"; // Set the last view action
             var data = DataCache.Instance.Packages;
             currentDataType = "PackageDTO";
             LoadData(data, currentDataType);
@@ -56,7 +54,6 @@ namespace Main
         //If the user clicks the "Products" button, 
         private void viewProd_Click(object sender, EventArgs e)
         {
-            lastViewAction = "Product"; // Set the last view action
             var data = DataCache.Instance.Products;
             currentDataType = "ProductDTO";
             LoadData(data, currentDataType);
@@ -65,7 +62,6 @@ namespace Main
         //If the user clicks the "Suppliers" button, 
         private void viewSup_Click(object sender, EventArgs e)
         {
-            lastViewAction = "Supplier"; // Set the last view action
             var data = DataCache.Instance.Suppliers;
             currentDataType = "SupplierDTO";
             LoadData(data, currentDataType);
@@ -74,7 +70,6 @@ namespace Main
         // If the user clicks the "Product Suppliers" button,
         private void viewProdSup_Click(object sender, EventArgs e)
         {
-            lastViewAction = "ProductSupplier"; // Set the last view action
             var data = DataCache.Instance.ProductSuppliers;
             currentDataType = "ProductSupplierDTO";
             LoadData(data, currentDataType); // Adjust as needed
