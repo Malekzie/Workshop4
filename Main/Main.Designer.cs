@@ -248,6 +248,7 @@
             dgvView.Margin = new Padding(2);
             dgvView.Name = "dgvView";
             dgvView.RowHeadersWidth = 62;
+            dgvView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvView.Size = new Size(1063, 420);
             dgvView.TabIndex = 2;
             dgvView.CellClick += dgvView_CellClick;

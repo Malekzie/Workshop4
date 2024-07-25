@@ -89,7 +89,7 @@ namespace Main
             }
             if (currentDataType == "PackageDTO")
             {
-                using var form = new AddModifyPackages("Add");
+                using var form = new AddModifyPackages("Add", _unitOfWork);
                 form.ShowDialog();
             }
             if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
@@ -106,6 +106,11 @@ namespace Main
 
         private void btnModify_Click(object sender, EventArgs e)
         {
+
+            bool refreshNeeded = false;
+
+            var id = Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value);
+
             if (currentDataType == "")
             {
                 MessageBox.Show("No table has been selected. Please choose one from the sidebar before editing a row.", "Cannot Edit Row");
@@ -113,19 +118,28 @@ namespace Main
             }
             if (currentDataType == "PackageDTO")
             {
-                using var form = new AddModifyPackages("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
-                form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
+                var form = new AddModifyPackages("Modify", _unitOfWork, id);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    refreshNeeded = true;
+                }
             }
             if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle(currentDataType, "Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
-                form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
+                var form = new AddModifySingle(currentDataType, "Modify", id);
+                form.ShowDialog();
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
+                using var form = new AddModifyCommon("Modify", id);
                 form.ShowDialog();
             }
+
+            if (refreshNeeded)
+            {
+                 DataCache.Instance.Refresh();
+            }
+
         }
 
         private async void btnRemove_Click(object sender, EventArgs e)
