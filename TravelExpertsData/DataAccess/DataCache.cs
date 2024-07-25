@@ -1,7 +1,7 @@
-﻿using TravelExpertsData.Models;
+﻿
+
 using TravelExpertsData.Models.DTO;
 using TravelExpertsData.Models.ViewModel;
-
 
 namespace TravelExpertsData.DataAccess
 {
