@@ -11,7 +11,7 @@ namespace Main
 {
     public partial class Main : Form
     {
-        //Initializes our primary form. 
+        private string currentDataType = "";
         public Main()
         {
             InitializeComponent();
@@ -28,6 +28,7 @@ namespace Main
 
             //Rename our DataGridView column using the given formatted string
             ColRename.RenameColumns(dgvView, dataType);
+            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         // Handles cell click events if necessary
@@ -39,29 +40,33 @@ namespace Main
         //If the user clicks the "Packages" button, 
         private void viewPkg_Click(object sender, EventArgs e)
         {
-            //Copy the cached database entries to the DataGridView
-            LoadData(DataCache.Instance.Packages, "PackageDTO");
+            var data = DataCache.Instance.Packages;
+            currentDataType = "PackageDTO";
+            LoadData(data, currentDataType);
         }
 
         //If the user clicks the "Products" button, 
         private void viewProd_Click(object sender, EventArgs e)
         {
-            //Copy the cached database entries to the DataGridView
-            LoadData(DataCache.Instance.Products, "ProductDTO");
+            var data = DataCache.Instance.Products;
+            currentDataType = "ProductDTO";
+            LoadData(data, currentDataType);
         }
 
         //If the user clicks the "Suppliers" button, 
         private void viewSup_Click(object sender, EventArgs e)
         {
-            //Copy the cached database entries to the DataGridView
-            LoadData(DataCache.Instance.Suppliers, "SupplierDTO");
+            var data = DataCache.Instance.Suppliers;
+            currentDataType = "SupplierDTO";
+            LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Product Suppliers" button,
         private void viewProdSup_Click(object sender, EventArgs e)
         {
-            //Copy the cached database entries to the DataGridView
-            LoadData(DataCache.Instance.ProductSuppliers, "ProductSupplierDTO");
+            var data = DataCache.Instance.ProductSuppliers;
+            currentDataType = "ProductSupplierDTO";
+            LoadData(data, currentDataType); // Adjust as needed
         }
 
         // If the user clicks the "Exit" button,
@@ -71,15 +76,52 @@ namespace Main
             Application.Exit();
         }
 
-        // If the user clicks either "Add" or "Modify", 
-        private void OpenAddModifyForm(string dataType)
+        private void btnAdd_Click(object sender, EventArgs e)
         {
-            using (var form = new AddModifyPackages())
+            if (currentDataType == "")
             {
-                // Show the necessary modal form. 
+                MessageBox.Show("No table has been selected. Please choose one from the sidebar before adding a row.", "Cannot Add Row");
+                return;
+            }
+            if (currentDataType == "PackageDTO")
+            {
+                using var form = new AddModifyPackages("Add");
+                form.ShowDialog();
+            }
+            if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
+            {
+                using var form = new AddModifySingle(currentDataType, "Add");
+                form.ShowDialog();
+            }
+            if (currentDataType == "ProductSupplierDTO")
+            {
+                using var form = new AddModifyCommon("Add");
                 form.ShowDialog();
             }
         }
 
+        private void btnModify_Click(object sender, EventArgs e)
+        {
+            if (currentDataType == "")
+            {
+                MessageBox.Show("No table has been selected. Please choose one from the sidebar before editing a row.", "Cannot Edit Row");
+                return;
+            }
+            if (currentDataType == "PackageDTO")
+            {
+                using var form = new AddModifyPackages("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
+                form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
+            }
+            if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
+            {
+                using var form = new AddModifySingle (currentDataType, "Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
+                form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
+            }
+            if (currentDataType == "ProductSupplierDTO")
+            {
+                using var form = new AddModifyCommon("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
+                form.ShowDialog();
+            }
+        }
     }
 }

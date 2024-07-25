@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Main
 {
-    public partial class AddModifyCommon : Form
+    public partial class AddModifySingle : Form
     {
-        public AddModifyCommon(string operationType, int id = 0) //set default id to next autonumber?
+        public AddModifySingle(string dataType, string operationType, int id = 0) //set default id to next autonumber?
         {
             InitializeComponent();
         }

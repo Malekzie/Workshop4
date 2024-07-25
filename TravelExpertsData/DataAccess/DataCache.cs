@@ -65,13 +65,15 @@ namespace TravelExpertsData.DataAccess
                     }).ToList();
 
                 ProductSuppliers = context.ProductsSuppliers
-                    .Select(ps => new ProductsSupplierDTO
-                    {
-                        ProductSupplierId = ps.ProductSupplierId,
-                        ProductId = ps.ProductId,
-                        SupplierId = ps.SupplierId
-                    }).ToList();
-
+                    .Join(context.Products, ps => ps.ProductId, p => p.ProductId, (ps, p) => new {ps, p})
+                    .Join(context.Suppliers, ps2 => ps2.ps.SupplierId, s => s.SupplierId, (ps2, s) => new ProductsSupplierDTO
+                {
+                    ProductSupplierId = ps2.ps.ProductSupplierId,
+                    ProductId = ps2.ps.ProductId,
+                    ProductName = ps2.p.ProdName, 
+                    SupplierId = ps2.ps.SupplierId,
+                    SupplierName = s.SupName}).OrderBy(ps => ps.ProductSupplierId).ToList();         
+//Todo, clean up select statement and fix column orders
                 PackageProductSuppliers = context.PackagesProductsSuppliers.ToList();
             }
         }
