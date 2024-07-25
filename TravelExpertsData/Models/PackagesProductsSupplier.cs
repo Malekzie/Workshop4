@@ -5,7 +5,7 @@
 [Index("ProductSupplierId", Name = "ProductSupplierId")]
 [Index("ProductSupplierId", Name = "Products_SuppliersPackages_Products_Suppliers")]
 [Index("PackageId", "ProductSupplierId", Name = "UQ__Packages__29CA8E9589C9A9DF", IsUnique = true)]
-public partial class PackagesProductsSupplier
+public partial class PackagesProductsSupplierDTO
 {
     [Key]
     public int PackageProductSupplierId { get; set; }

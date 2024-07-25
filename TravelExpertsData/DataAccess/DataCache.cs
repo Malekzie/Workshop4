@@ -15,7 +15,7 @@ namespace TravelExpertsData.DataAccess
         public List<ProductDTO> Products { get; set; }
         public List<SupplierDTO> Suppliers { get; set; }
         public List<ProductsSupplierDTO> ProductSuppliers { get; set; }
-        public List<PackagesProductsSupplier> PackageProductSuppliers { get; set; }
+        public List<PackagesProductsSupplierDTO> PackageProductSuppliers { get; set; }
 
         DataCache()
         {

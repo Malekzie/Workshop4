@@ -90,7 +90,10 @@ namespace Main
             if (currentDataType == "PackageDTO")
             {
                 using var form = new AddModifyPackages("Add", _unitOfWork);
-                form.ShowDialog();
+                if(form.ShowDialog() == DialogResult.OK)
+                {
+                    DataCache.Instance.Refresh();
+                }
             }
             if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
             {
@@ -107,8 +110,6 @@ namespace Main
         private void btnModify_Click(object sender, EventArgs e)
         {
 
-            bool refreshNeeded = false;
-
             var id = Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value);
 
             if (currentDataType == "")
@@ -121,7 +122,7 @@ namespace Main
                 var form = new AddModifyPackages("Modify", _unitOfWork, id);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    refreshNeeded = true;
+                    DataCache.Instance.Refresh();
                 }
             }
             if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
@@ -135,10 +136,7 @@ namespace Main
                 form.ShowDialog();
             }
 
-            if (refreshNeeded)
-            {
-                 DataCache.Instance.Refresh();
-            }
+           
 
         }
 

@@ -37,9 +37,9 @@ namespace Main
             if (_operationType == "Modify")
             {
                 txtId.Enabled = false;
-
-
                 var package = await _unitOfWork.Packages.GetByIdAsync(id);
+                
+
                 if (package != null)
                 {
                     txtId.Text = package.PackageId.ToString();
@@ -50,8 +50,17 @@ namespace Main
                     txtBasePrice.Text = package.PkgBasePrice.ToString();
                     txtAgencyComm.Text = package.PkgAgencyCommission.ToString();
                 }
-            }
 
+                
+                var prodSup = await _unitOfWork.Packages.GetProdSupAsync(id);
+                lsbProd.Items.Clear();
+                lsbSup.Items.Clear();
+                foreach (var item in prodSup)
+                {
+                    lsbProd.Items.Add(new ListBoxItem { Text = item.ProductName.ToString(), Value = item.ProductSupplierID });
+                    lsbSup.Items.Add(new ListBoxItem { Text = item.SupplierName.ToString(), Value = item.ProductSupplierID });
+                }
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -59,9 +68,15 @@ namespace Main
             this.DialogResult = DialogResult.Cancel;
         }
 
-        private void txtId_TextChanged(object sender, EventArgs e)
+        public class ListBoxItem
         {
+            public string Text { get; set; }
+            public int Value { get; set; }
 
+            public override string ToString()
+            {
+                return Text;
+            }
         }
     }
 }

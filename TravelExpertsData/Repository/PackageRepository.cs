@@ -1,10 +1,5 @@
 ﻿using Main.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TravelExpertsData.Models;
+using TravelExpertsData.Models.DTO;
 
 namespace TravelExpertsData.Repository
 {
@@ -45,6 +40,25 @@ namespace TravelExpertsData.Repository
                 // e.g., _logger.LogError(ex, "An error occurred while deleting the package.");
                 throw; // Optionally rethrow the exception or handle it accordingly
             }
+        }
+
+        public async Task<IEnumerable<PackageProductSupplierDTO>> GetProdSupAsync(int packageId)
+        {
+            var result = await (from pps in _context.PackagesProductsSuppliers
+                                join p in _context.Packages on pps.PackageId equals p.PackageId
+                                join ps in _context.ProductsSuppliers on pps.ProductSupplierId equals ps.ProductSupplierId
+                                join pr in _context.Products on ps.ProductId equals pr.ProductId
+                                join s in _context.Suppliers on ps.SupplierId equals s.SupplierId
+                                where pps.PackageId == packageId
+                                select new PackageProductSupplierDTO
+                                {
+                                    PackageID = pps.PackageId,
+                                    ProductSupplierID = pps.ProductSupplierId,
+                                    ProductName = pr.ProdName,
+                                    SupplierName = s.SupName
+                                }).ToListAsync();
+
+            return result;
         }
     }
 }

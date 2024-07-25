@@ -24,7 +24,7 @@ public partial class Package
     public decimal? PkgAgencyCommission { get; set; }
 
     [InverseProperty("Package")]
-    public virtual ICollection<PackagesProductsSupplier> PackagesProductsSuppliers { get; set; } = new List<PackagesProductsSupplier>();
+    public virtual ICollection<PackagesProductsSupplierDTO> PackagesProductsSuppliers { get; set; } = new List<PackagesProductsSupplierDTO>();
 }
 
 
