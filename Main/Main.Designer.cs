@@ -208,7 +208,7 @@
             btnModify.Location = new Point(172, 58);
             btnModify.Margin = new Padding(2);
             btnModify.Name = "btnModify";
-            btnModify.Size = new Size(112, 34);
+            btnModify.Size = new Size(78, 20);
             btnModify.TabIndex = 3;
             btnModify.Text = "Modify";
             btnModify.UseVisualStyleBackColor = true;
@@ -219,7 +219,7 @@
             btnAdd.Location = new Point(32, 59);
             btnAdd.Margin = new Padding(2);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(112, 34);
+            btnAdd.Size = new Size(78, 20);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
@@ -231,7 +231,7 @@
             txtQuery.Margin = new Padding(2);
             txtQuery.Name = "txtQuery";
             txtQuery.PlaceholderText = "Search...";
-            txtQuery.Size = new Size(248, 31);
+            txtQuery.Size = new Size(175, 23);
             txtQuery.TabIndex = 0;
             // 
             // dgvView
@@ -254,7 +254,7 @@
             // 
             // Main
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1764, 904);
             Controls.Add(dgvView);

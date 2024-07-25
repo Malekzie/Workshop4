@@ -43,6 +43,7 @@ public partial class TravelExpertsContext : DbContext
             entity.Property(e => e.PkgAgencyCommission).HasDefaultValue(0m);
         });
 
+
         modelBuilder.Entity<PackagesProductsSupplier>(entity =>
         {
             entity.HasKey(e => e.PackageProductSupplierId).HasName("PK__Packages__53E8ED99B65B5F2C");
