@@ -16,15 +16,15 @@ namespace Main.Utils
                 case "PackageDTO":
                     RenamePackageColumns(dgv);
                     break;
-                case "ProductDTO":
-                    RenameProductColumns(dgv);
-                    break;
-                case "SupplierDTO":
-                    RenameSupplierColumns(dgv);
-                    break;
-                case "ProductSupplierDTO":
-                    RenameProductSupplierColumns(dgv);
-                    break;
+                //case "ProductDTO":
+                //    RenameProductColumns(dgv);
+                //    break;
+                //case "SupplierDTO":
+                //    RenameSupplierColumns(dgv);
+                //    break;
+                //case "ProductSupplierDTO":
+                //    RenameProductSupplierColumns(dgv);
+                //    break;
             }
         }
 
@@ -66,67 +66,67 @@ namespace Main.Utils
             }
         }
 
-        //If the given type is a Package,
-        private static void RenameProductColumns(DataGridView dgv)
-        {
-            //For every column within our DataGridView on the primary form,
-            foreach (DataGridViewColumn column in dgv.Columns)
-            {
-                //Set our column headers and styles based on which database column they represent. 
-                switch (column.DataPropertyName)
-                {
-                    case "ProductId":
-                        column.HeaderText = "Product ID";
-                        break;
-                    case "ProdName":
-                        column.HeaderText = "Product Name";
-                        break;
+        ////If the given type is a Package,
+        //private static void RenameProductColumns(DataGridView dgv)
+        //{
+        //    //For every column within our DataGridView on the primary form,
+        //    foreach (DataGridViewColumn column in dgv.Columns)
+        //    {
+        //        //Set our column headers and styles based on which database column they represent. 
+        //        switch (column.DataPropertyName)
+        //        {
+        //            case "ProductId":
+        //                column.HeaderText = "Product ID";
+        //                break;
+        //            case "ProdName":
+        //                column.HeaderText = "Product Name";
+        //                break;
 
-                }
-            }
-        }
+        //        }
+        //    }
+        //}
 
-        //If the given type is a Supplier,
-        private static void RenameSupplierColumns(DataGridView dgv)
-        {
-            //For every column within our DataGridView on the primary form,
-            foreach (DataGridViewColumn column in dgv.Columns)
-            {
-                //Set our column headers and styles based on which database column they represent. 
-                switch (column.DataPropertyName)
-                {
-                    case "SupplierId":
-                        column.HeaderText = "Supplier ID";
-                        break;
-                    case "SupName":
-                        column.HeaderText = "Supplier Name";
-                        break;
-                        // Add more case statements for other supplier columns as needed
-                }
-            }
-        }
+        ////If the given type is a Supplier,
+        //private static void RenameSupplierColumns(DataGridView dgv)
+        //{
+        //    //For every column within our DataGridView on the primary form,
+        //    foreach (DataGridViewColumn column in dgv.Columns)
+        //    {
+        //        //Set our column headers and styles based on which database column they represent. 
+        //        switch (column.DataPropertyName)
+        //        {
+        //            case "SupplierId":
+        //                column.HeaderText = "Supplier ID";
+        //                break;
+        //            case "SupName":
+        //                column.HeaderText = "Supplier Name";
+        //                break;
+        //                // Add more case statements for other supplier columns as needed
+        //        }
+        //    }
+        //}
 
-        //If the given type is a Supplier,
-        private static void RenameProductSupplierColumns(DataGridView dgv)
-        {
-            //For every column within our DataGridView on the primary form,
-            foreach (DataGridViewColumn column in dgv.Columns)
-            {
-                //Set our column headers and styles based on which database column they represent. 
-                switch (column.DataPropertyName)
-                {
-                    case "ProductSupplierId":
-                        column.HeaderText = "Product Supplier ID";
-                        break;
-                    case "ProductId":
-                        column.HeaderText = "Product ID";
-                        break;
-                    case "SupplierId":
-                        column.HeaderText = "Supplier ID";
-                        break;
-                        // Add more case statements for other product supplier columns as needed
-                }
-            }
-        }
+        ////If the given type is a Supplier,
+        //private static void RenameProductSupplierColumns(DataGridView dgv)
+        //{
+        //    //For every column within our DataGridView on the primary form,
+        //    foreach (DataGridViewColumn column in dgv.Columns)
+        //    {
+        //        //Set our column headers and styles based on which database column they represent. 
+        //        switch (column.DataPropertyName)
+        //        {
+        //            case "ProductSupplierId":
+        //                column.HeaderText = "Product Supplier ID";
+        //                break;
+        //            case "ProductName":
+        //                column.HeaderText = "Product Name";
+        //                break;
+        //            case "SupplierName":
+        //                column.HeaderText = "Supplier Name";
+        //                break;
+        //                // Add more case statements for other product supplier columns as needed
+        //        }
+        //    }
+        //}
     }
 }
