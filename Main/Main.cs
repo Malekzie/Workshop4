@@ -48,7 +48,6 @@ namespace Main
             var data = DataCache.Instance.Packages;
             currentDataType = "PackageDTO";
             LoadData(data, currentDataType);
-            MessageBox.Show("Packages Loaded");
         }
 
         //If the user clicks the "Products" button, 
@@ -72,9 +71,8 @@ namespace Main
         {
             var data = DataCache.Instance.ProductSuppliers;
             currentDataType = "ProductSupplierDTO";
-            LoadData(data, currentDataType); // Adjust as needed
+            LoadData(data, currentDataType);
         }
-
         // If the user clicks the "Exit" button,
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -175,10 +173,12 @@ namespace Main
                     }
                     catch (Exception ex)
                     {
-                        MessageBox.Show($"An error occurred while deleting the package. Please try again. { ex.Message }");
+                        MessageBox.Show($"An error occurred while deleting the package. Please try again. {ex.Message}");
                     }
                 }
             }
         }
+
+
     }
 }

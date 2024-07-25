@@ -51,20 +51,20 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(29, 50);
-            label1.Margin = new Padding(2, 0, 2, 0);
+            label1.Location = new Point(20, 30);
+            label1.Margin = new Padding(1, 0, 1, 0);
             label1.Name = "label1";
-            label1.Size = new Size(132, 25);
+            label1.Size = new Size(89, 15);
             label1.TabIndex = 0;
             label1.Text = "Package Name:";
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(6, 21);
-            label2.Margin = new Padding(2, 0, 2, 0);
+            label2.Location = new Point(11, 17);
+            label2.Margin = new Padding(1, 0, 1, 0);
             label2.Name = "label2";
-            label2.Size = new Size(101, 25);
+            label2.Size = new Size(66, 15);
             label2.TabIndex = 1;
             label2.Text = "Product ID:";
             // 
@@ -72,11 +72,11 @@
             // 
             grbID.Controls.Add(txtId);
             grbID.Controls.Add(label2);
-            grbID.Location = new Point(546, 12);
-            grbID.Margin = new Padding(2);
+            grbID.Location = new Point(378, 1);
+            grbID.Margin = new Padding(1, 1, 1, 1);
             grbID.Name = "grbID";
-            grbID.Padding = new Padding(2);
-            grbID.Size = new Size(292, 62);
+            grbID.Padding = new Padding(1, 1, 1, 1);
+            grbID.Size = new Size(208, 43);
             grbID.TabIndex = 2;
             grbID.TabStop = false;
             // 
@@ -84,29 +84,29 @@
             // 
             txtId.BackColor = Color.FromArgb(197, 159, 96);
             txtId.ForeColor = SystemColors.Window;
-            txtId.Location = new Point(127, 21);
-            txtId.Margin = new Padding(2);
+            txtId.Location = new Point(89, 13);
+            txtId.Margin = new Padding(1, 1, 1, 1);
             txtId.Name = "txtId";
-            txtId.Size = new Size(150, 31);
+            txtId.Size = new Size(106, 23);
             txtId.TabIndex = 2;
             // 
             // txtPkgName
             // 
             txtPkgName.BackColor = Color.FromArgb(197, 159, 96);
             txtPkgName.ForeColor = SystemColors.Window;
-            txtPkgName.Location = new Point(191, 44);
-            txtPkgName.Margin = new Padding(2);
+            txtPkgName.Location = new Point(134, 22);
+            txtPkgName.Margin = new Padding(1, 1, 1, 1);
             txtPkgName.Name = "txtPkgName";
-            txtPkgName.Size = new Size(209, 31);
+            txtPkgName.Size = new Size(148, 23);
             txtPkgName.TabIndex = 3;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(29, 88);
-            label3.Margin = new Padding(2, 0, 2, 0);
+            label3.Location = new Point(20, 56);
+            label3.Margin = new Padding(1, 0, 1, 0);
             label3.Name = "label3";
-            label3.Size = new Size(94, 25);
+            label3.Size = new Size(61, 15);
             label3.TabIndex = 4;
             label3.Text = "Start Date:";
             // 
@@ -114,39 +114,39 @@
             // 
             dateTimePicker1.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
             dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(191, 81);
-            dateTimePicker1.Margin = new Padding(2);
+            dateTimePicker1.Location = new Point(134, 48);
+            dateTimePicker1.Margin = new Padding(1, 1, 1, 1);
             dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(139, 31);
+            dateTimePicker1.Size = new Size(98, 23);
             dateTimePicker1.TabIndex = 5;
             // 
             // dateTimePicker2
             // 
             dateTimePicker2.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
             dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(622, 80);
-            dateTimePicker2.Margin = new Padding(2);
+            dateTimePicker2.Location = new Point(435, 48);
+            dateTimePicker2.Margin = new Padding(1, 1, 1, 1);
             dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(140, 31);
+            dateTimePicker2.Size = new Size(99, 23);
             dateTimePicker2.TabIndex = 6;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(420, 86);
-            label4.Margin = new Padding(2, 0, 2, 0);
+            label4.Location = new Point(294, 56);
+            label4.Margin = new Padding(1, 0, 1, 0);
             label4.Name = "label4";
-            label4.Size = new Size(88, 25);
+            label4.Size = new Size(57, 15);
             label4.TabIndex = 7;
             label4.Text = "End Date:";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(29, 186);
-            label5.Margin = new Padding(2, 0, 2, 0);
+            label5.Location = new Point(20, 112);
+            label5.Margin = new Padding(1, 0, 1, 0);
             label5.Name = "label5";
-            label5.Size = new Size(106, 25);
+            label5.Size = new Size(70, 15);
             label5.TabIndex = 8;
             label5.Text = "Description:";
             // 
@@ -154,20 +154,20 @@
             // 
             textBox1.BackColor = Color.FromArgb(197, 159, 96);
             textBox1.ForeColor = SystemColors.Window;
-            textBox1.Location = new Point(191, 186);
-            textBox1.Margin = new Padding(2);
+            textBox1.Location = new Point(134, 112);
+            textBox1.Margin = new Padding(1, 1, 1, 1);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(572, 154);
+            textBox1.Size = new Size(402, 94);
             textBox1.TabIndex = 9;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(29, 124);
-            label6.Margin = new Padding(2, 0, 2, 0);
+            label6.Location = new Point(20, 79);
+            label6.Margin = new Padding(1, 0, 1, 0);
             label6.Name = "label6";
-            label6.Size = new Size(94, 25);
+            label6.Size = new Size(63, 15);
             label6.TabIndex = 10;
             label6.Text = "Base Price:";
             // 
@@ -175,19 +175,19 @@
             // 
             textBox2.BackColor = Color.FromArgb(197, 159, 96);
             textBox2.ForeColor = SystemColors.Window;
-            textBox2.Location = new Point(191, 118);
-            textBox2.Margin = new Padding(2);
+            textBox2.Location = new Point(134, 74);
+            textBox2.Margin = new Padding(1, 1, 1, 1);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(139, 31);
+            textBox2.Size = new Size(98, 23);
             textBox2.TabIndex = 11;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(420, 124);
-            label7.Margin = new Padding(2, 0, 2, 0);
+            label7.Location = new Point(294, 84);
+            label7.Margin = new Padding(1, 0, 1, 0);
             label7.Name = "label7";
-            label7.Size = new Size(171, 25);
+            label7.Size = new Size(115, 15);
             label7.TabIndex = 12;
             label7.Text = "Agency Commision:";
             // 
@@ -195,19 +195,19 @@
             // 
             textBox3.BackColor = Color.FromArgb(197, 159, 96);
             textBox3.ForeColor = SystemColors.Window;
-            textBox3.Location = new Point(622, 118);
-            textBox3.Margin = new Padding(2);
+            textBox3.Location = new Point(437, 76);
+            textBox3.Margin = new Padding(1, 1, 1, 1);
             textBox3.Name = "textBox3";
-            textBox3.Size = new Size(140, 31);
+            textBox3.Size = new Size(99, 23);
             textBox3.TabIndex = 13;
             // 
             // btnConfirm
             // 
             btnConfirm.ForeColor = SystemColors.ControlText;
-            btnConfirm.Location = new Point(191, 419);
-            btnConfirm.Margin = new Padding(2);
+            btnConfirm.Location = new Point(134, 251);
+            btnConfirm.Margin = new Padding(1, 1, 1, 1);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(112, 34);
+            btnConfirm.Size = new Size(78, 20);
             btnConfirm.TabIndex = 14;
             btnConfirm.Text = "Confirm";
             btnConfirm.UseVisualStyleBackColor = true;
@@ -215,10 +215,10 @@
             // btnCancel
             // 
             btnCancel.ForeColor = SystemColors.ControlText;
-            btnCancel.Location = new Point(574, 419);
-            btnCancel.Margin = new Padding(2);
+            btnCancel.Location = new Point(402, 251);
+            btnCancel.Margin = new Padding(1, 1, 1, 1);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(112, 34);
+            btnCancel.Size = new Size(78, 20);
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
@@ -226,10 +226,10 @@
             // 
             // AddModifyPackages
             // 
-            AutoScaleDimensions = new SizeF(10F, 25F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 22, 31);
-            ClientSize = new Size(862, 465);
+            ClientSize = new Size(603, 279);
             Controls.Add(btnCancel);
             Controls.Add(btnConfirm);
             Controls.Add(textBox3);
@@ -246,7 +246,7 @@
             Controls.Add(grbID);
             Controls.Add(label1);
             ForeColor = SystemColors.ControlLightLight;
-            Margin = new Padding(2);
+            Margin = new Padding(1, 1, 1, 1);
             Name = "AddModifyPackages";
             Text = "AddModifyPackage";
             grbID.ResumeLayout(false);
