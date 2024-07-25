@@ -109,14 +109,32 @@ namespace Main
 
         private void btnModify_Click(object sender, EventArgs e)
         {
-
-            var id = Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value);
-
+            // Checks to prevent errors
             if (currentDataType == "")
             {
                 MessageBox.Show("No table has been selected. Please choose one from the sidebar before editing a row.", "Cannot Edit Row");
                 return;
             }
+
+            if (dgvView.CurrentRow == null || dgvView.CurrentRow.Cells[0].Value == null)
+            {
+                MessageBox.Show("No row selected or the selected row ID is invalid.", "Cannot Edit Row");
+                return;
+            }
+
+            if (!int.TryParse(dgvView.CurrentRow.Cells[0].Value.ToString(), out int id))
+            {
+                MessageBox.Show("Selected row ID is invalid.", "Cannot Edit Row");
+                return;
+            }
+            
+            // Now Checking for data type
+            if (currentDataType == "")
+            {
+                MessageBox.Show("No table has been selected. Please choose one from the sidebar before editing a row.", "Cannot Edit Row");
+                return;
+            }
+
             if (currentDataType == "PackageDTO")
             {
                 var form = new AddModifyPackages("Modify", _unitOfWork, id);

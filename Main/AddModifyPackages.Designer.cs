@@ -50,12 +50,14 @@
             label9 = new Label();
             txtSup = new TextBox();
             txtProd = new TextBox();
+            label10 = new Label();
+            label11 = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(18, 56);
+            label1.Location = new Point(18, 51);
             label1.Margin = new Padding(1, 0, 1, 0);
             label1.Name = "label1";
             label1.Size = new Size(89, 15);
@@ -95,7 +97,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(18, 82);
+            label3.Location = new Point(18, 80);
             label3.Margin = new Padding(1, 0, 1, 0);
             label3.Name = "label3";
             label3.Size = new Size(61, 15);
@@ -126,7 +128,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(365, 82);
+            label4.Location = new Point(365, 80);
             label4.Margin = new Padding(1, 0, 1, 0);
             label4.Name = "label4";
             label4.Size = new Size(57, 15);
@@ -157,7 +159,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(365, 107);
+            label6.Location = new Point(365, 102);
             label6.Margin = new Padding(1, 0, 1, 0);
             label6.Name = "label6";
             label6.Size = new Size(63, 15);
@@ -177,7 +179,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(18, 107);
+            label7.Location = new Point(18, 102);
             label7.Margin = new Padding(1, 0, 1, 0);
             label7.Name = "label7";
             label7.Size = new Size(115, 15);
@@ -206,6 +208,7 @@
             btnConfirm.TabIndex = 14;
             btnConfirm.Text = "Confirm";
             btnConfirm.UseVisualStyleBackColor = false;
+            btnConfirm.Click += btnConfirm_Click;
             // 
             // btnCancel
             // 
@@ -223,35 +226,41 @@
             // 
             // lsbSup
             // 
+            lsbSup.BackColor = Color.FromArgb(197, 159, 96);
+            lsbSup.Font = new Font("Sitka Banner", 12F);
             lsbSup.FormattingEnabled = true;
-            lsbSup.ItemHeight = 15;
-            lsbSup.Location = new Point(618, 25);
+            lsbSup.ItemHeight = 23;
+            lsbSup.Location = new Point(609, 84);
             lsbSup.Name = "lsbSup";
-            lsbSup.Size = new Size(258, 349);
+            lsbSup.Size = new Size(147, 303);
             lsbSup.TabIndex = 16;
+            lsbSup.SelectedIndexChanged += lsbSup_SelectedIndexChanged;
             // 
             // lsbProd
             // 
+            lsbProd.BackColor = Color.FromArgb(197, 159, 96);
+            lsbProd.Font = new Font("Sitka Banner", 12F);
             lsbProd.FormattingEnabled = true;
-            lsbProd.ItemHeight = 15;
-            lsbProd.Location = new Point(901, 25);
+            lsbProd.ItemHeight = 23;
+            lsbProd.Location = new Point(762, 84);
             lsbProd.Name = "lsbProd";
-            lsbProd.Size = new Size(184, 349);
+            lsbProd.Size = new Size(127, 303);
             lsbProd.TabIndex = 17;
+            lsbProd.SelectedIndexChanged += lsbProd_SelectedIndexChanged;
             // 
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(365, 130);
+            label8.Location = new Point(365, 129);
             label8.Name = "label8";
-            label8.Size = new Size(54, 15);
+            label8.Size = new Size(52, 15);
             label8.TabIndex = 18;
-            label8.Text = "Package:";
+            label8.Text = "Product:";
             // 
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(18, 135);
+            label9.Location = new Point(18, 129);
             label9.Name = "label9";
             label9.Size = new Size(53, 15);
             label9.TabIndex = 19;
@@ -260,7 +269,7 @@
             // txtSup
             // 
             txtSup.BackColor = Color.FromArgb(197, 159, 96);
-            txtSup.Location = new Point(162, 127);
+            txtSup.Location = new Point(164, 126);
             txtSup.Name = "txtSup";
             txtSup.Size = new Size(170, 23);
             txtSup.TabIndex = 20;
@@ -268,17 +277,39 @@
             // txtProd
             // 
             txtProd.BackColor = Color.FromArgb(197, 159, 96);
-            txtProd.Location = new Point(436, 127);
+            txtProd.Location = new Point(438, 126);
             txtProd.Name = "txtProd";
             txtProd.Size = new Size(139, 23);
             txtProd.TabIndex = 21;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Sitka Heading", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(623, 46);
+            label10.Name = "label10";
+            label10.Size = new Size(110, 35);
+            label10.TabIndex = 22;
+            label10.Text = "Suppliers";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Sitka Heading", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(771, 46);
+            label11.Name = "label11";
+            label11.Size = new Size(104, 35);
+            label11.TabIndex = 23;
+            label11.Text = "Products";
             // 
             // AddModifyPackages
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 22, 31);
-            ClientSize = new Size(1108, 399);
+            ClientSize = new Size(901, 399);
+            Controls.Add(label11);
+            Controls.Add(label10);
             Controls.Add(txtProd);
             Controls.Add(txtSup);
             Controls.Add(label9);
@@ -333,5 +364,7 @@
         private Label label9;
         private TextBox txtSup;
         private TextBox txtProd;
+        private Label label10;
+        private Label label11;
     }
 }

@@ -1,12 +1,15 @@
-﻿using TravelExpertsData.Repository.IRepository;
+﻿using TravelExpertsData.Models;
+using TravelExpertsData.Repository.IRepository;
 
 namespace Main
 {
     public partial class AddModifyPackages : Form
     {
-        private readonly string _operationType;
         private readonly IUnitOfWork _unitOfWork;
-
+        // Operation type (Add or Modify)
+        private readonly string _operationType;
+        // Holds the current product supplier IDs for the package
+        private List<int> _currentProductSupplierIds;
 
         public AddModifyPackages(string operationType, IUnitOfWork unitOfWork, int id = 0)
         {
@@ -38,7 +41,6 @@ namespace Main
             {
                 txtId.Enabled = false;
                 var package = await _unitOfWork.Packages.GetByIdAsync(id);
-                
 
                 if (package != null)
                 {
@@ -51,15 +53,21 @@ namespace Main
                     txtAgencyComm.Text = package.PkgAgencyCommission.ToString();
                 }
 
-                
+
                 var prodSup = await _unitOfWork.Packages.GetProdSupAsync(id);
                 lsbProd.Items.Clear();
                 lsbSup.Items.Clear();
+                _currentProductSupplierIds = new List<int>();
+
                 foreach (var item in prodSup)
                 {
                     lsbProd.Items.Add(new ListBoxItem { Text = item.ProductName.ToString(), Value = item.ProductSupplierID });
                     lsbSup.Items.Add(new ListBoxItem { Text = item.SupplierName.ToString(), Value = item.ProductSupplierID });
+
+                    _currentProductSupplierIds.Add(item.ProductSupplierID);
                 }
+
+
             }
         }
 
@@ -78,5 +86,71 @@ namespace Main
                 return Text;
             }
         }
+
+        private void lsbProd_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lsbProd.SelectedItem != null)
+            {
+                txtProd.Text = ((ListBoxItem)lsbProd.SelectedItem).Text;
+            }
+        }
+
+        private void lsbSup_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (lsbSup.SelectedItem != null)
+            {
+                txtSup.Text = ((ListBoxItem)lsbSup.SelectedItem).Text;
+            }
+        }
+
+        private async void btnConfirm_Click(object sender, EventArgs e)
+        {
+            if (_operationType == "Add")
+            {
+                // Create a new package
+                var package = new Package
+                {
+                    PkgName = txtPkgName.Text,
+                    PkgStartDate = dtpStartDate.Value,
+                    PkgEndDate = dtpEndDate.Value,
+                    PkgDesc = txtDesc.Text,
+                    PkgBasePrice = decimal.Parse(txtBasePrice.Text),
+                    PkgAgencyCommission = decimal.Parse(txtAgencyComm.Text)
+                };
+
+                await _unitOfWork.Packages.AddAsync(package);
+                await _unitOfWork.CompleteAsync();
+
+                // Add associations
+                var newProductSupplierIds = lsbProd.Items.Cast<ListBoxItem>().Select(i => i.Value).ToList();
+                await _unitOfWork.Packages.UpdateRelations(package.PackageId, newProductSupplierIds);
+            }
+            else if (_operationType == "Modify")
+            {
+                // Update the existing package
+                var package = await _unitOfWork.Packages.GetByIdAsync(int.Parse(txtId.Text));
+
+                if (package != null)
+                {
+                    package.PkgName = txtPkgName.Text;
+                    package.PkgStartDate = dtpStartDate.Value;
+                    package.PkgEndDate = dtpEndDate.Value;
+                    package.PkgDesc = txtDesc.Text;
+                    package.PkgBasePrice = decimal.Parse(txtBasePrice.Text);
+                    package.PkgAgencyCommission = decimal.Parse(txtAgencyComm.Text);
+
+                    await _unitOfWork.Packages.UpdateAsync(package);
+                    await _unitOfWork.CompleteAsync();
+
+                    // Update associations
+                    var newProductSupplierIds = lsbProd.Items.Cast<ListBoxItem>().Select(i => i.Value).ToList();
+                    await _unitOfWork.Packages.UpdateRelations(package.PackageId, newProductSupplierIds);
+                }
+            }
+
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
     }
 }

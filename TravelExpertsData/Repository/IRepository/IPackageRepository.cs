@@ -6,5 +6,6 @@ namespace Main.Utils
     {
         Task DeletePackageAsync(int id);
         Task <IEnumerable<PackageProductSupplierDTO>> GetProdSupAsync(int packageId);
+        Task UpdateRelations(int packageId, List<int> prodSupId);
     }
 }

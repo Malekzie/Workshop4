@@ -60,5 +60,25 @@ namespace TravelExpertsData.Repository
 
             return result;
         }
+
+        public async Task UpdateRelations(int packageId, List<int> newProductSupplierIds)
+        {
+            // Remove existing associations
+            var existingAssociations = _context.PackagesProductsSuppliers.Where(pps => pps.PackageId == packageId);
+            _context.PackagesProductsSuppliers.RemoveRange(existingAssociations);
+
+            // Add new associations
+            foreach (var newId in newProductSupplierIds)
+            {
+                var newAssociation = new PackagesProductsSupplierDTO
+                {
+                    PackageId = packageId,
+                    ProductSupplierId = newId
+                };
+                await _context.PackagesProductsSuppliers.AddAsync(newAssociation);
+            }
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
