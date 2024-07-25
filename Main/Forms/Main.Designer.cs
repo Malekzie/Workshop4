@@ -34,6 +34,7 @@
             viewSup = new Button();
             viewProdSup = new Button();
             panel1 = new Panel();
+            open = new Button();
             btnExit = new Button();
             btnRemove = new Button();
             btnModify = new Button();
@@ -41,7 +42,6 @@
             btnSubmit = new Button();
             txtQuery = new TextBox();
             dgvView = new DataGridView();
-            open = new Button();
             flowLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dgvView).BeginInit();
@@ -59,7 +59,7 @@
             flowLayoutPanel1.Dock = DockStyle.Left;
             flowLayoutPanel1.FlowDirection = FlowDirection.TopDown;
             flowLayoutPanel1.Location = new Point(0, 0);
-            flowLayoutPanel1.Margin = new Padding(2, 2, 2, 2);
+            flowLayoutPanel1.Margin = new Padding(2);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
             flowLayoutPanel1.Size = new Size(168, 542);
             flowLayoutPanel1.TabIndex = 0;
@@ -77,7 +77,7 @@
             viewPkg.ForeColor = SystemColors.Window;
             viewPkg.ImageAlign = ContentAlignment.MiddleLeft;
             viewPkg.Location = new Point(2, 2);
-            viewPkg.Margin = new Padding(2, 2, 2, 2);
+            viewPkg.Margin = new Padding(2);
             viewPkg.Name = "viewPkg";
             viewPkg.Size = new Size(162, 35);
             viewPkg.TabIndex = 0;
@@ -97,7 +97,7 @@
             viewProd.ForeColor = SystemColors.Window;
             viewProd.ImageAlign = ContentAlignment.MiddleLeft;
             viewProd.Location = new Point(2, 41);
-            viewProd.Margin = new Padding(2, 2, 2, 2);
+            viewProd.Margin = new Padding(2);
             viewProd.Name = "viewProd";
             viewProd.Size = new Size(162, 35);
             viewProd.TabIndex = 1;
@@ -117,7 +117,7 @@
             viewSup.ForeColor = SystemColors.Window;
             viewSup.ImageAlign = ContentAlignment.MiddleLeft;
             viewSup.Location = new Point(2, 80);
-            viewSup.Margin = new Padding(2, 2, 2, 2);
+            viewSup.Margin = new Padding(2);
             viewSup.Name = "viewSup";
             viewSup.Size = new Size(162, 35);
             viewSup.TabIndex = 2;
@@ -137,7 +137,7 @@
             viewProdSup.ForeColor = SystemColors.Window;
             viewProdSup.ImageAlign = ContentAlignment.MiddleLeft;
             viewProdSup.Location = new Point(2, 119);
-            viewProdSup.Margin = new Padding(2, 2, 2, 2);
+            viewProdSup.Margin = new Padding(2);
             viewProdSup.Name = "viewProdSup";
             viewProdSup.Size = new Size(162, 35);
             viewProdSup.TabIndex = 3;
@@ -158,10 +158,24 @@
             panel1.Controls.Add(txtQuery);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(168, 0);
-            panel1.Margin = new Padding(2, 2, 2, 2);
+            panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
             panel1.Size = new Size(1067, 91);
             panel1.TabIndex = 1;
+            // 
+            // open
+            // 
+            open.BackColor = Color.FromArgb(219, 34, 42);
+            open.BackgroundImageLayout = ImageLayout.Center;
+            open.ForeColor = SystemColors.ControlLight;
+            open.Location = new Point(778, 30);
+            open.Margin = new Padding(2);
+            open.Name = "open";
+            open.Size = new Size(99, 30);
+            open.TabIndex = 6;
+            open.Text = "Test";
+            open.TextImageRelation = TextImageRelation.TextAboveImage;
+            open.UseVisualStyleBackColor = false;
             // 
             // btnExit
             // 
@@ -171,7 +185,7 @@
             btnExit.FlatStyle = FlatStyle.Flat;
             btnExit.ForeColor = SystemColors.ControlLight;
             btnExit.Location = new Point(970, 33);
-            btnExit.Margin = new Padding(2, 2, 2, 2);
+            btnExit.Margin = new Padding(2);
             btnExit.Name = "btnExit";
             btnExit.Size = new Size(81, 23);
             btnExit.TabIndex = 5;
@@ -186,7 +200,7 @@
             btnRemove.FlatStyle = FlatStyle.Flat;
             btnRemove.ForeColor = SystemColors.ControlLight;
             btnRemove.Location = new Point(212, 34);
-            btnRemove.Margin = new Padding(2, 2, 2, 2);
+            btnRemove.Margin = new Padding(2);
             btnRemove.Name = "btnRemove";
             btnRemove.Size = new Size(81, 23);
             btnRemove.TabIndex = 4;
@@ -200,7 +214,7 @@
             btnModify.FlatStyle = FlatStyle.Flat;
             btnModify.ForeColor = SystemColors.ControlLight;
             btnModify.Location = new Point(117, 34);
-            btnModify.Margin = new Padding(2, 2, 2, 2);
+            btnModify.Margin = new Padding(2);
             btnModify.Name = "btnModify";
             btnModify.Size = new Size(81, 23);
             btnModify.TabIndex = 3;
@@ -215,7 +229,7 @@
             btnAdd.FlatStyle = FlatStyle.Flat;
             btnAdd.ForeColor = SystemColors.ControlLight;
             btnAdd.Location = new Point(20, 34);
-            btnAdd.Margin = new Padding(2, 2, 2, 2);
+            btnAdd.Margin = new Padding(2);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(81, 23);
             btnAdd.TabIndex = 2;
@@ -229,7 +243,7 @@
             btnSubmit.FlatStyle = FlatStyle.Flat;
             btnSubmit.ForeColor = SystemColors.ControlLight;
             btnSubmit.Location = new Point(600, 34);
-            btnSubmit.Margin = new Padding(2, 2, 2, 2);
+            btnSubmit.Margin = new Padding(2);
             btnSubmit.Name = "btnSubmit";
             btnSubmit.Size = new Size(81, 23);
             btnSubmit.TabIndex = 1;
@@ -241,7 +255,7 @@
             txtQuery.BackColor = Color.FromArgb(31, 34, 53);
             txtQuery.ForeColor = SystemColors.Window;
             txtQuery.Location = new Point(402, 34);
-            txtQuery.Margin = new Padding(2, 2, 2, 2);
+            txtQuery.Margin = new Padding(2);
             txtQuery.Name = "txtQuery";
             txtQuery.PlaceholderText = "Search...";
             txtQuery.Size = new Size(175, 23);
@@ -260,27 +274,13 @@
             dgvView.Dock = DockStyle.Fill;
             dgvView.GridColor = Color.FromArgb(31, 34, 53);
             dgvView.Location = new Point(168, 91);
-            dgvView.Margin = new Padding(2, 2, 2, 2);
+            dgvView.Margin = new Padding(2);
             dgvView.MultiSelect = false;
             dgvView.Name = "dgvView";
             dgvView.RowHeadersWidth = 62;
             dgvView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvView.Size = new Size(1067, 451);
             dgvView.TabIndex = 2;
-            // 
-            // open
-            // 
-            open.BackColor = Color.FromArgb(219, 34, 42);
-            open.BackgroundImageLayout = ImageLayout.Center;
-            open.ForeColor = SystemColors.ControlLight;
-            open.Location = new Point(778, 30);
-            open.Margin = new Padding(2);
-            open.Name = "open";
-            open.Size = new Size(99, 30);
-            open.TabIndex = 6;
-            open.Text = "Test";
-            open.TextImageRelation = TextImageRelation.TextAboveImage;
-            open.UseVisualStyleBackColor = false;
             // 
             // Main
             // 
@@ -291,7 +291,7 @@
             Controls.Add(dgvView);
             Controls.Add(panel1);
             Controls.Add(flowLayoutPanel1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "Main";
             Text = "Dashboard";
             flowLayoutPanel1.ResumeLayout(false);
