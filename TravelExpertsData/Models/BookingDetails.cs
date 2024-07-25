@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace TravelExpertsData.Models;
 
 
-    public class BookingDetail
+    public class BookingDetails
     {
         public int BookingDetailId { get; set; }
         public int BookingId { get; set; } // Reference to Booking table if exists

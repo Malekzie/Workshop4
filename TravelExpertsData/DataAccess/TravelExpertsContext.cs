@@ -25,6 +25,8 @@ public partial class TravelExpertsContext : DbContext
 
     public virtual DbSet<Supplier> Suppliers { get; set; }
 
+    public DbSet<SupplierContacts> SupplierContacts { get; set; }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         if (!optionsBuilder.IsConfigured)
@@ -83,6 +85,14 @@ public partial class TravelExpertsContext : DbContext
                 .HasName("aaaaaSuppliers_PK")
                 .IsClustered(false);
         });
+
+       modelBuilder.Entity<SupplierContacts>(entity =>
+        {
+            entity.HasKey(e => e.SupplierContactId)
+                .HasName("aaaaaSupplierContacts_PK")
+                .IsClustered(false);
+        });
+
 
         OnModelCreatingPartial(modelBuilder);
     }

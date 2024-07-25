@@ -1,6 +1,7 @@
 using Main.Utils;
 using Microsoft.EntityFrameworkCore;
 using TravelExpertsData.DataAccess;
+using TravelExpertsData.Models;
 
 namespace Main
 {
@@ -15,6 +16,7 @@ namespace Main
             InitializeComponent();
             context = new TravelExpertsContext();
         }
+        
 
         private void LoadData<T>(List<T> data, string dataType)
         {
@@ -83,7 +85,7 @@ namespace Main
                     case "Package":
                         RemovePackage(selectedId);
                         break;
-                    case "Products":
+                    case "Product":
                         RemoveProduct(selectedId);
                         break;
                     case "Supplier":
@@ -141,15 +143,11 @@ namespace Main
                     .Where(ps => ps.ProductId == productId)
                     .ToList();
 
-                // If no bookings, safe to remove entries in ProductsSuppliers
-                context.ProductsSuppliers.RemoveRange(relatedProductSuppliers);
-
                 // Now delete the Product itself
                 context.Products.Remove(productToRemove);
                 context.SaveChanges();
 
-                //LoadProducts();//going to update this when I can figure out what data to pass in
-                //supposed to refresh the table here
+                //LoadProducts(); // Refresh the DataGridView
                 MessageBox.Show("Product removed successfully.");
             }
             else
@@ -163,36 +161,22 @@ namespace Main
             var supplierToRemove = context.Suppliers.Find(supplierId);
             if (supplierToRemove != null)
             {
-                // First, remove any entries in ProductsSuppliers that reference this supplier
+                // Remove related entries in SupplierContacts
+                var relatedSupplierContacts = context.SupplierContacts
+                    .Where(sc => sc.SupplierId == supplierId)
+                    .ToList();
+                context.SupplierContacts.RemoveRange(relatedSupplierContacts);
+
+                // Remove related entries in ProductsSuppliers
                 var relatedProductSuppliers = context.ProductsSuppliers
                     .Where(ps => ps.SupplierId == supplierId)
                     .ToList();
-
-                /* IMPORTANT: This is commented out because I have no idea if this will fix the problems im having
-                 * 
-                // Check if these product suppliers are referenced in BookingDetails or other tables
-                foreach (var ps in relatedProductSuppliers)
-                {
-                    var relatedBookings = context.BookingDetails
-                        .Where(bd => bd.ProductSupplierId == ps.ProductSupplierId)
-                        .ToList();
-
-                    if (relatedBookings.Any())
-                    {
-                        MessageBox.Show("Cannot delete supplier: It is referenced in existing bookings.");
-                        return; // Abort the deletion if there are related bookings
-                    }
-                }
-
-                // If no bookings, safe to remove entries in ProductsSuppliers
                 context.ProductsSuppliers.RemoveRange(relatedProductSuppliers);
-                */
+
                 // Now delete the Supplier itself
                 context.Suppliers.Remove(supplierToRemove);
                 context.SaveChanges();
 
-                //LoadSuppliers(); going to update this when I can figure out what data to pass in
-                //supposed to refresh the table here
                 MessageBox.Show("Supplier removed successfully.");
             }
             else

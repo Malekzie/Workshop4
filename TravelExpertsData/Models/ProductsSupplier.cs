@@ -19,6 +19,7 @@ public partial class ProductsSupplier
 
     public int? SupplierId { get; set; }
 
+
     [InverseProperty("ProductSupplier")]
     public virtual ICollection<PackagesProductsSupplier> PackagesProductsSuppliers { get; set; } = new List<PackagesProductsSupplier>();
 
