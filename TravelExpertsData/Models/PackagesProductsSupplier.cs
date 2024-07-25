@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TravelExpertsData.Models;
+﻿namespace TravelExpertsData.Models;
 
 [Table("Packages_Products_Suppliers")]
 [Index("PackageId", Name = "PackagesPackages_Products_Suppliers")]

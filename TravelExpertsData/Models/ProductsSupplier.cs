@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TravelExpertsData.Models;
+﻿namespace TravelExpertsData.Models;
 
 [Table("Products_Suppliers")]
 [Index("SupplierId", Name = "Product Supplier ID")]
@@ -31,11 +27,3 @@ public partial class ProductsSupplier
     public virtual Supplier? Supplier { get; set; }
 }
 
-public class ProductsSupplierDTO
-{
-    public int ProductSupplierId { get; set; }
-    public int? ProductId { get; set; }
-    public int? SupplierId { get; set; }
-    public string? ProductName { get; set; }
-    public string? SupplierName { get; set; }
-}

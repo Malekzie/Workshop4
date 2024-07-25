@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TravelExpertsData.Models;
+﻿namespace TravelExpertsData.Models;
 
 public partial class Package
 {
@@ -30,14 +27,4 @@ public partial class Package
     public virtual ICollection<PackagesProductsSupplier> PackagesProductsSuppliers { get; set; } = new List<PackagesProductsSupplier>();
 }
 
-public class PackageDTO
-{
-    public int PackageId { get; set; }
-    public string PkgName { get; set; } = null!;
-    public DateTime? PkgStartDate { get; set; }
-    public DateTime? PkgEndDate { get; set; }
-    public string PkgDesc { get; set; } = null!;
-    public decimal PkgBasePrice { get; set; }
-    public decimal? PkgAgencyCommission { get; set; }
-}
 

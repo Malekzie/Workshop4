@@ -1,8 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace TravelExpertsData.Models;
+﻿namespace TravelExpertsData.Models;
 
 [Index("SupplierId", Name = "SupplierId")]
 public partial class Supplier
@@ -15,11 +11,4 @@ public partial class Supplier
 
     [InverseProperty("Supplier")]
     public virtual ICollection<ProductsSupplier> ProductsSuppliers { get; set; } = new List<ProductsSupplier>();
-}
-
-public class SupplierDTO
-{
-    public int SupplierId { get; set; }
-    public string SupName { get; set; } = null!;
-
 }

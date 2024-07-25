@@ -1,4 +1,7 @@
 ﻿using TravelExpertsData.Models;
+using TravelExpertsData.Models.DTO;
+using TravelExpertsData.Models.ViewModel;
+
 
 namespace TravelExpertsData.DataAccess
 {
@@ -32,6 +35,12 @@ namespace TravelExpertsData.DataAccess
                     return instance;
                 }
             }
+        }
+
+        // Add a method to refresh the data
+        public void Refresh()
+        {
+            LoadData();
         }
 
         private void LoadData()
@@ -69,9 +78,7 @@ namespace TravelExpertsData.DataAccess
                     .Join(context.Suppliers, ps2 => ps2.ps.SupplierId, s => s.SupplierId, (ps2, s) => new ProductsSupplierDTO
                 {
                     ProductSupplierId = ps2.ps.ProductSupplierId,
-                    ProductId = ps2.ps.ProductId,
                     ProductName = ps2.p.ProdName, 
-                    SupplierId = ps2.ps.SupplierId,
                     SupplierName = s.SupName}).OrderBy(ps => ps.ProductSupplierId).ToList();         
 //Todo, clean up select statement and fix column orders
                 PackageProductSuppliers = context.PackagesProductsSuppliers.ToList();
