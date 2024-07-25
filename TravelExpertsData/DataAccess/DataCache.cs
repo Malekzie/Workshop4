@@ -1,6 +1,9 @@
-﻿using TravelExpertsData.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using TravelExpertsData.Models;
+using TravelExpertsData.Repositories;
+using TravelExpertsData.Repository.IRepository;
+using TravelExpertsData.Repository;
 
 namespace TravelExpertsData.DataAccess
 {
@@ -8,6 +11,7 @@ namespace TravelExpertsData.DataAccess
     {
         private static DataCache instance = null;
         private static readonly object padlock = new object();
+        private readonly IUnitOfWork _unitOfWork;
 
         public List<PackageDTO> Packages { get; set; }
         public List<ProductDTO> Products { get; set; }
@@ -15,8 +19,9 @@ namespace TravelExpertsData.DataAccess
         public List<ProductsSupplierDTO> ProductSuppliers { get; set; }
         public List<PackagesProductsSupplier> PackageProductSuppliers { get; set; }
 
-        DataCache()
+        DataCache(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             LoadData();
         }
 
@@ -28,71 +33,97 @@ namespace TravelExpertsData.DataAccess
                 {
                     if (instance == null)
                     {
-                        instance = new DataCache();
+                        instance = new DataCache(new UnitOfWork(new TravelExpertsContext()));
                     }
                     return instance;
                 }
             }
         }
 
-        public List<dynamic> DisplayProductSuppliers
-        {
-            get
-            {
-                return ProductSuppliers
-                        .Select(ps => new
-                        {
-                            ps.ProductSupplierId,
-                            ps.ProductName,
-                            ps.SupplierName
-                        })
-                        .Cast<dynamic>()
-                        .ToList();
-            }
-        }
-
         private void LoadData()
         {
-            using (var context = new TravelExpertsContext())
+            Packages = _unitOfWork.Packages.GetAll().Select(p => new PackageDTO
             {
-                Packages = context.Packages
-                    .Select(p => new PackageDTO
-                    {
-                        PackageId = p.PackageId,
-                        PkgName = p.PkgName,
-                        PkgStartDate = p.PkgStartDate,
-                        PkgEndDate = p.PkgEndDate,
-                        PkgDesc = p.PkgDesc,
-                        PkgBasePrice = p.PkgBasePrice,
-                        PkgAgencyCommission = p.PkgAgencyCommission
-                    }).ToList();
+                PackageId = p.PackageId,
+                PkgName = p.PkgName,
+                PkgStartDate = p.PkgStartDate,
+                PkgEndDate = p.PkgEndDate,
+                PkgDesc = p.PkgDesc,
+                PkgBasePrice = p.PkgBasePrice,
+                PkgAgencyCommission = p.PkgAgencyCommission
+            }).ToList();
 
-                Products = context.Products
-                    .Select(p => new ProductDTO
-                    {
-                        ProductId = p.ProductId,
-                        ProdName = p.ProdName
-                    }).ToList();
+            Products = _unitOfWork.Products.GetAll().Select(p => new ProductDTO
+            {
+                ProductId = p.ProductId,
+                ProdName = p.ProdName
+            }).ToList();
 
-                Suppliers = context.Suppliers
-                    .Select(s => new SupplierDTO
-                    {
-                        SupplierId = s.SupplierId,
-                        SupName = s.SupName
-                    }).ToList();
+            Suppliers = _unitOfWork.Suppliers.GetAll().Select(s => new SupplierDTO
+            {
+                SupplierId = s.SupplierId,
+                SupName = s.SupName
+            }).ToList();
 
-                ProductSuppliers = context.ProductsSuppliers
-                     .Select(ps => new ProductsSupplierDTO
-                     {
-                         ProductSupplierId = ps.ProductSupplierId,
-                         ProductId = ps.ProductId,
-                         SupplierId = ps.SupplierId,
-                         ProductName = ps.Product.ProdName,
-                         SupplierName = ps.Supplier.SupName
-                     }).ToList();
+            ProductSuppliers = _unitOfWork.ProductSuppliers.GetAll().Select(ps => new ProductsSupplierDTO
+            {
+                ProductSupplierId = ps.ProductSupplierId,
+                ProductId = ps.ProductId,
+                SupplierId = ps.SupplierId,
+                ProductName = ps.Product.ProdName,
+                SupplierName = ps.Supplier.SupName
+            }).ToList();
 
-                PackageProductSuppliers = context.PackagesProductsSuppliers.ToList();
-            }
+            PackageProductSuppliers = _unitOfWork.PackageProductSuppliers.GetAll().ToList();
+        }
+
+        public void ReloadPackages()
+        {
+            Packages = _unitOfWork.Packages.GetAll().Select(p => new PackageDTO
+            {
+                PackageId = p.PackageId,
+                PkgName = p.PkgName,
+                PkgStartDate = p.PkgStartDate,
+                PkgEndDate = p.PkgEndDate,
+                PkgDesc = p.PkgDesc,
+                PkgBasePrice = p.PkgBasePrice,
+                PkgAgencyCommission = p.PkgAgencyCommission
+            }).ToList();
+        }
+
+        public void ReloadProducts()
+        {
+            Products = _unitOfWork.Products.GetAll().Select(p => new ProductDTO
+            {
+                ProductId = p.ProductId,
+                ProdName = p.ProdName
+            }).ToList();
+        }
+
+        public void ReloadSuppliers()
+        {
+            Suppliers = _unitOfWork.Suppliers.GetAll().Select(s => new SupplierDTO
+            {
+                SupplierId = s.SupplierId,
+                SupName = s.SupName
+            }).ToList();
+        }
+
+        public void ReloadProductSuppliers()
+        {
+            ProductSuppliers = _unitOfWork.ProductSuppliers.GetAll().Select(ps => new ProductsSupplierDTO
+            {
+                ProductSupplierId = ps.ProductSupplierId,
+                ProductId = ps.ProductId,
+                SupplierId = ps.SupplierId,
+                ProductName = ps.Product.ProdName,
+                SupplierName = ps.Supplier.SupName
+            }).ToList();
+        }
+
+        public void ReloadPackageProductSuppliers()
+        {
+            PackageProductSuppliers = _unitOfWork.PackageProductSuppliers.GetAll().ToList();
         }
     }
 }
