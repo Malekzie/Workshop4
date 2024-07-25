@@ -12,7 +12,7 @@ namespace Main
 {
     public partial class AddModifyPackages : Form
     {
-        public AddModifyPackages(string operationType, int id = 0) //set default id to next autonumber?
+        public AddModifyPackages(string operationType, int id = 0)
         {
             InitializeComponent();
             txtId.Text = id.ToString();

@@ -34,12 +34,12 @@
             viewSup = new Button();
             viewProdSup = new Button();
             panel1 = new Panel();
-            open = new Button();
             btnExit = new Button();
+            btnSubmit = new Button();
             btnRemove = new Button();
+            open = new Button();
             btnModify = new Button();
             btnAdd = new Button();
-            btnSubmit = new Button();
             txtQuery = new TextBox();
             dgvView = new DataGridView();
             flowLayoutPanel1.SuspendLayout();
@@ -60,7 +60,7 @@
             flowLayoutPanel1.Location = new Point(0, 0);
             flowLayoutPanel1.Margin = new Padding(2);
             flowLayoutPanel1.Name = "flowLayoutPanel1";
-            flowLayoutPanel1.Size = new Size(189, 723);
+            flowLayoutPanel1.Size = new Size(235, 904);
             flowLayoutPanel1.TabIndex = 0;
             flowLayoutPanel1.WrapContents = false;
             // 
@@ -78,7 +78,7 @@
             viewPkg.Location = new Point(2, 2);
             viewPkg.Margin = new Padding(2);
             viewPkg.Name = "viewPkg";
-            viewPkg.Size = new Size(185, 30);
+            viewPkg.Size = new Size(231, 44);
             viewPkg.TabIndex = 0;
             viewPkg.Text = "Packages";
             viewPkg.UseVisualStyleBackColor = false;
@@ -95,10 +95,10 @@
             viewProd.FlatStyle = FlatStyle.Flat;
             viewProd.ForeColor = SystemColors.Window;
             viewProd.ImageAlign = ContentAlignment.MiddleLeft;
-            viewProd.Location = new Point(2, 36);
+            viewProd.Location = new Point(2, 50);
             viewProd.Margin = new Padding(2);
             viewProd.Name = "viewProd";
-            viewProd.Size = new Size(185, 30);
+            viewProd.Size = new Size(231, 44);
             viewProd.TabIndex = 1;
             viewProd.Text = "Products";
             viewProd.UseVisualStyleBackColor = false;
@@ -115,10 +115,10 @@
             viewSup.FlatStyle = FlatStyle.Flat;
             viewSup.ForeColor = SystemColors.Window;
             viewSup.ImageAlign = ContentAlignment.MiddleLeft;
-            viewSup.Location = new Point(2, 70);
+            viewSup.Location = new Point(2, 98);
             viewSup.Margin = new Padding(2);
             viewSup.Name = "viewSup";
-            viewSup.Size = new Size(185, 30);
+            viewSup.Size = new Size(231, 44);
             viewSup.TabIndex = 2;
             viewSup.Text = "Suppliers";
             viewSup.UseVisualStyleBackColor = false;
@@ -135,10 +135,10 @@
             viewProdSup.FlatStyle = FlatStyle.Flat;
             viewProdSup.ForeColor = SystemColors.Window;
             viewProdSup.ImageAlign = ContentAlignment.MiddleLeft;
-            viewProdSup.Location = new Point(2, 104);
+            viewProdSup.Location = new Point(2, 146);
             viewProdSup.Margin = new Padding(2);
             viewProdSup.Name = "viewProdSup";
-            viewProdSup.Size = new Size(185, 30);
+            viewProdSup.Size = new Size(231, 44);
             viewProdSup.TabIndex = 3;
             viewProdSup.Text = "Product Suppliers";
             viewProdSup.UseVisualStyleBackColor = false;
@@ -147,58 +147,67 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(32, 22, 31);
-            panel1.Controls.Add(open);
             panel1.Controls.Add(btnExit);
+            panel1.Controls.Add(btnSubmit);
             panel1.Controls.Add(btnRemove);
+            panel1.Controls.Add(open);
             panel1.Controls.Add(btnModify);
             panel1.Controls.Add(btnAdd);
-            panel1.Controls.Add(btnSubmit);
             panel1.Controls.Add(txtQuery);
             panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(189, 0);
+            panel1.Location = new Point(235, 0);
             panel1.Margin = new Padding(2);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1222, 120);
+            panel1.Size = new Size(1529, 150);
             panel1.TabIndex = 1;
+            // 
+            // btnExit
+            // 
+            btnExit.Location = new Point(1406, 58);
+            btnExit.Margin = new Padding(2);
+            btnExit.Name = "btnExit";
+            btnExit.Size = new Size(112, 34);
+            btnExit.TabIndex = 9;
+            btnExit.Text = "Exit";
+            btnExit.UseVisualStyleBackColor = true;
+            // 
+            // btnSubmit
+            // 
+            btnSubmit.Location = new Point(847, 58);
+            btnSubmit.Margin = new Padding(2);
+            btnSubmit.Name = "btnSubmit";
+            btnSubmit.Size = new Size(112, 34);
+            btnSubmit.TabIndex = 8;
+            btnSubmit.Text = "Search";
+            btnSubmit.UseVisualStyleBackColor = true;
+            // 
+            // btnRemove
+            // 
+            btnRemove.Location = new Point(318, 58);
+            btnRemove.Margin = new Padding(2);
+            btnRemove.Name = "btnRemove";
+            btnRemove.Size = new Size(112, 34);
+            btnRemove.TabIndex = 7;
+            btnRemove.Text = "Remove";
+            btnRemove.UseVisualStyleBackColor = true;
             // 
             // open
             // 
-            open.Location = new Point(898, 53);
+            open.Location = new Point(1122, 66);
             open.Margin = new Padding(2);
             open.Name = "open";
-            open.Size = new Size(90, 27);
+            open.Size = new Size(112, 34);
             open.TabIndex = 6;
             open.Text = "Test";
             open.TextImageRelation = TextImageRelation.TextAboveImage;
             open.UseVisualStyleBackColor = false;
             // 
-            // btnExit
-            // 
-            btnExit.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnExit.Location = new Point(1122, 47);
-            btnExit.Margin = new Padding(2);
-            btnExit.Name = "btnExit";
-            btnExit.Size = new Size(90, 27);
-            btnExit.TabIndex = 5;
-            btnExit.Text = "Exit";
-            btnExit.UseVisualStyleBackColor = false;
-            btnExit.Click += btnExit_Click;
-            // 
-            // btnRemove
-            // 
-            btnRemove.Location = new Point(313, 59);
-            btnRemove.Name = "btnRemove";
-            btnRemove.Size = new Size(90, 27);
-            btnRemove.TabIndex = 4;
-            btnRemove.Text = "Remove";
-            btnRemove.UseVisualStyleBackColor = false;
-            // 
             // btnModify
             // 
-            btnModify.Location = new Point(138, 46);
+            btnModify.Location = new Point(172, 58);
             btnModify.Margin = new Padding(2);
             btnModify.Name = "btnModify";
-            btnModify.Size = new Size(90, 27);
+            btnModify.Size = new Size(112, 34);
             btnModify.TabIndex = 3;
             btnModify.Text = "Modify";
             btnModify.UseVisualStyleBackColor = true;
@@ -206,32 +215,22 @@
             // 
             // btnAdd
             // 
-            btnAdd.Location = new Point(26, 47);
+            btnAdd.Location = new Point(32, 59);
             btnAdd.Margin = new Padding(2);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(90, 27);
+            btnAdd.Size = new Size(112, 34);
             btnAdd.TabIndex = 2;
             btnAdd.Text = "Add";
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
-            // btnSubmit
-            // 
-            btnSubmit.Location = new Point(680, 47);
-            btnSubmit.Margin = new Padding(2);
-            btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(90, 27);
-            btnSubmit.TabIndex = 1;
-            btnSubmit.Text = "Submit";
-            btnSubmit.UseVisualStyleBackColor = false;
-            // 
             // txtQuery
             // 
-            txtQuery.Location = new Point(462, 47);
+            txtQuery.Location = new Point(578, 59);
             txtQuery.Margin = new Padding(2);
             txtQuery.Name = "txtQuery";
             txtQuery.PlaceholderText = "Search...";
-            txtQuery.Size = new Size(199, 27);
+            txtQuery.Size = new Size(248, 31);
             txtQuery.TabIndex = 0;
             // 
             // dgvView
@@ -241,23 +240,22 @@
             dgvView.AllowUserToResizeColumns = false;
             dgvView.AllowUserToResizeRows = false;
             dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvView.BackgroundColor = Color.FromArgb(32, 22, 31);
             dgvView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvView.Dock = DockStyle.Fill;
-            dgvView.Location = new Point(189, 120);
+            dgvView.Location = new Point(235, 150);
             dgvView.Margin = new Padding(2);
             dgvView.Name = "dgvView";
             dgvView.RowHeadersWidth = 62;
-            dgvView.Size = new Size(1222, 603);
+            dgvView.Size = new Size(1529, 754);
             dgvView.TabIndex = 2;
             dgvView.CellClick += dgvView_CellClick;
             // 
             // Main
             // 
-            AcceptButton = btnSubmit;
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            CancelButton = btnExit;
-            ClientSize = new Size(1411, 723);
+            ClientSize = new Size(1764, 904);
             Controls.Add(dgvView);
             Controls.Add(panel1);
             Controls.Add(flowLayoutPanel1);
@@ -280,14 +278,14 @@
         private Button viewPkg;
         private Button viewProd;
         private Button viewSup;
-        private Button btnSubmit;
         private TextBox txtQuery;
         private DataGridView dgvView;
-        private Button btnRemove;
         private Button btnModify;
         private Button btnAdd;
         private Button viewProdSup;
-        private Button btnExit;
         private Button open;
+        private Button btnSubmit;
+        private Button btnRemove;
+        private Button btnExit;
     }
 }
