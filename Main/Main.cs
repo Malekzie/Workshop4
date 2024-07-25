@@ -6,14 +6,19 @@
 //Application dependencies
 using Main.Utils;
 using TravelExpertsData.DataAccess;
+using TravelExpertsData.Repository.IRepository;
 
 namespace Main
 {
     public partial class Main : Form
     {
+
         private string currentDataType = "";
-        public Main()
+        private readonly IUnitOfWork _unitOfWork;
+
+        public Main(IUnitOfWork unitOfWork)
         {
+            _unitOfWork = unitOfWork;
             InitializeComponent();
         }
 
@@ -43,6 +48,7 @@ namespace Main
             var data = DataCache.Instance.Packages;
             currentDataType = "PackageDTO";
             LoadData(data, currentDataType);
+            MessageBox.Show("Packages Loaded");
         }
 
         //If the user clicks the "Products" button, 
@@ -114,13 +120,64 @@ namespace Main
             }
             if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle (currentDataType, "Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
+                using var form = new AddModifySingle(currentDataType, "Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
                 form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
             }
             if (currentDataType == "ProductSupplierDTO")
             {
                 using var form = new AddModifyCommon("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
                 form.ShowDialog();
+            }
+        }
+
+        private async void btnRemove_Click(object sender, EventArgs e)
+        {
+            if (dgvView.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a package to delete.");
+                return;
+            }
+
+            // Ensure that the selected row's cells are not null
+            if (dgvView.CurrentRow.Cells[0].Value == null)
+            {
+                MessageBox.Show("Selected package ID is invalid.");
+                return;
+            }
+
+            // Convert the selected package ID to an integer
+            if (!int.TryParse(dgvView.CurrentRow.Cells[0].Value.ToString(), out int packageId))
+            {
+                MessageBox.Show("Selected package ID is invalid.");
+                return;
+            }
+
+            if (currentDataType == "")
+            {
+                MessageBox.Show("No table has been selected. Please choose one from the sidebar before removing a row.", "Cannot Remove Row");
+                return;
+            }
+            if (currentDataType == "PackageDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this package?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    try
+                    {
+
+                        await _unitOfWork.Packages.DeletePackageAsync(packageId);
+                        await _unitOfWork.CompleteAsync();
+
+                        DataCache.Instance.Refresh();
+
+                        MessageBox.Show("Package Deleted");
+                        dgvView.DataSource = DataCache.Instance.Packages;
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"An error occurred while deleting the package. Please try again. { ex.Message }");
+                    }
+                }
             }
         }
     }
