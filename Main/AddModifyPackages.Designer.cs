@@ -73,9 +73,9 @@
             grbID.Controls.Add(txtId);
             grbID.Controls.Add(label2);
             grbID.Location = new Point(437, 10);
-            grbID.Margin = new Padding(2, 2, 2, 2);
+            grbID.Margin = new Padding(2);
             grbID.Name = "grbID";
-            grbID.Padding = new Padding(2, 2, 2, 2);
+            grbID.Padding = new Padding(2);
             grbID.Size = new Size(234, 50);
             grbID.TabIndex = 2;
             grbID.TabStop = false;
@@ -83,7 +83,7 @@
             // txtId
             // 
             txtId.Location = new Point(110, 12);
-            txtId.Margin = new Padding(2, 2, 2, 2);
+            txtId.Margin = new Padding(2);
             txtId.Name = "txtId";
             txtId.Size = new Size(121, 27);
             txtId.TabIndex = 2;
@@ -91,7 +91,7 @@
             // txtPkgName
             // 
             txtPkgName.Location = new Point(153, 35);
-            txtPkgName.Margin = new Padding(2, 2, 2, 2);
+            txtPkgName.Margin = new Padding(2);
             txtPkgName.Name = "txtPkgName";
             txtPkgName.Size = new Size(168, 27);
             txtPkgName.TabIndex = 3;
@@ -110,7 +110,7 @@
             // 
             dateTimePicker1.Format = DateTimePickerFormat.Short;
             dateTimePicker1.Location = new Point(153, 65);
-            dateTimePicker1.Margin = new Padding(2, 2, 2, 2);
+            dateTimePicker1.Margin = new Padding(2);
             dateTimePicker1.Name = "dateTimePicker1";
             dateTimePicker1.Size = new Size(112, 27);
             dateTimePicker1.TabIndex = 5;
@@ -119,7 +119,7 @@
             // 
             dateTimePicker2.Format = DateTimePickerFormat.Short;
             dateTimePicker2.Location = new Point(498, 64);
-            dateTimePicker2.Margin = new Padding(2, 2, 2, 2);
+            dateTimePicker2.Margin = new Padding(2);
             dateTimePicker2.Name = "dateTimePicker2";
             dateTimePicker2.Size = new Size(113, 27);
             dateTimePicker2.TabIndex = 6;
@@ -147,7 +147,7 @@
             // textBox1
             // 
             textBox1.Location = new Point(153, 149);
-            textBox1.Margin = new Padding(2, 2, 2, 2);
+            textBox1.Margin = new Padding(2);
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(458, 124);
@@ -166,7 +166,7 @@
             // textBox2
             // 
             textBox2.Location = new Point(153, 94);
-            textBox2.Margin = new Padding(2, 2, 2, 2);
+            textBox2.Margin = new Padding(2);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(112, 27);
             textBox2.TabIndex = 11;
@@ -184,7 +184,7 @@
             // textBox3
             // 
             textBox3.Location = new Point(498, 94);
-            textBox3.Margin = new Padding(2, 2, 2, 2);
+            textBox3.Margin = new Padding(2);
             textBox3.Name = "textBox3";
             textBox3.Size = new Size(113, 27);
             textBox3.TabIndex = 13;
@@ -192,7 +192,7 @@
             // btnConfirm
             // 
             btnConfirm.Location = new Point(153, 335);
-            btnConfirm.Margin = new Padding(2, 2, 2, 2);
+            btnConfirm.Margin = new Padding(2);
             btnConfirm.Name = "btnConfirm";
             btnConfirm.Size = new Size(90, 27);
             btnConfirm.TabIndex = 14;
@@ -202,12 +202,13 @@
             // btnCancel
             // 
             btnCancel.Location = new Point(459, 335);
-            btnCancel.Margin = new Padding(2, 2, 2, 2);
+            btnCancel.Margin = new Padding(2);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(90, 27);
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.Click += btnCancel_Click;
             // 
             // AddModifyPackages
             // 
@@ -229,7 +230,7 @@
             Controls.Add(txtPkgName);
             Controls.Add(grbID);
             Controls.Add(label1);
-            Margin = new Padding(2, 2, 2, 2);
+            Margin = new Padding(2);
             Name = "AddModifyPackages";
             Text = "AddModifyPackage";
             grbID.ResumeLayout(false);

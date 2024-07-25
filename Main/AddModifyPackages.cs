@@ -17,5 +17,10 @@ namespace Main
             InitializeComponent();
             txtId.Text = id.ToString();
         }
+
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+        }
     }
 }
