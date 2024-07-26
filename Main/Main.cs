@@ -228,18 +228,14 @@ namespace Main
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this package?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                    try
-                    {
-                        await _unitOfWork.Packages.DeleteAsync(id);
+                
+                        await _unitOfWork.Packages.DeletePackageAsync(id);
                         await _unitOfWork.CompleteAsync();
 
                         MessageBox.Show("Package Deleted");
                         await RefreshData();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"An error occurred while deleting the package. Please try again. {ex.Message}");
-                    }
+                    
+                    
                 }
             }
         }

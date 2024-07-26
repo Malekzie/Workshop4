@@ -57,7 +57,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(18, 51);
+            label1.Location = new Point(18, 49);
             label1.Margin = new Padding(1, 0, 1, 0);
             label1.Name = "label1";
             label1.Size = new Size(89, 15);
@@ -82,17 +82,17 @@
             txtId.Margin = new Padding(1);
             txtId.Name = "txtId";
             txtId.Size = new Size(33, 23);
-            txtId.TabIndex = 2;
+            txtId.TabIndex = 1;
             // 
             // txtPkgName
             // 
             txtPkgName.BackColor = Color.FromArgb(197, 159, 96);
             txtPkgName.ForeColor = SystemColors.Desktop;
-            txtPkgName.Location = new Point(164, 48);
+            txtPkgName.Location = new Point(164, 46);
             txtPkgName.Margin = new Padding(1);
             txtPkgName.Name = "txtPkgName";
             txtPkgName.Size = new Size(148, 23);
-            txtPkgName.TabIndex = 3;
+            txtPkgName.TabIndex = 2;
             // 
             // label3
             // 
@@ -113,17 +113,17 @@
             dtpStartDate.Margin = new Padding(1);
             dtpStartDate.Name = "dtpStartDate";
             dtpStartDate.Size = new Size(98, 23);
-            dtpStartDate.TabIndex = 5;
+            dtpStartDate.TabIndex = 3;
             // 
             // dtpEndDate
             // 
             dtpEndDate.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
             dtpEndDate.Format = DateTimePickerFormat.Short;
-            dtpEndDate.Location = new Point(436, 74);
+            dtpEndDate.Location = new Point(438, 74);
             dtpEndDate.Margin = new Padding(1);
             dtpEndDate.Name = "dtpEndDate";
             dtpEndDate.Size = new Size(99, 23);
-            dtpEndDate.TabIndex = 6;
+            dtpEndDate.TabIndex = 4;
             // 
             // label4
             // 
@@ -159,7 +159,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(365, 102);
+            label6.Location = new Point(18, 105);
             label6.Margin = new Padding(1, 0, 1, 0);
             label6.Name = "label6";
             label6.Size = new Size(63, 15);
@@ -170,16 +170,16 @@
             // 
             txtBasePrice.BackColor = Color.FromArgb(197, 159, 96);
             txtBasePrice.ForeColor = SystemColors.Desktop;
-            txtBasePrice.Location = new Point(437, 99);
+            txtBasePrice.Location = new Point(164, 102);
             txtBasePrice.Margin = new Padding(1);
             txtBasePrice.Name = "txtBasePrice";
             txtBasePrice.Size = new Size(98, 23);
-            txtBasePrice.TabIndex = 11;
+            txtBasePrice.TabIndex = 5;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(18, 102);
+            label7.Location = new Point(18, 133);
             label7.Margin = new Padding(1, 0, 1, 0);
             label7.Name = "label7";
             label7.Size = new Size(115, 15);
@@ -190,11 +190,11 @@
             // 
             txtAgencyComm.BackColor = Color.FromArgb(197, 159, 96);
             txtAgencyComm.ForeColor = SystemColors.Desktop;
-            txtAgencyComm.Location = new Point(164, 99);
+            txtAgencyComm.Location = new Point(164, 130);
             txtAgencyComm.Margin = new Padding(1);
             txtAgencyComm.Name = "txtAgencyComm";
             txtAgencyComm.Size = new Size(99, 23);
-            txtAgencyComm.TabIndex = 13;
+            txtAgencyComm.TabIndex = 6;
             // 
             // btnConfirm
             // 
@@ -205,7 +205,7 @@
             btnConfirm.Margin = new Padding(1);
             btnConfirm.Name = "btnConfirm";
             btnConfirm.Size = new Size(83, 31);
-            btnConfirm.TabIndex = 14;
+            btnConfirm.TabIndex = 10;
             btnConfirm.Text = "Confirm";
             btnConfirm.UseVisualStyleBackColor = false;
             btnConfirm.Click += btnConfirm_Click;
@@ -219,7 +219,7 @@
             btnCancel.Margin = new Padding(1);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(86, 31);
-            btnCancel.TabIndex = 15;
+            btnCancel.TabIndex = 11;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
@@ -253,7 +253,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(365, 129);
+            label8.Location = new Point(365, 160);
             label8.Name = "label8";
             label8.Size = new Size(52, 15);
             label8.TabIndex = 18;
@@ -262,7 +262,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(18, 129);
+            label9.Location = new Point(18, 160);
             label9.Name = "label9";
             label9.Size = new Size(53, 15);
             label9.TabIndex = 19;
@@ -271,18 +271,18 @@
             // txtSup
             // 
             txtSup.BackColor = Color.FromArgb(197, 159, 96);
-            txtSup.Location = new Point(164, 126);
+            txtSup.Location = new Point(164, 157);
             txtSup.Name = "txtSup";
             txtSup.Size = new Size(170, 23);
-            txtSup.TabIndex = 20;
+            txtSup.TabIndex = 7;
             // 
             // txtProd
             // 
             txtProd.BackColor = Color.FromArgb(197, 159, 96);
-            txtProd.Location = new Point(438, 126);
+            txtProd.Location = new Point(438, 157);
             txtProd.Name = "txtProd";
             txtProd.Size = new Size(139, 23);
-            txtProd.TabIndex = 21;
+            txtProd.TabIndex = 8;
             // 
             // label10
             // 
@@ -306,9 +306,11 @@
             // 
             // AddModifyPackages
             // 
+            AcceptButton = btnConfirm;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 22, 31);
+            CancelButton = btnCancel;
             ClientSize = new Size(957, 399);
             Controls.Add(label11);
             Controls.Add(label10);
