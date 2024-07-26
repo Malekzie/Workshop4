@@ -1,13 +1,8 @@
-using Main.Utils;
-using TravelExpertsData.Repository.IRepository;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using TravelExpertsData.Models.DTO;
-using TravelExpertsData.Models.ViewModel;
-using System.ComponentModel;
 using Main.Services;
+using Main.Utils;
+using System.ComponentModel;
 using TravelExpertsData.Models;
+using TravelExpertsData.Repository.IRepository;
 
 namespace Main
 {
@@ -35,7 +30,6 @@ namespace Main
 
             // Rename our DataGridView column using the given formatted string
             ColRename.RenameColumns(dgvView, dataType);
-            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private async void txtQuery_TextChanged(object sender, EventArgs e)
@@ -53,7 +47,7 @@ namespace Main
 
             try
             {
-                var results = await _searchService.PerformSearchAsync(query);
+                var results = _searchService.PerformSearch(query);
 
                 if (results == null || !results.Any())
                 {
@@ -66,6 +60,8 @@ namespace Main
                 var bindingSource = new BindingSource(bindingList, null);
 
                 dgvView.DataSource = bindingSource;
+
+                dgvView.Columns["Data"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -78,74 +74,36 @@ namespace Main
         // If the user clicks the "Packages" button,
         private async void viewPkg_Click(object sender, EventArgs e)
         {
-            await LoadPackagesData();
-        }
-
-        private async Task LoadPackagesData()
-        {
-            var data = (await _unitOfWork.Packages.GetAllAsync()).Select(p => new PackageDTO
-            {
-                PackageId = p.PackageId,
-                PkgName = p.PkgName,
-                PkgStartDate = p.PkgStartDate,
-                PkgEndDate = p.PkgEndDate,
-                PkgDesc = p.PkgDesc,
-                PkgBasePrice = p.PkgBasePrice,
-                PkgAgencyCommission = p.PkgAgencyCommission
-            }).ToList();
+            // Sets current Data Type
             currentDataType = "PackageDTO";
+            // Calls the util to refresh the view, reflecting changes everytime there is a change
+            var data = await DataRefreshUtil.LoadPackagesDataAsync(_unitOfWork);
+            // Loads the data into the view
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Products" button,
         private async void viewProd_Click(object sender, EventArgs e)
         {
-            await LoadProductsData();
-        }
-
-        private async Task LoadProductsData()
-        {
-            var data = (await _unitOfWork.Products.GetAllAsync()).Select(p => new ProductDTO
-            {
-                ProductId = p.ProductId,
-                ProdName = p.ProdName
-            }).ToList();
+            // Sets current Data Type
             currentDataType = "ProductDTO";
+            var data = await DataRefreshUtil.LoadProductsDataAsync(_unitOfWork);
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Suppliers" button,
         private async void viewSup_Click(object sender, EventArgs e)
         {
-            await LoadSuppliersData();
-        }
-
-        private async Task LoadSuppliersData()
-        {
-            var data = (await _unitOfWork.Suppliers.GetAllAsync()).Select(s => new SupplierDTO
-            {
-                SupplierId = s.SupplierId,
-                SupName = s.SupName
-            }).ToList();
             currentDataType = "SupplierDTO";
+            var data = await DataRefreshUtil.LoadSuppliersDataAsync(_unitOfWork);
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Product Suppliers" button,
         private async void viewProdSup_Click(object sender, EventArgs e)
         {
-            await LoadProductSuppliersData();
-        }
-
-        private async Task LoadProductSuppliersData()
-        {
-            var data = (await _unitOfWork.ProductsSuppliers.GetAllAsync(ps => ps.Product, ps => ps.Supplier)).Select(ps => new ProductsSupplierDTO
-            {
-                ProductSupplierId = ps.ProductSupplierId,
-                ProductName = ps.Product?.ProdName,
-                SupplierName = ps.Supplier?.SupName
-            }).ToList();
             currentDataType = "ProductSupplierDTO";
+            var data = await DataRefreshUtil.LoadProductSuppliersDataAsync(_unitOfWork);
             LoadData(data, currentDataType);
         }
 
@@ -174,7 +132,7 @@ namespace Main
             }
             if (currentDataType == "ProductDTO" || currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle(currentDataType, "Add");
+                using var form = new AddModifySingle(_unitOfWork, currentDataType, "Add");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -182,7 +140,7 @@ namespace Main
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon("Add");
+                using var form = new AddModifyCommon(_unitOfWork, "Add");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -221,7 +179,7 @@ namespace Main
             }
             if (currentDataType == "ProductDTO" || currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle(currentDataType, "Modify", id);
+                using var form = new AddModifySingle(_unitOfWork, currentDataType, "Modify", id);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -229,7 +187,7 @@ namespace Main
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon("Modify", id);
+                using var form = new AddModifyCommon(_unitOfWork, "Modify", id);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -274,10 +232,68 @@ namespace Main
                     await _unitOfWork.Packages.DeletePackageAsync(id);
                     await _unitOfWork.CompleteAsync();
 
+
                     MessageBox.Show("Package Deleted");
                     await RefreshData();
+                }
+            }
+            else if (currentDataType == "ProductDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    var doubleConfirm = MessageBox.Show("It will delete all all entries related, are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
+                    if (doubleConfirm == DialogResult.Yes)
+                    {
+                        try
+                        {
+                            await _unitOfWork.Products.DeleteProductAsync(id);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                        await _unitOfWork.CompleteAsync();
 
+                        MessageBox.Show("Product Deleted");
+                        await RefreshData();
+                    }
+                }
+            }
+            else if (currentDataType == "SupplierDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    var doubleConfirm = MessageBox.Show("It will delete all all entries related, are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
+                    if (doubleConfirm == DialogResult.Yes)
+                    {
 
+                        try
+                        {
+                            await _unitOfWork.Suppliers.DeleteSupplierAsync(id);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
+                        await _unitOfWork.CompleteAsync();
+
+                        MessageBox.Show("Supplier Deleted");
+                        await RefreshData();
+                    }
+                }
+            }
+            else if (currentDataType == "ProductSupplierDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this product supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    await _unitOfWork.ProductsSuppliers.DeleteAsync(id);
+                    await _unitOfWork.CompleteAsync();
+
+                    MessageBox.Show("Product Supplier Deleted");
+                    await RefreshData();
                 }
             }
         }
@@ -288,22 +304,29 @@ namespace Main
             switch (currentDataType)
             {
                 case "PackageDTO":
-                    await LoadPackagesData();
+                    var packageData = await DataRefreshUtil.LoadPackagesDataAsync(_unitOfWork);
+                    LoadData(packageData, currentDataType);
                     break;
                 case "ProductDTO":
-                    await LoadProductsData();
+                    var productData = await DataRefreshUtil.LoadProductsDataAsync(_unitOfWork);
+                    LoadData(productData, currentDataType);
                     break;
                 case "SupplierDTO":
-                    await LoadSuppliersData();
+                    var supplierData = await DataRefreshUtil.LoadSuppliersDataAsync(_unitOfWork);
+                    LoadData(supplierData, currentDataType);
                     break;
                 case "ProductSupplierDTO":
-                    await LoadProductSuppliersData();
+                    var productSupplierData = await DataRefreshUtil.LoadProductSuppliersDataAsync(_unitOfWork);
+                    LoadData(productSupplierData, currentDataType);
                     break;
                 default:
                     break;
             }
         }
 
-        
+        private async void Main_Load(object sender, EventArgs e)
+        {
+            await _searchService.InitializeDataAsync();
+        }
     }
 }

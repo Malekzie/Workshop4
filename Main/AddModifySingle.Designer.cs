@@ -40,53 +40,60 @@
             // 
             lblId.AutoSize = true;
             lblId.ForeColor = SystemColors.ControlLightLight;
-            lblId.Location = new Point(42, 45);
+            lblId.Location = new Point(29, 72);
+            lblId.Margin = new Padding(4, 0, 4, 0);
             lblId.Name = "lblId";
-            lblId.Size = new Size(20, 15);
+            lblId.Size = new Size(32, 25);
             lblId.TabIndex = 0;
             lblId.Text = "Id:";
             // 
             // txtId
             // 
-            txtId.Location = new Point(101, 42);
+            txtId.Location = new Point(156, 69);
+            txtId.Margin = new Padding(4, 5, 4, 5);
             txtId.Name = "txtId";
-            txtId.Size = new Size(100, 23);
+            txtId.Size = new Size(141, 31);
             txtId.TabIndex = 1;
             // 
             // lblName
             // 
             lblName.AutoSize = true;
-            lblName.Location = new Point(42, 74);
+            lblName.Location = new Point(29, 120);
+            lblName.Margin = new Padding(4, 0, 4, 0);
             lblName.Name = "lblName";
-            lblName.Size = new Size(42, 15);
+            lblName.Size = new Size(63, 25);
             lblName.TabIndex = 2;
             lblName.Text = "Name:";
             // 
             // txtName
             // 
-            txtName.Location = new Point(101, 71);
+            txtName.Location = new Point(156, 117);
+            txtName.Margin = new Padding(4, 5, 4, 5);
             txtName.Name = "txtName";
-            txtName.Size = new Size(100, 23);
+            txtName.Size = new Size(141, 31);
             txtName.TabIndex = 3;
             // 
             // btnConfirm
             // 
             btnConfirm.BackColor = Color.FromArgb(197, 159, 96);
             btnConfirm.FlatStyle = FlatStyle.Flat;
-            btnConfirm.Location = new Point(42, 121);
+            btnConfirm.Location = new Point(60, 202);
+            btnConfirm.Margin = new Padding(4, 5, 4, 5);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(75, 23);
+            btnConfirm.Size = new Size(107, 38);
             btnConfirm.TabIndex = 4;
             btnConfirm.Text = "Save";
             btnConfirm.UseVisualStyleBackColor = false;
+            btnConfirm.Click += btnConfirm_Click;
             // 
             // btnExit
             // 
             btnExit.BackColor = Color.FromArgb(197, 159, 96);
             btnExit.FlatStyle = FlatStyle.Flat;
-            btnExit.Location = new Point(158, 121);
+            btnExit.Location = new Point(226, 202);
+            btnExit.Margin = new Padding(4, 5, 4, 5);
             btnExit.Name = "btnExit";
-            btnExit.Size = new Size(75, 23);
+            btnExit.Size = new Size(107, 38);
             btnExit.TabIndex = 5;
             btnExit.Text = "Cancel";
             btnExit.UseVisualStyleBackColor = false;
@@ -95,11 +102,11 @@
             // AddModifySingle
             // 
             AcceptButton = btnConfirm;
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 22, 31);
             CancelButton = btnExit;
-            ClientSize = new Size(276, 190);
+            ClientSize = new Size(394, 317);
             ControlBox = false;
             Controls.Add(btnExit);
             Controls.Add(btnConfirm);
@@ -108,6 +115,7 @@
             Controls.Add(txtId);
             Controls.Add(lblId);
             ForeColor = SystemColors.ControlLightLight;
+            Margin = new Padding(4, 5, 4, 5);
             Name = "AddModifySingle";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "AddModifySingle";

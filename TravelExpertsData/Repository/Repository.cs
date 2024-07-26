@@ -57,5 +57,26 @@ namespace TravelExpertsData.Repository
             await _context.SaveChangesAsync();
             return entity;
         }
+
+        public async Task<int> GetNextIdAsync()
+        {
+            var entityType = typeof(T);
+            var idProperty = entityType.GetProperties()
+                                       .FirstOrDefault(p => p.Name.EndsWith("Id", StringComparison.OrdinalIgnoreCase));
+
+            if (idProperty == null)
+            {
+                throw new InvalidOperationException($"No ID property found on type {entityType.Name}");
+            }
+
+            // Fetch all entities into memory
+            var allEntities = await _context.Set<T>().ToListAsync();
+
+            // Get the maximum ID value
+            var maxId = allEntities.Max(e => (int)idProperty.GetValue(e));
+
+            return maxId + 1;
+        }
+
     }
 }

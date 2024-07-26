@@ -1,12 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TravelExpertsData.Models;
-using TravelExpertsData.Models.DTO;
-using TravelExpertsData.Repository.IRepository;
-
-namespace TravelExpertsData.Repository
+﻿namespace TravelExpertsData.Repository
 {
     public class PackagesProductsSupplierRepository : Repository<PackagesProductsSupplierDTO>, IPackagesProductsSupplierRepository
     {
