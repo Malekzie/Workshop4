@@ -27,10 +27,10 @@ namespace TravelExpertsData.Repository
             }
 
             // Proceed with deletion if there are no relations
-            var supplier = await _context.Suppliers.FindAsync(productId);
-            if (supplier != null)
+            var product = await _context.Products.FindAsync(productId);
+            if (product != null)
             {
-                _context.Suppliers.Remove(supplier);
+                _context.Products.Remove(product);
                 await _context.SaveChangesAsync();
                 return true;
             }
