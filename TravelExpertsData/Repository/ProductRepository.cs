@@ -18,24 +18,20 @@ namespace TravelExpertsData.Repository
 
         public async Task<bool> DeleteProductAsync(int productId)
         {
-
-            // Check if there are related ProductSupplier entries
-            bool hasRelations = await _context.ProductsSuppliers.AnyAsync(ps => ps.ProductId == productId);
-            if (hasRelations)
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null)
             {
                 return false;
             }
 
-            // Proceed with deletion if there are no relations
-            var product = await _context.Products.FindAsync(productId);
-            if (product != null)
-            {
-                _context.Products.Remove(product);
-                await _context.SaveChangesAsync();
-                return true;
-            }
+            // Delete related ProductSupplier entries
+            var productSuppliers = _context.ProductsSuppliers.Where(ps => ps.ProductId == productId);
+            _context.ProductsSuppliers.RemoveRange(productSuppliers);
 
-            return false;
+            // Delete the product
+            _context.Products.Remove(product);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }

@@ -22,23 +22,21 @@ namespace TravelExpertsData.Repository
 
         public async Task<bool> DeleteSupplierAsync(int supplierId)
         {
-            // Check if there are related ProductSupplier entries
-            bool hasRelations = await _context.ProductsSuppliers.AnyAsync(ps => ps.SupplierId == supplierId);
-            if (hasRelations)
+            // Find the supplier
+            var supplier = await _context.Suppliers.FindAsync(supplierId);
+            if (supplier == null)
             {
                 return false;
             }
 
-            // Proceed with deletion if there are no relations
-            var supplier = await _context.Suppliers.FindAsync(supplierId);
-            if (supplier != null)
-            {
-                _context.Suppliers.Remove(supplier);
-                await _context.SaveChangesAsync();
-                return true;
-            }
+            // Delete related ProductSupplier entries
+            var productSuppliers = _context.ProductsSuppliers.Where(ps => ps.SupplierId == supplierId);
+            _context.ProductsSuppliers.RemoveRange(productSuppliers);
 
-            return false;
+            // Delete the supplier
+            _context.Suppliers.Remove(supplier);
+            await _context.SaveChangesAsync();
+            return true;
         }
     }
 }
