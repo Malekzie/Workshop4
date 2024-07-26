@@ -52,5 +52,6 @@ namespace Main.Services
                 .Union(productSupplierResults)
                 .ToList();
         }
+
     }
 }

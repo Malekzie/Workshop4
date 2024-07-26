@@ -21,10 +21,6 @@ namespace Main
             _operationType = operationType;
             _unitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 
-            // Ensure multi-selection is enabled
-            lsbProd.SelectionMode = SelectionMode.MultiExtended;
-            lsbSup.SelectionMode = SelectionMode.MultiExtended;
-
             LoadData(id);
 
             this.Text = _operationType == "Add" ? "Add Package" : "Modify Package";

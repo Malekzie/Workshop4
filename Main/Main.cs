@@ -5,7 +5,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TravelExpertsData.Models.DTO;
 using TravelExpertsData.Models.ViewModel;
+using System.ComponentModel;
 using Main.Services;
+using TravelExpertsData.Models;
 
 namespace Main
 {
@@ -53,41 +55,24 @@ namespace Main
             {
                 var results = await _searchService.PerformSearchAsync(query);
 
-                if (results == null)
+                if (results == null || !results.Any())
                 {
-                    MessageBox.Show("Search results are null.");
+                    MessageBox.Show("No search results found.");
+                    dgvView.DataSource = null; // Clear the data grid view if no results
                     return;
                 }
 
-                if (results.Any())
-                {
-                    var firstResult = results.First();
+                var bindingList = new BindingList<SearchResult>(results);
+                var bindingSource = new BindingSource(bindingList, null);
 
-                    if (firstResult == null)
-                    {
-                        MessageBox.Show("First search result is null.");
-                        return;
-                    }
-
-                    if (firstResult.Data == null)
-                    {
-                        MessageBox.Show("Data in the first search result is null.");
-                        return;
-                    }
-
-                    currentDataType = firstResult.Type;
-                    LoadData(results.Select(r => r.Data).ToList(), currentDataType);
-                }
-                else
-                {
-                    dgvView.DataSource = null; // Clear the data grid view if no results
-                }
+                dgvView.DataSource = bindingSource;
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred during the search: {ex.Message}");
             }
         }
+
 
 
         // If the user clicks the "Packages" button,
