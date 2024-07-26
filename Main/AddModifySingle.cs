@@ -21,48 +21,52 @@ namespace Main
             _operationType = operationType;
             _id = id;
 
-            InitializeForm();
+            InitializeForm().ConfigureAwait(false);
         }
 
-        private async void InitializeForm()
+        private async Task InitializeForm()
         {
+            ConfigureForm();
 
             if (_operationType == "Add")
             {
-                if (_dataType == "ProductDTO")
-                {
-                    Text = "Add Product";
-                    lblId.Text = "Product Id";
-                    lblName.Text = "Product Name";
-                    var nextId = await _unitOfWork.Products.GetNextIdAsync();
-
-                    txtId.Text = nextId.ToString();
-                }
-                else if (_dataType == "SupplierDTO")
-                {
-                    Text = "Add Supplier";
-                    lblId.Text = "Supplier Id";
-                    lblName.Text = "Supplier Name";
-                    var nextId = await _unitOfWork.Suppliers.GetNextIdAsync();
-
-                    txtId.Text = nextId.ToString();
-                }
+                await LoadNextId();
             }
             else if (_operationType == "Modify")
             {
-                if (_dataType == "ProductDTO")
-                {
-                    Text = "Modify Product";
-                    txtId.ReadOnly = true;
-                }
-                else if (_dataType == "SupplierDTO")
-                {
-                    Text = "Modify Supplier";
-                    txtId.ReadOnly = true;
-                }
+                txtId.ReadOnly = true;
+                await LoadData(_id);
             }
+        }
 
-            LoadData(_id).ConfigureAwait(false);
+        private void ConfigureForm()
+        {
+            if (_dataType == "ProductDTO")
+            {
+                Text = _operationType == "Add" ? "Add Product" : "Modify Product";
+                lblId.Text = "Product Id";
+                lblName.Text = "Product Name";
+            }
+            else if (_dataType == "SupplierDTO")
+            {
+                Text = _operationType == "Add" ? "Add Supplier" : "Modify Supplier";
+                lblId.Text = "Supplier Id";
+                lblName.Text = "Supplier Name";
+            }
+        }
+
+        private async Task LoadNextId()
+        {
+            if (_dataType == "ProductDTO")
+            {
+                var nextId = await _unitOfWork.Products.GetNextIdAsync();
+                txtId.Text = nextId.ToString();
+            }
+            else if (_dataType == "SupplierDTO")
+            {
+                var nextId = await _unitOfWork.Suppliers.GetNextIdAsync();
+                txtId.Text = nextId.ToString();
+            }
         }
 
         private async Task LoadData(int id)
@@ -71,18 +75,18 @@ namespace Main
             {
                 if (_dataType == "ProductDTO")
                 {
-                    var results = await _unitOfWork.Products.GetByIdAsync(id);
-                    if (results != null)
+                    var product = await _unitOfWork.Products.GetByIdAsync(id);
+                    if (product != null)
                     {
-                        LoadProdToForm(results);
+                        LoadProdToForm(product);
                     }
                 }
                 else if (_dataType == "SupplierDTO")
                 {
-                    var results = await _unitOfWork.Suppliers.GetByIdAsync(id);
-                    if (results != null)
+                    var supplier = await _unitOfWork.Suppliers.GetByIdAsync(id);
+                    if (supplier != null)
                     {
-                        LoadSuppToForm(results);
+                        LoadSuppToForm(supplier);
                     }
                 }
             }
@@ -92,24 +96,17 @@ namespace Main
             }
         }
 
-        private void LoadProdToForm(Product results)
+        private void LoadProdToForm(Product product)
         {
-            txtId.Text = results.ProductId.ToString();
-            txtName.Text = results.ProdName;
-            lblId.Text = "Product Id";
-            lblName.Text = "Product Name";
+            txtId.Text = product.ProductId.ToString();
+            txtName.Text = product.ProdName;
         }
 
-        private void LoadSuppToForm(Supplier results)
+        private void LoadSuppToForm(Supplier supplier)
         {
-            txtId.Text = results.SupplierId.ToString();
-            txtName.Text = results.SupName;
-            lblId.Text = "Supplier Id";
-            lblName.Text = "Supplier Name";
+            txtId.Text = supplier.SupplierId.ToString();
+            txtName.Text = supplier.SupName;
         }
-
-
-
 
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -120,28 +117,16 @@ namespace Main
         {
             try
             {
-                if (_dataType == "ProductDTO")
+                if (_operationType == "Add")
                 {
-                    if (_operationType == "Add")
-                    {
-                        await AddProductAsync();
-                    }
-                    else if (_operationType == "Modify")
-                    {
-                        await ModifyProductAsync();
-                    }
+                    await AddDataAsync();
                 }
-                else if (_dataType == "SupplierDTO")
+                else if (_operationType == "Modify")
                 {
-                    if (_operationType == "Add")
-                    {
-                        await AddSupplierAsync();
-                    }
-                    else if (_operationType == "Modify")
-                    {
-                        await ModifySupplierAsync();
-                    }
+                    await ModifyDataAsync();
                 }
+                MessageBox.Show($"{_operationType} operation completed successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.DialogResult = DialogResult.OK;
             }
             catch (Exception ex)
             {
@@ -149,51 +134,40 @@ namespace Main
             }
         }
 
-        private async Task AddProductAsync()
+        private async Task AddDataAsync()
         {
-            await _unitOfWork.Products.AddAsync(new Product
+            if (_dataType == "ProductDTO")
             {
-                ProdName = txtName.Text
-            });
-            MessageBox.Show("Product added successfully");
-            this.DialogResult = DialogResult.OK;
-
+                await _unitOfWork.Products.AddAsync(new Product { ProdName = txtName.Text });
+            }
+            else if (_dataType == "SupplierDTO")
+            {
+                await _unitOfWork.Suppliers.AddAsync(new Supplier { SupName = txtName.Text });
+            }
+            await _unitOfWork.CompleteAsync();
         }
 
-        private async Task ModifyProductAsync()
+        private async Task ModifyDataAsync()
         {
-            await _unitOfWork.Products.UpdateAsync(new Product
+            if (_dataType == "ProductDTO")
             {
-                ProdName = txtName.Text
-            });
-            MessageBox.Show("Product modified successfully");
-            this.DialogResult = DialogResult.OK;
-
-        }
-
-        private async Task AddSupplierAsync()
-        {
-            await _unitOfWork.Suppliers.AddAsync(new Supplier
+                var product = await _unitOfWork.Products.GetByIdAsync(_id);
+                if (product != null)
+                {
+                    product.ProdName = txtName.Text;
+                    await _unitOfWork.Products.UpdateAsync(product);
+                }
+            }
+            else if (_dataType == "SupplierDTO")
             {
-                SupName = txtName.Text
-            });
-            MessageBox.Show("Supplier added successfully");
-            this.DialogResult = DialogResult.OK;
-
+                var supplier = await _unitOfWork.Suppliers.GetByIdAsync(_id);
+                if (supplier != null)
+                {
+                    supplier.SupName = txtName.Text;
+                    await _unitOfWork.Suppliers.UpdateAsync(supplier);
+                }
+            }
+            await _unitOfWork.CompleteAsync();
         }
-
-        private async Task ModifySupplierAsync()
-        {
-            await _unitOfWork.Suppliers.UpdateAsync(new Supplier
-            {
-                SupName = txtName.Text
-            });
-            MessageBox.Show("Supplier modified successfully");
-            this.DialogResult = DialogResult.OK;
-
-        }
-
-
-
     }
 }

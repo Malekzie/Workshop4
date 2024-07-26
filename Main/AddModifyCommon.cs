@@ -6,7 +6,6 @@ namespace Main
 {
     public partial class AddModifyCommon : Form
     {
-
         private readonly IUnitOfWork _unitOfWork;
         private readonly string _operationType;
         private readonly int _id;
@@ -23,36 +22,33 @@ namespace Main
 
         private async void InitializeForm()
         {
-            if (_operationType == "Add")
-            {
-                await LoadAddForm();
-            }
-            else if (_operationType == "Modify")
-            {
-                await LoadModifyForm(_id);
-            }
-        }
-
-        private async Task LoadAddForm()
-        {
-            Text = "Add Product Suppliers";
+            Text = _operationType == "Add" ? "Add Product Suppliers" : "Modify Product Suppliers";
             lblRel1.Text = "Products:";
             lblRel2.Text = "Suppliers:";
 
-            cboRel1.DataSource = await _unitOfWork.Products.GetAllAsync();
+            await LoadCommonData();
+
+            if (_operationType == "Modify")
+            {
+                await LoadModifyData(_id);
+            }
+        }
+
+        private async Task LoadCommonData()
+        {
+            var products = await _unitOfWork.Products.GetAllAsync();
+            cboRel1.DataSource = new BindingList<Product>(products.ToList());
             cboRel1.DisplayMember = "ProdName";
             cboRel1.ValueMember = "ProductId";
-            cboRel2.DataSource = await _unitOfWork.Suppliers.GetAllAsync();
+
+            var suppliers = await _unitOfWork.Suppliers.GetAllAsync();
+            cboRel2.DataSource = new BindingList<Supplier>(suppliers.ToList());
             cboRel2.DisplayMember = "SupName";
             cboRel2.ValueMember = "SupplierId";
         }
 
-        private async Task LoadModifyForm(int id)
+        private async Task LoadModifyData(int id)
         {
-            Text = "Modify Product Suppliers";
-            lblRel1.Text = "Products:";
-            lblRel2.Text = "Suppliers:";
-
             var data = await _unitOfWork.ProductsSuppliers.GetByIdAsync(id);
 
             if (data == null)
@@ -61,20 +57,6 @@ namespace Main
                 return;
             }
 
-
-            var products = await _unitOfWork.Products.GetAllAsync();
-            var suppliers = await _unitOfWork.Suppliers.GetAllAsync();
-
-            // Set the data sources
-            cboRel1.DataSource = new BindingList<Product>(products.ToList());
-            cboRel1.DisplayMember = "ProdName";
-            cboRel1.ValueMember = "ProductId";
-
-            cboRel2.DataSource = new BindingList<Supplier>(suppliers.ToList());
-            cboRel2.DisplayMember = "SupName";
-            cboRel2.ValueMember = "SupplierId";
-
-            // Set the selected values
             cboRel1.SelectedValue = data.ProductId;
             cboRel2.SelectedValue = data.SupplierId;
         }
@@ -132,6 +114,5 @@ namespace Main
 
             await _unitOfWork.CompleteAsync();
         }
-
     }
 }
