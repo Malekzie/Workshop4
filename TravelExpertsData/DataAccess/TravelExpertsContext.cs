@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
-using TravelExpertsData.Models;
 
 namespace TravelExpertsData.DataAccess;
 

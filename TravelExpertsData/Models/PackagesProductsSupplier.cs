@@ -14,6 +14,11 @@ public partial class PackagesProductsSupplierDTO
 
     public int ProductSupplierId { get; set; }
 
+    public int ProductId { get; set; }
+    public int ProductName { get; set; }
+    public int SupplierId { get; set; }
+    public int SupplierName { get; set; }
+
     [ForeignKey("PackageId")]
     [InverseProperty("PackagesProductsSuppliers")]
     public virtual Package Package { get; set; } = null!;

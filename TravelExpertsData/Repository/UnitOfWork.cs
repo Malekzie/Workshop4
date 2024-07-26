@@ -15,6 +15,7 @@ namespace TravelExpertsData.Repository
         public IProductRepository Products { get; private set; }
         public ISupplierRepository Suppliers { get; private set; }
         public IProductSupplierRepository ProductSuppliers { get; private set; }
+        public IPackagesProductsSupplierRepository PackagesProductsSuppliers { get; private set; }
 
         public UnitOfWork(TravelExpertsContext context)
         {
@@ -23,6 +24,7 @@ namespace TravelExpertsData.Repository
             Products = new ProductRepository(_context);
             Suppliers = new SupplierRepository(_context);
             ProductSuppliers = new ProductSupplierRepository(_context);
+            PackagesProductsSuppliers = new PackagesProductsSupplierRepository(_context);
         }
 
         public async Task<int> CompleteAsync()

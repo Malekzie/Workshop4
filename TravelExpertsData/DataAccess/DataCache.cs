@@ -1,13 +1,10 @@
-﻿
-
-using TravelExpertsData.Models.DTO;
+﻿using TravelExpertsData.Models.DTO;
 using TravelExpertsData.Models.ViewModel;
 
 namespace TravelExpertsData.DataAccess
 {
     public class DataCache
     {
-
         private static DataCache instance = null;
         private static readonly object padlock = new object();
 
@@ -15,7 +12,7 @@ namespace TravelExpertsData.DataAccess
         public List<ProductDTO> Products { get; set; }
         public List<SupplierDTO> Suppliers { get; set; }
         public List<ProductsSupplierDTO> ProductSuppliers { get; set; }
-        public List<PackagesProductsSupplierDTO> PackageProductSuppliers { get; set; }
+        public List<PackageProdSupDTO> PackageProductSuppliers { get; set; }
 
         DataCache()
         {
@@ -46,7 +43,7 @@ namespace TravelExpertsData.DataAccess
         private void LoadData()
         {
             using (var context = new TravelExpertsContext())
-                {
+            {
                 Packages = context.Packages
                     .Select(p => new PackageDTO
                     {
@@ -74,14 +71,24 @@ namespace TravelExpertsData.DataAccess
                     }).ToList();
 
                 ProductSuppliers = context.ProductsSuppliers
-                    .Join(context.Products, ps => ps.ProductId, p => p.ProductId, (ps, p) => new {ps, p})
+                    .Join(context.Products, ps => ps.ProductId, p => p.ProductId, (ps, p) => new { ps, p })
                     .Join(context.Suppliers, ps2 => ps2.ps.SupplierId, s => s.SupplierId, (ps2, s) => new ProductsSupplierDTO
-                {
-                    ProductSupplierId = ps2.ps.ProductSupplierId,
-                    ProductName = ps2.p.ProdName, 
-                    SupplierName = s.SupName}).OrderBy(ps => ps.ProductSupplierId).ToList();         
-//Todo, clean up select statement and fix column orders
-                PackageProductSuppliers = context.PackagesProductsSuppliers.ToList();
+                    {
+                        ProductSupplierId = ps2.ps.ProductSupplierId,
+                        ProductName = ps2.p.ProdName,
+                        SupplierName = s.SupName
+                    }).OrderBy(ps => ps.ProductSupplierId).ToList();
+
+                PackageProductSuppliers = context.PackagesProductsSuppliers
+                    .Join(context.ProductsSuppliers, pps => pps.ProductSupplierId, ps => ps.ProductSupplierId, (pps, ps) => new { pps, ps })
+                    .Join(context.Products, ps2 => ps2.ps.ProductId, pr => pr.ProductId, (ps2, pr) => new { ps2, pr })
+                    .Join(context.Suppliers, ps3 => ps3.ps2.ps.SupplierId, s => s.SupplierId, (ps3, s) => new PackageProdSupDTO
+                    {
+                        PackageId = ps3.ps2.pps.PackageId,
+                        ProductSupplierId = ps3.ps2.pps.ProductSupplierId,
+                        ProductName = ps3.pr.ProdName,
+                        SupplierName = s.SupName
+                    }).ToList();
             }
         }
     }

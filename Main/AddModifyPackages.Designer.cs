@@ -232,7 +232,7 @@
             lsbSup.ItemHeight = 23;
             lsbSup.Location = new Point(609, 84);
             lsbSup.Name = "lsbSup";
-            lsbSup.Size = new Size(147, 303);
+            lsbSup.Size = new Size(203, 303);
             lsbSup.TabIndex = 16;
             lsbSup.SelectedIndexChanged += lsbSup_SelectedIndexChanged;
             // 
@@ -242,7 +242,7 @@
             lsbProd.Font = new Font("Sitka Banner", 12F);
             lsbProd.FormattingEnabled = true;
             lsbProd.ItemHeight = 23;
-            lsbProd.Location = new Point(762, 84);
+            lsbProd.Location = new Point(818, 84);
             lsbProd.Name = "lsbProd";
             lsbProd.Size = new Size(127, 303);
             lsbProd.TabIndex = 17;
@@ -296,7 +296,7 @@
             // 
             label11.AutoSize = true;
             label11.Font = new Font("Sitka Heading", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(771, 46);
+            label11.Location = new Point(827, 46);
             label11.Name = "label11";
             label11.Size = new Size(104, 35);
             label11.TabIndex = 23;
@@ -307,7 +307,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 22, 31);
-            ClientSize = new Size(901, 399);
+            ClientSize = new Size(957, 399);
             Controls.Add(label11);
             Controls.Add(label10);
             Controls.Add(txtProd);

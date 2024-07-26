@@ -1,4 +1,5 @@
 ﻿using TravelExpertsData.Models;
+using TravelExpertsData.Models.DTO;
 using TravelExpertsData.Repository.IRepository;
 
 namespace Main
@@ -61,13 +62,29 @@ namespace Main
 
                 foreach (var item in prodSup)
                 {
-                    lsbProd.Items.Add(new ListBoxItem { Text = item.ProductName.ToString(), Value = item.ProductSupplierID });
-                    lsbSup.Items.Add(new ListBoxItem { Text = item.SupplierName.ToString(), Value = item.ProductSupplierID });
+                    lsbProd.Items.Add(new ListBoxItem { Text = item.ProductName.ToString(), Value = item.ProductSupplierId });
+                    lsbSup.Items.Add(new ListBoxItem { Text = item.SupplierName.ToString(), Value = item.ProductSupplierId });
 
-                    _currentProductSupplierIds.Add(item.ProductSupplierID);
+                    _currentProductSupplierIds.Add(item.ProductSupplierId);
+                }
+            }
+            else
+            {
+                var products = await _unitOfWork.Products.GetAllAsync();
+                var suppliers = await _unitOfWork.Suppliers.GetAllAsync();
+
+                lsbProd.Items.Clear();
+                lsbSup.Items.Clear();
+
+                foreach (var item in products)
+                {
+                    lsbProd.Items.Add(new ListBoxItem { Text = item.ProdName, Value = item.ProductId });
                 }
 
-
+                foreach (var item in suppliers)
+                {
+                    lsbSup.Items.Add(new ListBoxItem { Text = item.SupName, Value = item.SupplierId });
+                }
             }
         }
 
@@ -121,9 +138,32 @@ namespace Main
                 await _unitOfWork.Packages.AddAsync(package);
                 await _unitOfWork.CompleteAsync();
 
-                // Add associations
-                var newProductSupplierIds = lsbProd.Items.Cast<ListBoxItem>().Select(i => i.Value).ToList();
-                await _unitOfWork.Packages.UpdateRelations(package.PackageId, newProductSupplierIds);
+                var selectedProductIds = lsbProd.Items.Cast<ListBoxItem>().Select(i => i.Value).ToList();
+                var selectedSupplierIds = lsbSup.Items.Cast<ListBoxItem>().Select(i => i.Value).ToList();
+
+                foreach (var productId in selectedProductIds)
+                {
+                    foreach (var supplierId in selectedSupplierIds)
+                    {
+                        var productSupplier = new ProductsSupplier
+                        {
+                            ProductId = productId,
+                            SupplierId = supplierId
+                        };
+
+                        await _unitOfWork.ProductSuppliers.AddAsync(productSupplier);
+                        await _unitOfWork.CompleteAsync();
+
+                        // Create PackagesProductsSupplier association
+                        var packagesProductsSupplier = new PackagesProductsSupplierDTO
+                        {
+                            PackageId = package.PackageId,
+                            ProductSupplierId = productSupplier.ProductSupplierId
+                        };
+
+                        await _unitOfWork.PackagesProductsSuppliers.AddAsync(packagesProductsSupplier);
+                    }
+                }
             }
             else if (_operationType == "Modify")
             {

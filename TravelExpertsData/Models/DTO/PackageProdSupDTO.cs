@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace TravelExpertsData.Models.DTO
 {
-    public class PackageProductSupplierDTO
+    public class PackageProdSupDTO
     {
-        public int PackageID { get; set; }
-        public int ProductSupplierID { get; set; }
+        public int PackageId { get; set; }
+        public int ProductSupplierId { get; set; }
         public string ProductName { get; set; }
         public string SupplierName { get; set; }
     }

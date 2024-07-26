@@ -42,25 +42,6 @@ namespace TravelExpertsData.Repository
             }
         }
 
-        public async Task<IEnumerable<PackageProductSupplierDTO>> GetProdSupAsync(int packageId)
-        {
-            var result = await (from pps in _context.PackagesProductsSuppliers
-                                join p in _context.Packages on pps.PackageId equals p.PackageId
-                                join ps in _context.ProductsSuppliers on pps.ProductSupplierId equals ps.ProductSupplierId
-                                join pr in _context.Products on ps.ProductId equals pr.ProductId
-                                join s in _context.Suppliers on ps.SupplierId equals s.SupplierId
-                                where pps.PackageId == packageId
-                                select new PackageProductSupplierDTO
-                                {
-                                    PackageID = pps.PackageId,
-                                    ProductSupplierID = pps.ProductSupplierId,
-                                    ProductName = pr.ProdName,
-                                    SupplierName = s.SupName
-                                }).ToListAsync();
-
-            return result;
-        }
-
         public async Task UpdateRelations(int packageId, List<int> newProductSupplierIds)
         {
             // Remove existing associations
@@ -80,5 +61,25 @@ namespace TravelExpertsData.Repository
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<PackageProdSupDTO>> GetProdSupAsync(int packageId)
+        {
+            var result = await (from pps in _context.PackagesProductsSuppliers
+                                join ps in _context.ProductsSuppliers on pps.ProductSupplierId equals ps.ProductSupplierId
+                                join pr in _context.Products on ps.ProductId equals pr.ProductId
+                                join s in _context.Suppliers on ps.SupplierId equals s.SupplierId
+                                where pps.PackageId == packageId
+                                select new PackageProdSupDTO
+                                {
+                                    PackageId = pps.PackageId,
+                                    ProductSupplierId = pps.ProductSupplierId,
+                                    ProductName = pr.ProdName,
+                                    SupplierName = s.SupName
+                                }).ToListAsync();
+
+            return result;
+        }
+
+
     }
 }
