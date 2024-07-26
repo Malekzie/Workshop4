@@ -8,5 +8,6 @@ namespace TravelExpertsData.Repository.IRepository
 {
     public interface IProductSupplierRepository : IRepository<ProductsSupplier>
     {
+        Task<ProductsSupplier> GetByIdAsync(int productId, int supplierId);
     }
 }

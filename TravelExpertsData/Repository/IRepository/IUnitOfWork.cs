@@ -13,7 +13,7 @@ namespace TravelExpertsData.Repository.IRepository
         IProductRepository Products { get; }
         ISupplierRepository Suppliers { get; }
         IProductSupplierRepository ProductSuppliers { get; }
-        IPackagesProductsSupplierRepository PackagesProductsSuppliers { get; }
+        IRepository<PackagesProductsSupplierDTO> PackagesProductsSuppliers { get; }
         Task<int> CompleteAsync();
     }
 }

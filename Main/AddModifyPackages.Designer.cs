@@ -232,6 +232,7 @@
             lsbSup.ItemHeight = 23;
             lsbSup.Location = new Point(609, 84);
             lsbSup.Name = "lsbSup";
+            lsbSup.SelectionMode = SelectionMode.MultiExtended;
             lsbSup.Size = new Size(203, 303);
             lsbSup.TabIndex = 16;
             lsbSup.SelectedIndexChanged += lsbSup_SelectedIndexChanged;
@@ -244,6 +245,7 @@
             lsbProd.ItemHeight = 23;
             lsbProd.Location = new Point(818, 84);
             lsbProd.Name = "lsbProd";
+            lsbProd.SelectionMode = SelectionMode.MultiExtended;
             lsbProd.Size = new Size(127, 303);
             lsbProd.TabIndex = 17;
             lsbProd.SelectedIndexChanged += lsbProd_SelectedIndexChanged;
