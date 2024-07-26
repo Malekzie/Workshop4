@@ -238,7 +238,6 @@
             dgvView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvView.Size = new Size(1063, 420);
             dgvView.TabIndex = 2;
-            dgvView.CellClick += dgvView_CellClick;
             // 
             // Main
             // 
