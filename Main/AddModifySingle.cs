@@ -155,6 +155,7 @@ namespace Main
             {
                 ProdName = txtName.Text
             });
+            MessageBox.Show("Product added successfully");
         }
 
         private async Task ModifyProductAsync()
@@ -163,6 +164,7 @@ namespace Main
             {
                 ProdName = txtName.Text
             });
+            MessageBox.Show("Product modified successfully");
         }
 
         private async Task AddSupplierAsync()
@@ -171,6 +173,7 @@ namespace Main
             {
                 SupName = txtName.Text
             });
+            MessageBox.Show("Supplier added successfully");
         }
 
         private async Task ModifySupplierAsync()
@@ -179,6 +182,7 @@ namespace Main
             {
                 SupName = txtName.Text
             });
+            MessageBox.Show("Supplier modified successfully");
         }
 
 

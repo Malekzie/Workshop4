@@ -1,13 +1,8 @@
-using Main.Utils;
-using TravelExpertsData.Repository.IRepository;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using TravelExpertsData.Models.DTO;
-using TravelExpertsData.Models.ViewModel;
-using System.ComponentModel;
 using Main.Services;
+using Main.Utils;
+using System.ComponentModel;
 using TravelExpertsData.Models;
+using TravelExpertsData.Repository.IRepository;
 
 namespace Main
 {
@@ -35,7 +30,6 @@ namespace Main
 
             // Rename our DataGridView column using the given formatted string
             ColRename.RenameColumns(dgvView, dataType);
-            dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
         private async void txtQuery_TextChanged(object sender, EventArgs e)
@@ -78,74 +72,36 @@ namespace Main
         // If the user clicks the "Packages" button,
         private async void viewPkg_Click(object sender, EventArgs e)
         {
-            await LoadPackagesData();
-        }
-
-        private async Task LoadPackagesData()
-        {
-            var data = (await _unitOfWork.Packages.GetAllAsync()).Select(p => new PackageDTO
-            {
-                PackageId = p.PackageId,
-                PkgName = p.PkgName,
-                PkgStartDate = p.PkgStartDate,
-                PkgEndDate = p.PkgEndDate,
-                PkgDesc = p.PkgDesc,
-                PkgBasePrice = p.PkgBasePrice,
-                PkgAgencyCommission = p.PkgAgencyCommission
-            }).ToList();
+            // Sets current Data Type
             currentDataType = "PackageDTO";
+            // Calls the util to refresh the view, reflecting changes everytime there is a change
+            var data = await DataRefreshUtil.LoadPackagesDataAsync(_unitOfWork);
+            // Loads the data into the view
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Products" button,
         private async void viewProd_Click(object sender, EventArgs e)
         {
-            await LoadProductsData();
-        }
-
-        private async Task LoadProductsData()
-        {
-            var data = (await _unitOfWork.Products.GetAllAsync()).Select(p => new ProductDTO
-            {
-                ProductId = p.ProductId,
-                ProdName = p.ProdName
-            }).ToList();
+            // Sets current Data Type
             currentDataType = "ProductDTO";
+            var data = await DataRefreshUtil.LoadProductsDataAsync(_unitOfWork);
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Suppliers" button,
         private async void viewSup_Click(object sender, EventArgs e)
         {
-            await LoadSuppliersData();
-        }
-
-        private async Task LoadSuppliersData()
-        {
-            var data = (await _unitOfWork.Suppliers.GetAllAsync()).Select(s => new SupplierDTO
-            {
-                SupplierId = s.SupplierId,
-                SupName = s.SupName
-            }).ToList();
             currentDataType = "SupplierDTO";
+            var data = await DataRefreshUtil.LoadSuppliersDataAsync(_unitOfWork);
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Product Suppliers" button,
         private async void viewProdSup_Click(object sender, EventArgs e)
         {
-            await LoadProductSuppliersData();
-        }
-
-        private async Task LoadProductSuppliersData()
-        {
-            var data = (await _unitOfWork.ProductsSuppliers.GetAllAsync(ps => ps.Product, ps => ps.Supplier)).Select(ps => new ProductsSupplierDTO
-            {
-                ProductSupplierId = ps.ProductSupplierId,
-                ProductName = ps.Product?.ProdName,
-                SupplierName = ps.Supplier?.SupName
-            }).ToList();
             currentDataType = "ProductSupplierDTO";
+            var data = await DataRefreshUtil.LoadProductSuppliersDataAsync(_unitOfWork);
             LoadData(data, currentDataType);
         }
 
@@ -288,22 +244,24 @@ namespace Main
             switch (currentDataType)
             {
                 case "PackageDTO":
-                    await LoadPackagesData();
+                    var packageData = await DataRefreshUtil.LoadPackagesDataAsync(_unitOfWork);
+                    LoadData(packageData, currentDataType);
                     break;
                 case "ProductDTO":
-                    await LoadProductsData();
+                    var productData = await DataRefreshUtil.LoadProductsDataAsync(_unitOfWork);
+                    LoadData(productData, currentDataType);
                     break;
                 case "SupplierDTO":
-                    await LoadSuppliersData();
+                    var supplierData = await DataRefreshUtil.LoadSuppliersDataAsync(_unitOfWork);
+                    LoadData(supplierData, currentDataType);
                     break;
                 case "ProductSupplierDTO":
-                    await LoadProductSuppliersData();
+                    var productSupplierData = await DataRefreshUtil.LoadProductSuppliersDataAsync(_unitOfWork);
+                    LoadData(productSupplierData, currentDataType);
                     break;
                 default:
                     break;
             }
         }
-
-        
     }
 }
