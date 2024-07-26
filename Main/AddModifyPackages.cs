@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Main.Utils;
 
 namespace Main
 {
@@ -14,6 +15,7 @@ namespace Main
         private readonly IUnitOfWork _unitOfWork;
         private readonly string _operationType;
         private List<int> _currentProductSupplierIds;
+        private decimal commission = 0.1m;
 
         public AddModifyPackages(string operationType, IUnitOfWork unitOfWork, int id = 0)
         {
@@ -24,7 +26,29 @@ namespace Main
             LoadData(id);
 
             this.Text = _operationType == "Add" ? "Add Package" : "Modify Package";
+
+            // Attach the event handlers
+            txtBasePrice.TextChanged += (sender, e) => UpdateCommission();
         }
+
+        private void UpdateCommission()
+        {
+            if (!ValidationUtil.ValidateDecimal(txtBasePrice.Text, out decimal basePrice, out string errorMessage, true))
+            {
+                txtAgencyComm.Text = errorMessage;
+                return;
+            }
+
+            if (!ValidationUtil.ValidateDecimal(txtAgencyComm.Text, out decimal commissionRate, out errorMessage, true))
+            {
+                txtAgencyComm.Text = errorMessage;
+                return;
+            }
+
+            var agentComm = basePrice * commissionRate;
+            txtAgencyComm.Text = agentComm.ToString("F2"); // Display the result in a label
+        }
+
 
         private async void LoadData(int id)
         {
@@ -132,6 +156,33 @@ namespace Main
 
         private async void btnConfirm_Click(object sender, EventArgs e)
         {
+            if (!ValidationUtil.ValidatePackageDates(dtpStartDate.Value, dtpEndDate.Value, out string dateErrorMessage))
+            {
+                MessageBox.Show(dateErrorMessage, "Validation Error", MessageBoxButtons.OK,MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate base price
+            if (!ValidationUtil.ValidateDecimal(txtBasePrice.Text, out decimal basePrice, out string basePriceErrorMessage))
+            {
+                MessageBox.Show(basePriceErrorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate agency commission
+            if (!ValidationUtil.ValidateDecimal(txtAgencyComm.Text, out decimal agencyCommission, out string agencyCommErrorMessage))
+            {
+                MessageBox.Show(agencyCommErrorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            // Validate package ID
+            if (!ValidationUtil.ValidateInteger(txtId.Text, out int productId, out string productIdErrorMessage))
+            {
+                MessageBox.Show(productIdErrorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             if (_operationType == "Add")
             {
                 await AddNewPackage();
@@ -154,7 +205,7 @@ namespace Main
                 PkgEndDate = dtpEndDate.Value,
                 PkgDesc = txtDesc.Text,
                 PkgBasePrice = decimal.Parse(txtBasePrice.Text),
-                PkgAgencyCommission = decimal.Parse(txtAgencyComm.Text)
+                PkgAgencyCommission = decimal.Parse(txtAgencyComm.Text) * commission
             };
 
             await _unitOfWork.Packages.AddAsync(package);

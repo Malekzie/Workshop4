@@ -139,7 +139,7 @@ namespace Main
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon("Add");
+                using var form = new AddModifyCommon(_unitOfWork ,"Add");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -186,7 +186,7 @@ namespace Main
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon("Modify", id);
+                using var form = new AddModifyCommon(_unitOfWork ,"Modify", id);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
