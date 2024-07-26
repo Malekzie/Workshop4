@@ -1,7 +1,4 @@
-﻿using Main.Utils;
-using TravelExpertsData.Models.DTO;
-
-namespace TravelExpertsData.Repository
+﻿namespace TravelExpertsData.Repository
 {
     public class PackageRepository : Repository<Package>, IPackageRepository
     {
@@ -34,7 +31,7 @@ namespace TravelExpertsData.Repository
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 // e.g., _logger.LogError(ex, "An error occurred while deleting the package.");

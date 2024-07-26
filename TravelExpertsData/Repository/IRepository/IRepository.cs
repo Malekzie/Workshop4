@@ -1,6 +1,4 @@
-﻿using System.Linq.Expressions;
-
-namespace TravelExpertsData.Repository.IRepository
+﻿namespace TravelExpertsData.Repository.IRepository
 {
     public interface IRepository<T> where T : class
     {

@@ -1,8 +1,4 @@
-﻿using Main.Utils;
-using System;
-using System.Threading.Tasks;
-
-namespace TravelExpertsData.Repository.IRepository
+﻿namespace TravelExpertsData.Repository.IRepository
 {
     public interface IUnitOfWork : IDisposable
     {
