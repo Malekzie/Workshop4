@@ -239,6 +239,7 @@
             Controls.Add(flowLayoutPanel1);
             Name = "Main";
             Text = "Dashboard";
+            Load += Main_Load;
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();
             panel1.ResumeLayout(false);

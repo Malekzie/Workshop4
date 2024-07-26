@@ -47,7 +47,7 @@ namespace Main
 
             try
             {
-                var results = await _searchService.PerformSearchAsync(query);
+                var results = _searchService.PerformSearch(query);
 
                 if (results == null || !results.Any())
                 {
@@ -60,6 +60,7 @@ namespace Main
                 var bindingSource = new BindingSource(bindingList, null);
 
                 dgvView.DataSource = bindingSource;
+
                 dgvView.Columns["Data"].Visible = false;
             }
             catch (Exception ex)
@@ -139,7 +140,7 @@ namespace Main
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon(_unitOfWork ,"Add");
+                using var form = new AddModifyCommon(_unitOfWork, "Add");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -186,7 +187,7 @@ namespace Main
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon(_unitOfWork ,"Modify", id);
+                using var form = new AddModifyCommon(_unitOfWork, "Modify", id);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -321,6 +322,11 @@ namespace Main
                 default:
                     break;
             }
+        }
+
+        private async void Main_Load(object sender, EventArgs e)
+        {
+            await _searchService.InitializeDataAsync();
         }
     }
 }
