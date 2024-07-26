@@ -60,6 +60,7 @@ namespace Main
                 var bindingSource = new BindingSource(bindingList, null);
 
                 dgvView.DataSource = bindingSource;
+                dgvView.Columns["Data"].Visible = false;
             }
             catch (Exception ex)
             {
@@ -230,6 +231,7 @@ namespace Main
                     await _unitOfWork.Packages.DeletePackageAsync(id);
                     await _unitOfWork.CompleteAsync();
 
+
                     MessageBox.Show("Package Deleted");
                     await RefreshData();
                 }
@@ -239,9 +241,15 @@ namespace Main
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-
-                    await _unitOfWork.Products.DeleteProductAsync(id);
-                    await _unitOfWork.CompleteAsync();
+                    try
+                    {
+                        await _unitOfWork.Products.DeleteProductAsync(id);
+                        await _unitOfWork.CompleteAsync();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
 
                     MessageBox.Show("Product Deleted");
                     await RefreshData();
@@ -252,9 +260,15 @@ namespace Main
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                    await _unitOfWork.Suppliers.DeleteSupplierAsync(id);
-                    await _unitOfWork.CompleteAsync();
-
+                    try
+                    { 
+                        await _unitOfWork.Suppliers.DeleteSupplierAsync(id);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show("Error: " + ex.Message);
+                    }
+                        await _unitOfWork.CompleteAsync();
                     MessageBox.Show("Supplier Deleted");
                     await RefreshData();
                 }
