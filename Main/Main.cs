@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using TravelExpertsData.Models.DTO;
 using TravelExpertsData.Models.ViewModel;
+using Main.Services;
 
 namespace Main
 {
@@ -12,11 +13,13 @@ namespace Main
     {
         private string currentDataType = "";
         private readonly IUnitOfWork _unitOfWork;
+        private readonly SearchService _searchService;
 
         public Main(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             InitializeComponent();
+            _searchService = new SearchService(_unitOfWork);
         }
 
         // Refreshes the DataGridView
@@ -32,6 +35,60 @@ namespace Main
             ColRename.RenameColumns(dgvView, dataType);
             dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
+
+        private async void txtQuery_TextChanged(object sender, EventArgs e)
+        {
+            await PerformSearch(txtQuery.Text);
+        }
+
+        private async Task PerformSearch(string query)
+        {
+            if (string.IsNullOrEmpty(query))
+            {
+                dgvView.DataSource = null; // Clear the data grid view if the query is empty
+                return;
+            }
+
+            try
+            {
+                var results = await _searchService.PerformSearchAsync(query);
+
+                if (results == null)
+                {
+                    MessageBox.Show("Search results are null.");
+                    return;
+                }
+
+                if (results.Any())
+                {
+                    var firstResult = results.First();
+
+                    if (firstResult == null)
+                    {
+                        MessageBox.Show("First search result is null.");
+                        return;
+                    }
+
+                    if (firstResult.Data == null)
+                    {
+                        MessageBox.Show("Data in the first search result is null.");
+                        return;
+                    }
+
+                    currentDataType = firstResult.Type;
+                    LoadData(results.Select(r => r.Data).ToList(), currentDataType);
+                }
+                else
+                {
+                    dgvView.DataSource = null; // Clear the data grid view if no results
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred during the search: {ex.Message}");
+            }
+        }
+
 
         // If the user clicks the "Packages" button,
         private async void viewPkg_Click(object sender, EventArgs e)
@@ -228,17 +285,18 @@ namespace Main
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this package?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                
-                        await _unitOfWork.Packages.DeletePackageAsync(id);
-                        await _unitOfWork.CompleteAsync();
 
-                        MessageBox.Show("Package Deleted");
-                        await RefreshData();
-                    
-                    
+                    await _unitOfWork.Packages.DeletePackageAsync(id);
+                    await _unitOfWork.CompleteAsync();
+
+                    MessageBox.Show("Package Deleted");
+                    await RefreshData();
+
+
                 }
             }
         }
+
 
         private async Task RefreshData()
         {
@@ -260,5 +318,7 @@ namespace Main
                     break;
             }
         }
+
+        
     }
 }

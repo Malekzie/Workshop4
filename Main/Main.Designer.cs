@@ -221,6 +221,7 @@
             txtQuery.PlaceholderText = "Search...";
             txtQuery.Size = new Size(175, 23);
             txtQuery.TabIndex = 0;
+            txtQuery.TextChanged += txtQuery_TextChanged;
             // 
             // dgvView
             // 
