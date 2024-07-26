@@ -39,6 +39,9 @@ namespace Main
             else
             {
                 await LoadNewPackageData();
+                // Autofill txtId with the next packageId
+                var nextPackageId = await _unitOfWork.Packages.GetNextPackageIdAsync();
+                txtId.Text = nextPackageId.ToString();
             }
         }
 
@@ -82,8 +85,8 @@ namespace Main
 
         private async Task LoadNewPackageData()
         {
-            var products = await _unitOfWork.Products.GetAllAsync();
-            var suppliers = await _unitOfWork.Suppliers.GetAllAsync();
+            var products = await _unitOfWork.Products.GetAllProductsAsync();
+            var suppliers = await _unitOfWork.Suppliers.GetAllSuppliersAsync();
 
             lsbProd.Items.Clear();
             lsbSup.Items.Clear();
@@ -182,32 +185,10 @@ namespace Main
                     var productId = productItem.Value;
                     var supplierId = supplierItem.Value;
 
-                    // Fetch existing ProductsSupplier object
-                    var productSupplier = await _unitOfWork.ProductSuppliers.GetByIdAsync(productId, supplierId);
-
-                    if (productSupplier == null)
-                    {
-                        // Create a new ProductsSupplier entry if it doesn't exist
-                        productSupplier = new ProductsSupplier
-                        {
-                            ProductId = productId,
-                            SupplierId = supplierId
-                        };
-                        await _unitOfWork.ProductSuppliers.AddAsync(productSupplier);
-                        await _unitOfWork.CompleteAsync(); // Ensure ProductSupplier is saved to get its ID
-                    }
-
-                    var packagesProductsSupplier = new PackagesProductsSupplierDTO
-                    {
-                        PackageId = packageId,
-                        ProductSupplierId = productSupplier.ProductSupplierId
-                    };
-
-                    await _unitOfWork.PackagesProductsSuppliers.AddAsync(packagesProductsSupplier);
+                    var productSupplier = await _unitOfWork.ProductsSuppliers.AddOrGetAsync(productId, supplierId);
+                    await _unitOfWork.PackagesProductsSuppliers.AddPackagesProductsSupplierAsync(packageId, productSupplier.ProductSupplierId);
                 }
             }
-
-            await _unitOfWork.CompleteAsync();
         }
 
         private async Task ModifyExistingPackage()
