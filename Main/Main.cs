@@ -1,28 +1,30 @@
-// Threaded Project 2 Workshop 4 
-// Created by Robbie Soriano
-// Modified by Ryan Medeiros
-// Defines our primary form as called my main() in Program.cs
-
-//Application dependencies
 using Main.Utils;
-using TravelExpertsData.DataAccess;
 using TravelExpertsData.Repository.IRepository;
+using System.Linq;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using TravelExpertsData.Models.DTO;
+using TravelExpertsData.Models.ViewModel;
+using System.ComponentModel;
+using Main.Services;
+using TravelExpertsData.Models;
 
 namespace Main
 {
     public partial class Main : Form
     {
-
         private string currentDataType = "";
         private readonly IUnitOfWork _unitOfWork;
+        private readonly SearchService _searchService;
 
         public Main(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
             InitializeComponent();
+            _searchService = new SearchService(_unitOfWork);
         }
 
-        //Refreshes the DataGridView
+        // Refreshes the DataGridView
         private void LoadData<T>(List<T> data, string dataType)
         {
             // Clear the data grid view
@@ -31,48 +33,122 @@ namespace Main
             // Replace the data grid view data source with our provided list
             dgvView.DataSource = data;
 
-            //Rename our DataGridView column using the given formatted string
+            // Rename our DataGridView column using the given formatted string
             ColRename.RenameColumns(dgvView, dataType);
             dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
-        // Handles cell click events if necessary
-        private void dgvView_CellClick(object sender, DataGridViewCellEventArgs e)
+        private async void txtQuery_TextChanged(object sender, EventArgs e)
         {
-
+            await PerformSearch(txtQuery.Text);
         }
 
-        //If the user clicks the "Packages" button, 
-        private void viewPkg_Click(object sender, EventArgs e)
+        private async Task PerformSearch(string query)
         {
-            var data = DataCache.Instance.Packages;
+            if (string.IsNullOrEmpty(query))
+            {
+                dgvView.DataSource = null; // Clear the data grid view if the query is empty
+                return;
+            }
+
+            try
+            {
+                var results = await _searchService.PerformSearchAsync(query);
+
+                if (results == null || !results.Any())
+                {
+                    MessageBox.Show("No search results found.");
+                    dgvView.DataSource = null; // Clear the data grid view if no results
+                    return;
+                }
+
+                var bindingList = new BindingList<SearchResult>(results);
+                var bindingSource = new BindingSource(bindingList, null);
+
+                dgvView.DataSource = bindingSource;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred during the search: {ex.Message}");
+            }
+        }
+
+
+
+        // If the user clicks the "Packages" button,
+        private async void viewPkg_Click(object sender, EventArgs e)
+        {
+            await LoadPackagesData();
+        }
+
+        private async Task LoadPackagesData()
+        {
+            var data = (await _unitOfWork.Packages.GetAllAsync()).Select(p => new PackageDTO
+            {
+                PackageId = p.PackageId,
+                PkgName = p.PkgName,
+                PkgStartDate = p.PkgStartDate,
+                PkgEndDate = p.PkgEndDate,
+                PkgDesc = p.PkgDesc,
+                PkgBasePrice = p.PkgBasePrice,
+                PkgAgencyCommission = p.PkgAgencyCommission
+            }).ToList();
             currentDataType = "PackageDTO";
             LoadData(data, currentDataType);
         }
 
-        //If the user clicks the "Products" button, 
-        private void viewProd_Click(object sender, EventArgs e)
+        // If the user clicks the "Products" button,
+        private async void viewProd_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.Products;
+            await LoadProductsData();
+        }
+
+        private async Task LoadProductsData()
+        {
+            var data = (await _unitOfWork.Products.GetAllAsync()).Select(p => new ProductDTO
+            {
+                ProductId = p.ProductId,
+                ProdName = p.ProdName
+            }).ToList();
             currentDataType = "ProductDTO";
             LoadData(data, currentDataType);
         }
 
-        //If the user clicks the "Suppliers" button, 
-        private void viewSup_Click(object sender, EventArgs e)
+        // If the user clicks the "Suppliers" button,
+        private async void viewSup_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.Suppliers;
+            await LoadSuppliersData();
+        }
+
+        private async Task LoadSuppliersData()
+        {
+            var data = (await _unitOfWork.Suppliers.GetAllAsync()).Select(s => new SupplierDTO
+            {
+                SupplierId = s.SupplierId,
+                SupName = s.SupName
+            }).ToList();
             currentDataType = "SupplierDTO";
             LoadData(data, currentDataType);
         }
 
         // If the user clicks the "Product Suppliers" button,
-        private void viewProdSup_Click(object sender, EventArgs e)
+        private async void viewProdSup_Click(object sender, EventArgs e)
         {
-            var data = DataCache.Instance.ProductSuppliers;
+            await LoadProductSuppliersData();
+        }
+
+        private async Task LoadProductSuppliersData()
+        {
+            var data = (await _unitOfWork.ProductsSuppliers.GetAllAsync(ps => ps.Product, ps => ps.Supplier)).Select(ps => new ProductsSupplierDTO
+            {
+                ProductSupplierId = ps.ProductSupplierId,
+                ProductName = ps.Product?.ProdName,
+                SupplierName = ps.Supplier?.SupName
+            }).ToList();
             currentDataType = "ProductSupplierDTO";
             LoadData(data, currentDataType);
         }
+
         // If the user clicks the "Exit" button,
         private void btnExit_Click(object sender, EventArgs e)
         {
@@ -80,51 +156,84 @@ namespace Main
             Application.Exit();
         }
 
-        private void btnAdd_Click(object sender, EventArgs e)
+        private async void btnAdd_Click(object sender, EventArgs e)
         {
             if (currentDataType == "")
             {
                 MessageBox.Show("No table has been selected. Please choose one from the sidebar before adding a row.", "Cannot Add Row");
                 return;
             }
+
             if (currentDataType == "PackageDTO")
             {
-                using var form = new AddModifyPackages("Add");
-                form.ShowDialog();
+                using var form = new AddModifyPackages("Add", _unitOfWork);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await RefreshData();
+                }
             }
-            if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
+            if (currentDataType == "ProductDTO" || currentDataType == "SupplierDTO")
             {
                 using var form = new AddModifySingle(currentDataType, "Add");
-                form.ShowDialog();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await RefreshData();
+                }
             }
             if (currentDataType == "ProductSupplierDTO")
             {
                 using var form = new AddModifyCommon("Add");
-                form.ShowDialog();
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await RefreshData();
+                }
             }
         }
 
-        private void btnModify_Click(object sender, EventArgs e)
+        private async void btnModify_Click(object sender, EventArgs e)
         {
+            // Checks to prevent errors
             if (currentDataType == "")
             {
                 MessageBox.Show("No table has been selected. Please choose one from the sidebar before editing a row.", "Cannot Edit Row");
                 return;
             }
+
+            if (dgvView.CurrentRow == null || dgvView.CurrentRow.Cells[0].Value == null)
+            {
+                MessageBox.Show("No row selected or the selected row ID is invalid.", "Cannot Edit Row");
+                return;
+            }
+
+            if (!int.TryParse(dgvView.CurrentRow.Cells[0].Value.ToString(), out int id))
+            {
+                MessageBox.Show("Selected row ID is invalid.", "Cannot Edit Row");
+                return;
+            }
+
             if (currentDataType == "PackageDTO")
             {
-                using var form = new AddModifyPackages("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
-                form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
+                using var form = new AddModifyPackages("Modify", _unitOfWork, id);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await RefreshData();
+                }
             }
-            if (currentDataType == "ProductDTO" | currentDataType == "SupplierDTO")
+            if (currentDataType == "ProductDTO" || currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle(currentDataType, "Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
-                form.ShowDialog(); //Reminder, change from arbitray DGV value to datasource value
+                using var form = new AddModifySingle(currentDataType, "Modify", id);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await RefreshData();
+                }
             }
             if (currentDataType == "ProductSupplierDTO")
             {
-                using var form = new AddModifyCommon("Modify", Convert.ToInt32(dgvView.CurrentRow.Cells[0].Value));
-                form.ShowDialog();
+                using var form = new AddModifyCommon("Modify", id);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    await RefreshData();
+                }
             }
         }
 
@@ -144,7 +253,7 @@ namespace Main
             }
 
             // Convert the selected package ID to an integer
-            if (!int.TryParse(dgvView.CurrentRow.Cells[0].Value.ToString(), out int packageId))
+            if (!int.TryParse(dgvView.CurrentRow.Cells[0].Value.ToString(), out int id))
             {
                 MessageBox.Show("Selected package ID is invalid.");
                 return;
@@ -155,30 +264,46 @@ namespace Main
                 MessageBox.Show("No table has been selected. Please choose one from the sidebar before removing a row.", "Cannot Remove Row");
                 return;
             }
+
             if (currentDataType == "PackageDTO")
             {
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this package?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                    try
-                    {
 
-                        await _unitOfWork.Packages.DeletePackageAsync(packageId);
-                        await _unitOfWork.CompleteAsync();
+                    await _unitOfWork.Packages.DeletePackageAsync(id);
+                    await _unitOfWork.CompleteAsync();
 
-                        DataCache.Instance.Refresh();
+                    MessageBox.Show("Package Deleted");
+                    await RefreshData();
 
-                        MessageBox.Show("Package Deleted");
-                        dgvView.DataSource = DataCache.Instance.Packages;
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show($"An error occurred while deleting the package. Please try again. {ex.Message}");
-                    }
+
                 }
             }
         }
 
 
+        private async Task RefreshData()
+        {
+            switch (currentDataType)
+            {
+                case "PackageDTO":
+                    await LoadPackagesData();
+                    break;
+                case "ProductDTO":
+                    await LoadProductsData();
+                    break;
+                case "SupplierDTO":
+                    await LoadSuppliersData();
+                    break;
+                case "ProductSupplierDTO":
+                    await LoadProductSuppliersData();
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        
     }
 }

@@ -30,28 +30,34 @@
         {
             label1 = new Label();
             label2 = new Label();
-            grbID = new GroupBox();
             txtId = new TextBox();
             txtPkgName = new TextBox();
             label3 = new Label();
-            dateTimePicker1 = new DateTimePicker();
-            dateTimePicker2 = new DateTimePicker();
+            dtpStartDate = new DateTimePicker();
+            dtpEndDate = new DateTimePicker();
             label4 = new Label();
             label5 = new Label();
-            textBox1 = new TextBox();
+            txtDesc = new TextBox();
             label6 = new Label();
-            textBox2 = new TextBox();
+            txtBasePrice = new TextBox();
             label7 = new Label();
-            textBox3 = new TextBox();
+            txtAgencyComm = new TextBox();
             btnConfirm = new Button();
             btnCancel = new Button();
-            grbID.SuspendLayout();
+            lsbSup = new ListBox();
+            lsbProd = new ListBox();
+            label8 = new Label();
+            label9 = new Label();
+            txtSup = new TextBox();
+            txtProd = new TextBox();
+            label10 = new Label();
+            label11 = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(20, 30);
+            label1.Location = new Point(18, 49);
             label1.Margin = new Padding(1, 0, 1, 0);
             label1.Name = "label1";
             label1.Size = new Size(89, 15);
@@ -61,79 +67,68 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(11, 17);
+            label2.Location = new Point(18, 18);
             label2.Margin = new Padding(1, 0, 1, 0);
             label2.Name = "label2";
             label2.Size = new Size(66, 15);
             label2.TabIndex = 1;
             label2.Text = "Product ID:";
             // 
-            // grbID
-            // 
-            grbID.Controls.Add(txtId);
-            grbID.Controls.Add(label2);
-            grbID.Location = new Point(378, 1);
-            grbID.Margin = new Padding(1, 1, 1, 1);
-            grbID.Name = "grbID";
-            grbID.Padding = new Padding(1, 1, 1, 1);
-            grbID.Size = new Size(208, 43);
-            grbID.TabIndex = 2;
-            grbID.TabStop = false;
-            // 
             // txtId
             // 
-            txtId.BackColor = Color.FromArgb(197, 159, 96);
-            txtId.ForeColor = SystemColors.Window;
-            txtId.Location = new Point(89, 13);
-            txtId.Margin = new Padding(1, 1, 1, 1);
+            txtId.BackColor = Color.White;
+            txtId.ForeColor = SystemColors.Desktop;
+            txtId.Location = new Point(164, 10);
+            txtId.Margin = new Padding(1);
             txtId.Name = "txtId";
-            txtId.Size = new Size(106, 23);
-            txtId.TabIndex = 2;
+            txtId.Size = new Size(33, 23);
+            txtId.TabIndex = 1;
             // 
             // txtPkgName
             // 
             txtPkgName.BackColor = Color.FromArgb(197, 159, 96);
-            txtPkgName.ForeColor = SystemColors.Window;
-            txtPkgName.Location = new Point(134, 22);
-            txtPkgName.Margin = new Padding(1, 1, 1, 1);
+            txtPkgName.ForeColor = SystemColors.Desktop;
+            txtPkgName.Location = new Point(164, 46);
+            txtPkgName.Margin = new Padding(1);
             txtPkgName.Name = "txtPkgName";
             txtPkgName.Size = new Size(148, 23);
-            txtPkgName.TabIndex = 3;
+            txtPkgName.TabIndex = 2;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(20, 56);
+            label3.Location = new Point(18, 80);
             label3.Margin = new Padding(1, 0, 1, 0);
             label3.Name = "label3";
             label3.Size = new Size(61, 15);
             label3.TabIndex = 4;
             label3.Text = "Start Date:";
             // 
-            // dateTimePicker1
+            // dtpStartDate
             // 
-            dateTimePicker1.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
-            dateTimePicker1.Format = DateTimePickerFormat.Short;
-            dateTimePicker1.Location = new Point(134, 48);
-            dateTimePicker1.Margin = new Padding(1, 1, 1, 1);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(98, 23);
-            dateTimePicker1.TabIndex = 5;
+            dtpStartDate.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
+            dtpStartDate.CalendarTrailingForeColor = Color.FromArgb(197, 159, 96);
+            dtpStartDate.Format = DateTimePickerFormat.Short;
+            dtpStartDate.Location = new Point(164, 74);
+            dtpStartDate.Margin = new Padding(1);
+            dtpStartDate.Name = "dtpStartDate";
+            dtpStartDate.Size = new Size(98, 23);
+            dtpStartDate.TabIndex = 3;
             // 
-            // dateTimePicker2
+            // dtpEndDate
             // 
-            dateTimePicker2.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
-            dateTimePicker2.Format = DateTimePickerFormat.Short;
-            dateTimePicker2.Location = new Point(435, 48);
-            dateTimePicker2.Margin = new Padding(1, 1, 1, 1);
-            dateTimePicker2.Name = "dateTimePicker2";
-            dateTimePicker2.Size = new Size(99, 23);
-            dateTimePicker2.TabIndex = 6;
+            dtpEndDate.CalendarMonthBackground = Color.FromArgb(197, 159, 96);
+            dtpEndDate.Format = DateTimePickerFormat.Short;
+            dtpEndDate.Location = new Point(438, 74);
+            dtpEndDate.Margin = new Padding(1);
+            dtpEndDate.Name = "dtpEndDate";
+            dtpEndDate.Size = new Size(99, 23);
+            dtpEndDate.TabIndex = 4;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(294, 56);
+            label4.Location = new Point(365, 80);
             label4.Margin = new Padding(1, 0, 1, 0);
             label4.Name = "label4";
             label4.Size = new Size(57, 15);
@@ -143,114 +138,208 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(20, 112);
+            label5.Location = new Point(18, 229);
             label5.Margin = new Padding(1, 0, 1, 0);
             label5.Name = "label5";
             label5.Size = new Size(70, 15);
             label5.TabIndex = 8;
             label5.Text = "Description:";
             // 
-            // textBox1
+            // txtDesc
             // 
-            textBox1.BackColor = Color.FromArgb(197, 159, 96);
-            textBox1.ForeColor = SystemColors.Window;
-            textBox1.Location = new Point(134, 112);
-            textBox1.Margin = new Padding(1, 1, 1, 1);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(402, 94);
-            textBox1.TabIndex = 9;
+            txtDesc.BackColor = Color.FromArgb(197, 159, 96);
+            txtDesc.ForeColor = SystemColors.Desktop;
+            txtDesc.Location = new Point(164, 226);
+            txtDesc.Margin = new Padding(1);
+            txtDesc.Multiline = true;
+            txtDesc.Name = "txtDesc";
+            txtDesc.Size = new Size(402, 94);
+            txtDesc.TabIndex = 9;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(20, 79);
+            label6.Location = new Point(18, 105);
             label6.Margin = new Padding(1, 0, 1, 0);
             label6.Name = "label6";
             label6.Size = new Size(63, 15);
             label6.TabIndex = 10;
             label6.Text = "Base Price:";
             // 
-            // textBox2
+            // txtBasePrice
             // 
-            textBox2.BackColor = Color.FromArgb(197, 159, 96);
-            textBox2.ForeColor = SystemColors.Window;
-            textBox2.Location = new Point(134, 74);
-            textBox2.Margin = new Padding(1, 1, 1, 1);
-            textBox2.Name = "textBox2";
-            textBox2.Size = new Size(98, 23);
-            textBox2.TabIndex = 11;
+            txtBasePrice.BackColor = Color.FromArgb(197, 159, 96);
+            txtBasePrice.ForeColor = SystemColors.Desktop;
+            txtBasePrice.Location = new Point(164, 102);
+            txtBasePrice.Margin = new Padding(1);
+            txtBasePrice.Name = "txtBasePrice";
+            txtBasePrice.Size = new Size(98, 23);
+            txtBasePrice.TabIndex = 5;
             // 
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(294, 84);
+            label7.Location = new Point(18, 133);
             label7.Margin = new Padding(1, 0, 1, 0);
             label7.Name = "label7";
             label7.Size = new Size(115, 15);
             label7.TabIndex = 12;
             label7.Text = "Agency Commision:";
             // 
-            // textBox3
+            // txtAgencyComm
             // 
-            textBox3.BackColor = Color.FromArgb(197, 159, 96);
-            textBox3.ForeColor = SystemColors.Window;
-            textBox3.Location = new Point(437, 76);
-            textBox3.Margin = new Padding(1, 1, 1, 1);
-            textBox3.Name = "textBox3";
-            textBox3.Size = new Size(99, 23);
-            textBox3.TabIndex = 13;
+            txtAgencyComm.BackColor = Color.FromArgb(197, 159, 96);
+            txtAgencyComm.ForeColor = SystemColors.Desktop;
+            txtAgencyComm.Location = new Point(164, 130);
+            txtAgencyComm.Margin = new Padding(1);
+            txtAgencyComm.Name = "txtAgencyComm";
+            txtAgencyComm.Size = new Size(99, 23);
+            txtAgencyComm.TabIndex = 6;
             // 
             // btnConfirm
             // 
-            btnConfirm.ForeColor = SystemColors.ControlText;
-            btnConfirm.Location = new Point(134, 251);
-            btnConfirm.Margin = new Padding(1, 1, 1, 1);
+            btnConfirm.BackColor = Color.FromArgb(197, 159, 96);
+            btnConfirm.FlatStyle = FlatStyle.Flat;
+            btnConfirm.ForeColor = SystemColors.ControlLightLight;
+            btnConfirm.Location = new Point(253, 343);
+            btnConfirm.Margin = new Padding(1);
             btnConfirm.Name = "btnConfirm";
-            btnConfirm.Size = new Size(78, 20);
-            btnConfirm.TabIndex = 14;
+            btnConfirm.Size = new Size(83, 31);
+            btnConfirm.TabIndex = 10;
             btnConfirm.Text = "Confirm";
-            btnConfirm.UseVisualStyleBackColor = true;
+            btnConfirm.UseVisualStyleBackColor = false;
+            btnConfirm.Click += btnConfirm_Click;
             // 
             // btnCancel
             // 
-            btnCancel.ForeColor = SystemColors.ControlText;
-            btnCancel.Location = new Point(402, 251);
-            btnCancel.Margin = new Padding(1, 1, 1, 1);
+            btnCancel.BackColor = Color.FromArgb(197, 159, 96);
+            btnCancel.FlatStyle = FlatStyle.Flat;
+            btnCancel.ForeColor = SystemColors.ControlLightLight;
+            btnCancel.Location = new Point(338, 343);
+            btnCancel.Margin = new Padding(1);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(78, 20);
-            btnCancel.TabIndex = 15;
+            btnCancel.Size = new Size(86, 31);
+            btnCancel.TabIndex = 11;
             btnCancel.Text = "Cancel";
-            btnCancel.UseVisualStyleBackColor = true;
+            btnCancel.UseVisualStyleBackColor = false;
             btnCancel.Click += btnCancel_Click;
+            // 
+            // lsbSup
+            // 
+            lsbSup.BackColor = Color.FromArgb(197, 159, 96);
+            lsbSup.Font = new Font("Sitka Banner", 12F);
+            lsbSup.FormattingEnabled = true;
+            lsbSup.ItemHeight = 23;
+            lsbSup.Location = new Point(609, 84);
+            lsbSup.Name = "lsbSup";
+            lsbSup.SelectionMode = SelectionMode.MultiExtended;
+            lsbSup.Size = new Size(203, 303);
+            lsbSup.TabIndex = 16;
+            lsbSup.SelectedIndexChanged += lsbSup_SelectedIndexChanged;
+            // 
+            // lsbProd
+            // 
+            lsbProd.BackColor = Color.FromArgb(197, 159, 96);
+            lsbProd.Font = new Font("Sitka Banner", 12F);
+            lsbProd.FormattingEnabled = true;
+            lsbProd.ItemHeight = 23;
+            lsbProd.Location = new Point(818, 84);
+            lsbProd.Name = "lsbProd";
+            lsbProd.SelectionMode = SelectionMode.MultiExtended;
+            lsbProd.Size = new Size(127, 303);
+            lsbProd.TabIndex = 17;
+            lsbProd.SelectedIndexChanged += lsbProd_SelectedIndexChanged;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(365, 160);
+            label8.Name = "label8";
+            label8.Size = new Size(52, 15);
+            label8.TabIndex = 18;
+            label8.Text = "Product:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(18, 160);
+            label9.Name = "label9";
+            label9.Size = new Size(53, 15);
+            label9.TabIndex = 19;
+            label9.Text = "Supplier:";
+            // 
+            // txtSup
+            // 
+            txtSup.BackColor = Color.FromArgb(197, 159, 96);
+            txtSup.Location = new Point(164, 157);
+            txtSup.Name = "txtSup";
+            txtSup.Size = new Size(170, 23);
+            txtSup.TabIndex = 7;
+            // 
+            // txtProd
+            // 
+            txtProd.BackColor = Color.FromArgb(197, 159, 96);
+            txtProd.Location = new Point(438, 157);
+            txtProd.Name = "txtProd";
+            txtProd.Size = new Size(139, 23);
+            txtProd.TabIndex = 8;
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Sitka Heading", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(623, 46);
+            label10.Name = "label10";
+            label10.Size = new Size(110, 35);
+            label10.TabIndex = 22;
+            label10.Text = "Suppliers";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Sitka Heading", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(827, 46);
+            label11.Name = "label11";
+            label11.Size = new Size(104, 35);
+            label11.TabIndex = 23;
+            label11.Text = "Products";
             // 
             // AddModifyPackages
             // 
+            AcceptButton = btnConfirm;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(32, 22, 31);
-            ClientSize = new Size(603, 279);
+            CancelButton = btnCancel;
+            ClientSize = new Size(957, 399);
+            Controls.Add(label11);
+            Controls.Add(label10);
+            Controls.Add(txtProd);
+            Controls.Add(txtSup);
+            Controls.Add(label9);
+            Controls.Add(label8);
+            Controls.Add(lsbProd);
+            Controls.Add(lsbSup);
+            Controls.Add(txtId);
+            Controls.Add(label2);
             Controls.Add(btnCancel);
             Controls.Add(btnConfirm);
-            Controls.Add(textBox3);
+            Controls.Add(txtAgencyComm);
             Controls.Add(label7);
-            Controls.Add(textBox2);
+            Controls.Add(txtBasePrice);
             Controls.Add(label6);
-            Controls.Add(textBox1);
+            Controls.Add(txtDesc);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(dateTimePicker2);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(dtpEndDate);
+            Controls.Add(dtpStartDate);
             Controls.Add(label3);
             Controls.Add(txtPkgName);
-            Controls.Add(grbID);
             Controls.Add(label1);
             ForeColor = SystemColors.ControlLightLight;
-            Margin = new Padding(1, 1, 1, 1);
+            Margin = new Padding(1);
             Name = "AddModifyPackages";
             Text = "AddModifyPackage";
-            grbID.ResumeLayout(false);
-            grbID.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -259,20 +348,27 @@
 
         private Label label1;
         private Label label2;
-        private GroupBox grbID;
         private TextBox txtId;
         private TextBox txtPkgName;
         private Label label3;
-        private DateTimePicker dateTimePicker1;
-        private DateTimePicker dateTimePicker2;
+        private DateTimePicker dtpStartDate;
+        private DateTimePicker dtpEndDate;
         private Label label4;
         private Label label5;
-        private TextBox textBox1;
+        private TextBox txtDesc;
         private Label label6;
-        private TextBox textBox2;
+        private TextBox txtBasePrice;
         private Label label7;
-        private TextBox textBox3;
+        private TextBox txtAgencyComm;
         private Button btnConfirm;
         private Button btnCancel;
+        private ListBox lsbSup;
+        private ListBox lsbProd;
+        private Label label8;
+        private Label label9;
+        private TextBox txtSup;
+        private TextBox txtProd;
+        private Label label10;
+        private Label label11;
     }
 }

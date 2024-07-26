@@ -9,10 +9,10 @@ public partial class Package
     public string PkgName { get; set; } = null!;
 
     [Column(TypeName = "datetime")]
-    public DateTime? PkgStartDate { get; set; }
+    public DateTime PkgStartDate { get; set; }
 
     [Column(TypeName = "datetime")]
-    public DateTime? PkgEndDate { get; set; }
+    public DateTime PkgEndDate { get; set; }
 
     [StringLength(50)]
     public string? PkgDesc { get; set; }
@@ -24,7 +24,7 @@ public partial class Package
     public decimal? PkgAgencyCommission { get; set; }
 
     [InverseProperty("Package")]
-    public virtual ICollection<PackagesProductsSupplier> PackagesProductsSuppliers { get; set; } = new List<PackagesProductsSupplier>();
+    public virtual ICollection<PackagesProductsSupplierDTO> PackagesProductsSuppliers { get; set; } = new List<PackagesProductsSupplierDTO>();
 }
 
 

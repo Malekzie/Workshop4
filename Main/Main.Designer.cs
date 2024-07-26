@@ -37,7 +37,6 @@
             btnExit = new Button();
             btnSubmit = new Button();
             btnRemove = new Button();
-            open = new Button();
             btnModify = new Button();
             btnAdd = new Button();
             txtQuery = new TextBox();
@@ -150,7 +149,6 @@
             panel1.Controls.Add(btnExit);
             panel1.Controls.Add(btnSubmit);
             panel1.Controls.Add(btnRemove);
-            panel1.Controls.Add(open);
             panel1.Controls.Add(btnModify);
             panel1.Controls.Add(btnAdd);
             panel1.Controls.Add(txtQuery);
@@ -170,6 +168,7 @@
             btnExit.TabIndex = 9;
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
+            btnExit.Click += btnExit_Click;
             // 
             // btnSubmit
             // 
@@ -191,17 +190,6 @@
             btnRemove.Text = "Remove";
             btnRemove.UseVisualStyleBackColor = true;
             btnRemove.Click += btnRemove_Click;
-            // 
-            // open
-            // 
-            open.Location = new Point(734, 27);
-            open.Margin = new Padding(2);
-            open.Name = "open";
-            open.Size = new Size(112, 34);
-            open.TabIndex = 6;
-            open.Text = "Test";
-            open.TextImageRelation = TextImageRelation.TextAboveImage;
-            open.UseVisualStyleBackColor = false;
             // 
             // btnModify
             // 
@@ -233,6 +221,7 @@
             txtQuery.PlaceholderText = "Search...";
             txtQuery.Size = new Size(175, 23);
             txtQuery.TabIndex = 0;
+            txtQuery.TextChanged += txtQuery_TextChanged;
             // 
             // dgvView
             // 
@@ -247,15 +236,16 @@
             dgvView.Location = new Point(166, 90);
             dgvView.Margin = new Padding(2);
             dgvView.Name = "dgvView";
-            dgvView.RowHeadersWidth = 62;
+            dgvView.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.AutoSizeToDisplayedHeaders;
+            dgvView.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvView.Size = new Size(1063, 420);
             dgvView.TabIndex = 2;
-            dgvView.CellClick += dgvView_CellClick;
             // 
             // Main
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            CancelButton = btnExit;
             ClientSize = new Size(1229, 510);
             Controls.Add(dgvView);
             Controls.Add(panel1);
@@ -280,7 +270,6 @@
         private DataGridView dgvView;
         private Button btnModify;
         private Button btnAdd;
-        private Button open;
         private Button btnSubmit;
         private Button btnRemove;
         private Button btnExit;

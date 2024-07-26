@@ -12,9 +12,14 @@ namespace Main
 {
     public partial class AddModifySingle : Form
     {
-        public AddModifySingle(string dataType, string operationType, int id = 0) //set default id to next autonumber?
+        public AddModifySingle(string dataType, string operationType, int id = 0)
         {
             InitializeComponent();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
         }
     }
 }

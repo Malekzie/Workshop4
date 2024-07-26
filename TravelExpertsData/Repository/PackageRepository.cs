@@ -1,10 +1,5 @@
 ﻿using Main.Utils;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TravelExpertsData.Models;
+using TravelExpertsData.Models.DTO;
 
 namespace TravelExpertsData.Repository
 {
@@ -14,6 +9,12 @@ namespace TravelExpertsData.Repository
         public PackageRepository(TravelExpertsContext context) : base(context)
         {
             _context = context;
+        }
+
+        public async Task<int> GetNextPackageIdAsync()
+        {
+            var maxId = await _context.Packages.MaxAsync(p => (int?)p.PackageId) ?? 0;
+            return maxId + 1;
         }
 
         public async Task DeletePackageAsync(int id)
@@ -46,5 +47,45 @@ namespace TravelExpertsData.Repository
                 throw; // Optionally rethrow the exception or handle it accordingly
             }
         }
+
+        public async Task UpdateRelations(int packageId, List<int> newProductSupplierIds)
+        {
+            // Remove existing associations
+            var existingAssociations = _context.PackagesProductsSuppliers.Where(pps => pps.PackageId == packageId);
+            _context.PackagesProductsSuppliers.RemoveRange(existingAssociations);
+
+            // Add new associations
+            foreach (var newId in newProductSupplierIds)
+            {
+                var newAssociation = new PackagesProductsSupplierDTO
+                {
+                    PackageId = packageId,
+                    ProductSupplierId = newId
+                };
+                await _context.PackagesProductsSuppliers.AddAsync(newAssociation);
+            }
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task<IEnumerable<PackageProdSupDTO>> GetProdSupAsync(int packageId)
+        {
+            var result = await (from pps in _context.PackagesProductsSuppliers
+                                join ps in _context.ProductsSuppliers on pps.ProductSupplierId equals ps.ProductSupplierId
+                                join pr in _context.Products on ps.ProductId equals pr.ProductId
+                                join s in _context.Suppliers on ps.SupplierId equals s.SupplierId
+                                where pps.PackageId == packageId
+                                select new PackageProdSupDTO
+                                {
+                                    PackageId = pps.PackageId,
+                                    ProductSupplierId = pps.ProductSupplierId,
+                                    ProductName = pr.ProdName,
+                                    SupplierName = s.SupName
+                                }).ToListAsync();
+
+            return result;
+        }
+
+
     }
 }

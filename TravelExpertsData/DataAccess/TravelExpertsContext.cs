@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Configuration;
-using TravelExpertsData.Models;
 
 namespace TravelExpertsData.DataAccess;
 
@@ -17,7 +16,7 @@ public partial class TravelExpertsContext : DbContext
 
     public virtual DbSet<Package> Packages { get; set; }
 
-    public virtual DbSet<PackagesProductsSupplier> PackagesProductsSuppliers { get; set; }
+    public virtual DbSet<PackagesProductsSupplierDTO> PackagesProductsSuppliers { get; set; }
 
     public virtual DbSet<Product> Products { get; set; }
 
@@ -44,7 +43,7 @@ public partial class TravelExpertsContext : DbContext
         });
 
 
-        modelBuilder.Entity<PackagesProductsSupplier>(entity =>
+        modelBuilder.Entity<PackagesProductsSupplierDTO>(entity =>
         {
             entity.HasKey(e => e.PackageProductSupplierId).HasName("PK__Packages__53E8ED99B65B5F2C");
 

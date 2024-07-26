@@ -1,7 +1,12 @@
-﻿namespace Main.Utils
+﻿using TravelExpertsData.Models.DTO;
+
+namespace Main.Utils
 {
     public interface IPackageRepository : IRepository<Package>
     {
+        Task<int> GetNextPackageIdAsync();
         Task DeletePackageAsync(int id);
+        Task <IEnumerable<PackageProdSupDTO>> GetProdSupAsync(int packageId);
+        Task UpdateRelations(int packageId, List<int> productSupplierIds);
     }
 }
