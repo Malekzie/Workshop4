@@ -174,7 +174,7 @@ namespace Main
             }
             if (currentDataType == "ProductDTO" || currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle(currentDataType, "Add");
+                using var form = new AddModifySingle(_unitOfWork, currentDataType, "Add");
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();
@@ -221,7 +221,7 @@ namespace Main
             }
             if (currentDataType == "ProductDTO" || currentDataType == "SupplierDTO")
             {
-                using var form = new AddModifySingle(currentDataType, "Modify", id);
+                using var form = new AddModifySingle(_unitOfWork, currentDataType, "Modify", id);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     await RefreshData();

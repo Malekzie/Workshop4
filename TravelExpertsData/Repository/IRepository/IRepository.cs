@@ -7,6 +7,7 @@ namespace TravelExpertsData.Repository.IRepository
         Task<IEnumerable<T>> GetAllAsync();
         Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includeProperties);
         Task<T> GetByIdAsync(int id);
+        Task<int> GetNextIdAsync();
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task<T> DeleteAsync(int id);

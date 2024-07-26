@@ -11,12 +11,6 @@ namespace TravelExpertsData.Repository
             _context = context;
         }
 
-        public async Task<int> GetNextPackageIdAsync()
-        {
-            var maxId = await _context.Packages.MaxAsync(p => (int?)p.PackageId) ?? 0;
-            return maxId + 1;
-        }
-
         public async Task DeletePackageAsync(int id)
         {
             // Begin a transaction

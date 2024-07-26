@@ -36,7 +36,7 @@ namespace Main
             {
                 await LoadNewPackageData();
                 // Autofill txtId with the next packageId
-                var nextPackageId = await _unitOfWork.Packages.GetNextPackageIdAsync();
+                var nextPackageId = await _unitOfWork.Packages.GetNextIdAsync();
                 txtId.Text = nextPackageId.ToString();
             }
         }
