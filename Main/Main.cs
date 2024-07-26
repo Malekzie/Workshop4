@@ -241,18 +241,22 @@ namespace Main
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                    try
+                    var doubleConfirm = MessageBox.Show("It will delete all all entries related, are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
+                    if (doubleConfirm == DialogResult.Yes)
                     {
-                        await _unitOfWork.Products.DeleteProductAsync(id);
+                        try
+                        {
+                            await _unitOfWork.Products.DeleteProductAsync(id);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
                         await _unitOfWork.CompleteAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
 
-                    MessageBox.Show("Product Deleted");
-                    await RefreshData();
+                        MessageBox.Show("Product Deleted");
+                        await RefreshData();
+                    }
                 }
             }
             else if (currentDataType == "SupplierDTO")
@@ -260,17 +264,23 @@ namespace Main
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-                    try
-                    { 
-                        await _unitOfWork.Suppliers.DeleteSupplierAsync(id);
-                    }
-                    catch (Exception ex)
+                    var doubleConfirm = MessageBox.Show("It will delete all all entries related, are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
+                    if (doubleConfirm == DialogResult.Yes)
                     {
-                        MessageBox.Show("Error: " + ex.Message);
-                    }
+
+                        try
+                        {
+                            await _unitOfWork.Suppliers.DeleteSupplierAsync(id);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show("Error: " + ex.Message);
+                        }
                         await _unitOfWork.CompleteAsync();
-                    MessageBox.Show("Supplier Deleted");
-                    await RefreshData();
+
+                        MessageBox.Show("Supplier Deleted");
+                        await RefreshData();
+                    }
                 }
             }
             else if (currentDataType == "ProductSupplierDTO")
