@@ -232,8 +232,42 @@ namespace Main
 
                     MessageBox.Show("Package Deleted");
                     await RefreshData();
+                }
+            }
+            else if (currentDataType == "ProductDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    await _unitOfWork.Products.DeleteAsync(id);
+                    await _unitOfWork.CompleteAsync();
 
+                    MessageBox.Show("Product Deleted");
+                    await RefreshData();
+                }
+            }
+            else if (currentDataType == "SupplierDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    await _unitOfWork.Suppliers.DeleteAsync(id);
+                    await _unitOfWork.CompleteAsync();
 
+                    MessageBox.Show("Supplier Deleted");
+                    await RefreshData();
+                }
+            }
+            else if (currentDataType == "ProductSupplierDTO")
+            {
+                var confirmDelete = MessageBox.Show("Are you sure you want to delete this product supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
+                if (confirmDelete == DialogResult.Yes)
+                {
+                    await _unitOfWork.ProductsSuppliers.DeleteAsync(id);
+                    await _unitOfWork.CompleteAsync();
+
+                    MessageBox.Show("Product Supplier Deleted");
+                    await RefreshData();
                 }
             }
         }
