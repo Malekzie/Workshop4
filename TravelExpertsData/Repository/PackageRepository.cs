@@ -1,7 +1,4 @@
-﻿using Main.Utils;
-using TravelExpertsData.Models.DTO;
-
-namespace TravelExpertsData.Repository
+﻿namespace TravelExpertsData.Repository
 {
     public class PackageRepository : Repository<Package>, IPackageRepository
     {
@@ -9,12 +6,6 @@ namespace TravelExpertsData.Repository
         public PackageRepository(TravelExpertsContext context) : base(context)
         {
             _context = context;
-        }
-
-        public async Task<int> GetNextPackageIdAsync()
-        {
-            var maxId = await _context.Packages.MaxAsync(p => (int?)p.PackageId) ?? 0;
-            return maxId + 1;
         }
 
         public async Task DeletePackageAsync(int id)
@@ -40,7 +31,7 @@ namespace TravelExpertsData.Repository
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 await transaction.RollbackAsync();
                 // e.g., _logger.LogError(ex, "An error occurred while deleting the package.");
