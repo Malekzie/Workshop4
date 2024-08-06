@@ -35,11 +35,9 @@
             viewProdSup = new Button();
             panel1 = new Panel();
             btnExit = new Button();
-            btnSubmit = new Button();
             btnRemove = new Button();
             btnModify = new Button();
             btnAdd = new Button();
-            txtQuery = new TextBox();
             dgvView = new DataGridView();
             flowLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
@@ -147,11 +145,9 @@
             // 
             panel1.BackColor = Color.FromArgb(32, 22, 31);
             panel1.Controls.Add(btnExit);
-            panel1.Controls.Add(btnSubmit);
             panel1.Controls.Add(btnRemove);
             panel1.Controls.Add(btnModify);
             panel1.Controls.Add(btnAdd);
-            panel1.Controls.Add(txtQuery);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(166, 0);
             panel1.Margin = new Padding(2);
@@ -169,16 +165,6 @@
             btnExit.Text = "Exit";
             btnExit.UseVisualStyleBackColor = true;
             btnExit.Click += btnExit_Click;
-            // 
-            // btnSubmit
-            // 
-            btnSubmit.Location = new Point(605, 32);
-            btnSubmit.Margin = new Padding(2);
-            btnSubmit.Name = "btnSubmit";
-            btnSubmit.Size = new Size(81, 23);
-            btnSubmit.TabIndex = 8;
-            btnSubmit.Text = "Search";
-            btnSubmit.UseVisualStyleBackColor = true;
             // 
             // btnRemove
             // 
@@ -213,16 +199,6 @@
             btnAdd.UseVisualStyleBackColor = true;
             btnAdd.Click += btnAdd_Click;
             // 
-            // txtQuery
-            // 
-            txtQuery.Location = new Point(421, 34);
-            txtQuery.Margin = new Padding(2);
-            txtQuery.Name = "txtQuery";
-            txtQuery.PlaceholderText = "Search...";
-            txtQuery.Size = new Size(175, 23);
-            txtQuery.TabIndex = 0;
-            txtQuery.TextChanged += txtQuery_TextChanged;
-            // 
             // dgvView
             // 
             dgvView.AllowUserToAddRows = false;
@@ -256,7 +232,6 @@
             flowLayoutPanel1.ResumeLayout(false);
             flowLayoutPanel1.PerformLayout();
             panel1.ResumeLayout(false);
-            panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgvView).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -266,11 +241,9 @@
 
         private FlowLayoutPanel flowLayoutPanel1;
         private Panel panel1;
-        private TextBox txtQuery;
         private DataGridView dgvView;
         private Button btnModify;
         private Button btnAdd;
-        private Button btnSubmit;
         private Button btnRemove;
         private Button btnExit;
         private Button viewPkg;

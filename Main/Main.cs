@@ -36,10 +36,10 @@ namespace Main
             dgvView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
         }
 
-        private async void txtQuery_TextChanged(object sender, EventArgs e)
-        {
-            await PerformSearch(txtQuery.Text);
-        }
+        //private async void txtQuery_TextChanged(object sender, EventArgs e)
+        //{
+        //    await PerformSearch(txtQuery.Text);
+        //}
 
         private async Task PerformSearch(string query)
         {
