@@ -32,10 +32,10 @@ namespace Main
             ColRename.RenameColumns(dgvView, dataType);
         }
 
-        private async void txtQuery_TextChanged(object sender, EventArgs e)
-        {
-            await PerformSearch(txtQuery.Text);
-        }
+        //private async void txtQuery_TextChanged(object sender, EventArgs e)
+        //{
+        //    await PerformSearch(txtQuery.Text);
+        //}
 
         private async Task PerformSearch(string query)
         {
