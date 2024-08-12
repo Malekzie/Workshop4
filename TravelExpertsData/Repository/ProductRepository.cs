@@ -16,9 +16,16 @@ namespace TravelExpertsData.Repository
             return await _context.Products.ToListAsync();
         }
 
+        /// <summary>
+        /// Delete a product and its related ProductSupplier entries
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns>Bool true if product gets deleted, false if product is not found</returns>
         public async Task<bool> DeleteProductAsync(int productId)
         {
+            // Find the product
             var product = await _context.Products.FindAsync(productId);
+            // If product is not found, return false
             if (product == null)
             {
                 return false;

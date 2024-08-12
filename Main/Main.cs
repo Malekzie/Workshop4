@@ -202,8 +202,10 @@ namespace Main
             }
         }
 
+        //Checks the current table loaded and deletes the selected row.
         private async void btnRemove_Click(object sender, EventArgs e)
         {
+            // Ensure that a row is selected
             if (dgvView.CurrentRow == null)
             {
                 MessageBox.Show("Please select a package to delete.");
@@ -224,81 +226,100 @@ namespace Main
                 return;
             }
 
+            // Check the current data type
             if (currentDataType == "")
             {
                 MessageBox.Show("No table has been selected. Please choose one from the sidebar before removing a row.", "Cannot Remove Row");
                 return;
             }
 
+            // Check the current data type and delete the selected row
             if (currentDataType == "PackageDTO")
             {
+                // Confirm the deletion
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this package?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
-
+                    // Delete the package
                     await _unitOfWork.Packages.DeletePackageAsync(id);
                     await _unitOfWork.CompleteAsync();
 
-
+                    // Display a message box to confirm the deletion
                     MessageBox.Show("Package Deleted");
                     await RefreshData();
                 }
             }
+
+            // Check the current data type and delete the selected row
             else if (currentDataType == "ProductDTO")
             {
+                // Confirm the deletion
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this product?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
+                    // Confirm the deletion
                     var doubleConfirm = MessageBox.Show("It will delete all all entries related, are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
                     if (doubleConfirm == DialogResult.Yes)
                     {
+                        // Delete the product
                         try
                         {
                             await _unitOfWork.Products.DeleteProductAsync(id);
                         }
+                        // Catch any exceptions and display an error message
                         catch (Exception ex)
                         {
                             MessageBox.Show("Error: " + ex.Message);
                         }
                         await _unitOfWork.CompleteAsync();
 
+                        // Display a message box to confirm the deletion
                         MessageBox.Show("Product Deleted");
                         await RefreshData();
                     }
                 }
             }
+            // Check the current data type and delete the selected row
             else if (currentDataType == "SupplierDTO")
             {
+                // Confirm the deletion
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
+                    // Confirm the deletion
                     var doubleConfirm = MessageBox.Show("It will delete all all entries related, are you sure?", "Confirm Delete", MessageBoxButtons.YesNo);
                     if (doubleConfirm == DialogResult.Yes)
                     {
-
+                        // Delete the supplier
                         try
                         {
                             await _unitOfWork.Suppliers.DeleteSupplierAsync(id);
                         }
+                        // Catch any exceptions and display an error message
                         catch (Exception ex)
                         {
                             MessageBox.Show("Error: " + ex.Message);
                         }
                         await _unitOfWork.CompleteAsync();
 
+                        // Display a message box to confirm the deletion
                         MessageBox.Show("Supplier Deleted");
                         await RefreshData();
                     }
                 }
             }
+            // Check the current data type and delete the selected row
             else if (currentDataType == "ProductSupplierDTO")
             {
+                // Confirm the deletion
                 var confirmDelete = MessageBox.Show("Are you sure you want to delete this product supplier?", "Confirm Delete", MessageBoxButtons.YesNo);
                 if (confirmDelete == DialogResult.Yes)
                 {
+                    // Delete the product supplier
                     await _unitOfWork.ProductsSuppliers.DeleteAsync(id);
                     await _unitOfWork.CompleteAsync();
 
+                    // Display a message box to confirm the deletion
                     MessageBox.Show("Product Supplier Deleted");
                     await RefreshData();
                 }

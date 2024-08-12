@@ -20,6 +20,11 @@ namespace TravelExpertsData.Repository
             return await _context.Suppliers.ToListAsync();
         }
 
+        /// <summary>
+        /// Deletes the supplier with the given ID
+        /// </summary>
+        /// <param name="supplierId"></param>
+        /// <returns>bool True if product supplier was deleted, false if product supplier was null</returns>
         public async Task<bool> DeleteSupplierAsync(int supplierId)
         {
             // Find the supplier

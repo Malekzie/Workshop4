@@ -18,6 +18,11 @@ namespace TravelExpertsData.Repository
             return entity;
         }
 
+        /// <summary>
+        /// Deletes an entity by its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>the entity that was deleted</returns>
         public async Task<T> DeleteAsync(int id)
         {
             var entity = await _context.Set<T>().FindAsync(id);

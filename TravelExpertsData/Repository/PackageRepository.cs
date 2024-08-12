@@ -8,6 +8,11 @@
             _context = context;
         }
 
+        /// <summary>
+        /// Deletes a package by its ID
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task DeletePackageAsync(int id)
         {
             // Begin a transaction
