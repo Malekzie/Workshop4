@@ -70,6 +70,9 @@ namespace Main
         }
 
 
+        //AG - The DTO DataTypes allow the recieving form to be choosen based on the table being acted upon
+        //For the add/modify form, the type of operation is also passed. In the future I would use a better
+        //method of passing the operation type, as using a verbose string is wasteful and potentially error prone. 
 
         // If the user clicks the "Packages" button,
         private async void viewPkg_Click(object sender, EventArgs e)
@@ -114,6 +117,7 @@ namespace Main
             Application.Exit();
         }
 
+        //Checks the current table loaded when the user presses add and opens the relevant form
         private async void btnAdd_Click(object sender, EventArgs e)
         {
             if (currentDataType == "")
@@ -148,6 +152,9 @@ namespace Main
             }
         }
 
+        //AG - Checks the current table loaded and opens the relevant table while sending the selected row's
+        //ID to the next form. This method is hardcoded to read the first column and would break if the
+        //columns were reorganized. In the future I should determine the value by detecting the primary key column. 
         private async void btnModify_Click(object sender, EventArgs e)
         {
             // Checks to prevent errors
